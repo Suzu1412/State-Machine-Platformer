@@ -6,10 +6,16 @@ public class Agent : MonoBehaviour
 {
     private Rigidbody2D rb2d;
     private IAgentInput input;
+    private AgentRenderer rendererManager;
+    private AgentAnimation animationManager;
+    private CollissionSenses senses;
     [SerializeField] private AgentDataSO data;
 
     public Rigidbody2D Rb2d => rb2d;
     public IAgentInput Input => input;
+    public AgentRenderer RendererManager => rendererManager;
+    public AgentAnimation AnimationManager => animationManager;
+    public CollissionSenses Senses => senses;
     public AgentDataSO Data => data;
 
     [SerializeField] private State currentState, initialState;
@@ -23,7 +29,9 @@ public class Agent : MonoBehaviour
     {
         rb2d = GetComponent<Rigidbody2D>();
         input = GetComponentInParent<IAgentInput>();
-
+        rendererManager = GetComponentInChildren<AgentRenderer>();
+        animationManager = GetComponentInChildren<AgentAnimation>();
+        senses = GetComponentInChildren<CollissionSenses>();
         states = GetComponentsInChildren<State>();
 
         foreach (var state in states)

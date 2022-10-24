@@ -9,7 +9,7 @@ public class MoveState : State
 
     protected override void EnterState()
     {
-        // agent.animationManager.PlayAnimation(AnimationType.run);
+        agent.AnimationManager.PlayAnimation(AnimationType.run);
         movementData.SetHorizontalMovementDirection(0);
         movementData.SetCurrentSpeed(0f);
         movementData.SetCurrentVelocity(Vector2.zero);
@@ -19,12 +19,18 @@ public class MoveState : State
     {
         base.StateUpdate();
         CalculateVelocity();
-        SetPlayerVelocity();
+    }
 
-        if (Mathf.Abs(agent.Rb2d.velocity.x) < 0.01f)
+    public override void StateFixedUpdate()
+    {
+        base.StateFixedUpdate();
+        SetPlayerVelocity(movementData);
+
+        if (Mathf.Abs(agent.Rb2d.velocity.x) < 0.01f || agent.Senses.IsTouchingWall)
         {
             agent.TransitionToState(idleState);
         }
+
     }
 
     private void CalculateVelocity()
@@ -60,7 +66,7 @@ public class MoveState : State
         movementData.SetCurrentSpeed(Mathf.Clamp(data.CurrentSpeed, 0, agent.Data.MaxSpeed));
     }
 
-    private void SetPlayerVelocity()
+    private void SetPlayerVelocity(MovementData movementData)
     {
         agent.Rb2d.velocity = movementData.CurrentVelocity;
     }

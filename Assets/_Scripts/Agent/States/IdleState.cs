@@ -9,12 +9,12 @@ public class IdleState : State
     protected override void EnterState()
     {
         base.EnterState();
-        // agent.animationManager.PlayAnimation(AnimationType.idle);
+        agent.AnimationManager.PlayAnimation(AnimationType.idle);
     }
 
     public override void StateFixedUpdate()
     {
-        //HandleMovement();
+        base.StateFixedUpdate();
     }
 
     protected override void HandleMovement(Vector2 input)
@@ -28,20 +28,4 @@ public class IdleState : State
 
         agent.Rb2d.velocity = movement;
     }
-
-    
-
-
-        /*
-        if (Mathf.Abs(movement.x) > 0)
-        {
-            movement.Set(movement.x * 5, agent.Rb2d.velocity.y);
-        }
-        else
-        {
-            movement.Set(0f, agent.Rb2d.velocity.y);
-        }
-
-        agent.Rb2d.velocity = movement;
-        */
 }

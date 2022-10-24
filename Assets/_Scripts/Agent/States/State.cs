@@ -20,6 +20,7 @@ public abstract class State : MonoBehaviour
     public void Enter()
     {
         agent.Input.OnMovement += HandleMovement;
+        agent.Input.OnMovement += agent.RendererManager.FaceDirection;
         OnEnter?.Invoke();
         EnterState();
     }
@@ -31,12 +32,14 @@ public abstract class State : MonoBehaviour
 
     public virtual void StateFixedUpdate()
     {
-
+        agent.Senses.CheckIsGrounded();
+        agent.Senses.CheckIsTouchingWall();
     }
 
     public void Exit()
     {
         agent.Input.OnMovement -= HandleMovement;
+        agent.Input.OnMovement -= agent.RendererManager.FaceDirection;
         OnExit?.Invoke();
         ExitState();
     }
