@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
+[DefaultExecutionOrder(-900)] // To Prevent any kind of errors it allows the awake to be called earlier
 public class AgentAnimation : MonoBehaviour
 {
     private Animator animator;
@@ -48,13 +49,14 @@ public class AgentAnimation : MonoBehaviour
                 Play("Land");
                 break;
             default:
+                Play("Idle");
                 break;
         }
     }
 
     private void Play(string animation)
     {
-        animator.Play(animation, -1, 0f);
+        animator.Play(animation);
     }
 }
 
