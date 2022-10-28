@@ -15,6 +15,11 @@ public class IdleState : State
     public override void StateFixedUpdate()
     {
         base.StateFixedUpdate();
+
+        if (!agent.Senses.IsGrounded)
+        {
+            agent.TransitionToState(fallState);
+        }
     }
 
     protected override void HandleMovement(Vector2 input)

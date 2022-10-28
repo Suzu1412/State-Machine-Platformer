@@ -23,13 +23,16 @@ public class AgentDataSO : ScriptableObject
     #region Jump Data
     [Header("Jump Data")]
     [Space]
+    [SerializeField] private float jumpSpeed;
+    [Range(1, 5)] [SerializeField] private int amountOfJumps = 1;
+    [Range(0.1f, 0.5f)] [SerializeField] private float jumpDuration = 0.25f;
+    [Range(-30f, -10f)] [SerializeField] private float maxFallSpeed;
+    [SerializeField] private float coyoteDuration;
 
-    [SerializeField] private float jumpForce = 12f;
-    [SerializeField] private float lowJumpMultiplier = 2;
-    [SerializeField] private float gravityModifier = 0.5f;
-
-    public float JumpForce => jumpForce;
-    public float LowJumpMultiplier => lowJumpMultiplier;
-    public float GravityModifier => gravityModifier;
+    public float JumpSpeed => jumpSpeed;
+    public int AmountOfJumps => amountOfJumps;
+    public float JumpDuration => jumpDuration;
+    public float MaxFallSpeed => maxFallSpeed;
+    public float CoyoteDuration => coyoteDuration;
     #endregion
 }

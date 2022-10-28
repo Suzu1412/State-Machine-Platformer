@@ -28,11 +28,7 @@ public class CollissionSenses : MonoBehaviour
 
     public void CheckIsGrounded()
     {
-        RaycastHit2D hit = Physics2D.BoxCast(agentCollider.bounds.center + 
-            new Vector3(collissionData.BoxCastXOffset,
-            collissionData.BoxCastYOffset, 0f), 
-            new Vector2(collissionData.BoxCastWidth, collissionData.BoxCastHeight), 0, 
-            Vector2.down, collissionData.GroundMask);
+        RaycastHit2D hit = Physics2D.BoxCast(agentCollider.bounds.center, agentCollider.bounds.size, 0f, Vector2.down, collissionData.BoxCastYOffset, collissionData.GroundMask);
 
         isGrounded = hit.collider != null ? true : false;
     }
@@ -42,7 +38,7 @@ public class CollissionSenses : MonoBehaviour
     /// </summary>
     public void CheckIsTouchingWall()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.right), collissionData.BoxCastWidth, collissionData.GroundMask);
+        RaycastHit2D hit = Physics2D.Raycast(agentCollider.bounds.center, transform.TransformDirection(Vector2.right), agentCollider.bounds.extents.x + collissionData.BoxCastXOffset, collissionData.GroundMask);
 
         isTouchingWall = hit.collider != null ? true : false;
     }
@@ -60,6 +56,7 @@ public class CollissionSenses : MonoBehaviour
         DrawBottomRightRay(agentCollider);
         DrawBottomLeftRay(agentCollider);
         DrawBottomRay(agentCollider);
+        DrawTouchingWallRay(agentCollider);
     }
 
     /// <summary>
@@ -84,6 +81,12 @@ public class CollissionSenses : MonoBehaviour
     private void DrawBottomRay(Collider2D agentCollider)
     {
         Gizmos.DrawRay(agentCollider.bounds.center - new Vector3(agentCollider.bounds.extents.x, agentCollider.bounds.extents.y + collissionData.BoxCastYOffset), Vector2.right * (agentCollider.bounds.extents.x * 2));
+    }
+
+    private void DrawTouchingWallRay(Collider2D agentCollider)
+    {
+        Gizmos.DrawRay(agentCollider.bounds.center, transform.TransformDirection(Vector2.right) * agentCollider.bounds.extents.x);
+
     }
     #endregion
 }

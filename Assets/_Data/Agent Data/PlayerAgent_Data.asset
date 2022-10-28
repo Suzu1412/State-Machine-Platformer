@@ -15,6 +15,8 @@ MonoBehaviour:
   maxSpeed: 8
   acceleration: 50
   deacceleration: 50
-  jumpForce: 12
-  lowJumpMultiplier: 2
-  gravityModifier: 0.5
+  jumpSpeed: 11
+  amountOfJumps: 1
+  jumpDuration: 0.25
+  maxFallSpeed: -30
+  coyoteDuration: 0.15

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class MoveState : State
 {
-    [SerializeField] private MovementData movementData;
-    [SerializeField] private State idleState;
+    [SerializeField] protected MovementData movementData;
+    [SerializeField] protected State idleState;
 
     protected override void EnterState()
     {
@@ -31,17 +31,22 @@ public class MoveState : State
             agent.TransitionToState(idleState);
         }
 
+        if (!agent.Senses.IsGrounded)
+        {
+            agent.TransitionToState(fallState);
+        }
+
     }
 
-    private void CalculateVelocity()
+    protected virtual void CalculateVelocity()
     {
         CalculateSpeed(agent.Input.MovementVector, movementData);
         CalculateHorizontalDirection(movementData);
         movementData.SetCurrentVelocity(Vector3.right * movementData.HorizontalMovementDirection * movementData.CurrentSpeed);
-        movementData.SetCurrentVelocity(new Vector2(movementData.CurrentVelocity.x, agent.Rb2d.velocity.y));
+        movementData.SetCurrentVelocity(new Vector2(movementData.CurrentVelocity.x, Mathf.Clamp(agent.Rb2d.velocity.y, agent.Data.MaxFallSpeed, 30f)));
     }
 
-    private void CalculateHorizontalDirection(MovementData data)
+    protected void CalculateHorizontalDirection(MovementData data)
     {
         if (agent.Input.MovementVector.x > 0)
         {
@@ -53,7 +58,7 @@ public class MoveState : State
         }
     }
 
-    private void CalculateSpeed(Vector2 movementVector, MovementData data)
+    protected void CalculateSpeed(Vector2 movementVector, MovementData data)
     {
         if (Mathf.Abs(movementVector.x) > 0)
         {
@@ -66,7 +71,7 @@ public class MoveState : State
         movementData.SetCurrentSpeed(Mathf.Clamp(data.CurrentSpeed, 0, agent.Data.MaxSpeed));
     }
 
-    private void SetPlayerVelocity(MovementData movementData)
+    protected void SetPlayerVelocity(MovementData movementData)
     {
         agent.Rb2d.velocity = movementData.CurrentVelocity;
     }
