@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class JumpState : MoveState
 {
-    private bool jumpPressed = false;
     [SerializeField] private float jumpDuration;
 
     protected override void EnterState()
