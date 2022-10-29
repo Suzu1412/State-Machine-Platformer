@@ -40,11 +40,11 @@ public class FallState : MoveState
     public override void StateFixedUpdate()
     {
         agent.Senses.CheckIsGrounded();
-        agent.Senses.CheckIsTouchingWall();
         SetPlayerVelocity(movementData);
 
         if (agent.Senses.IsGrounded)
         {
+            Debug.Log("is grounded");
             if (Mathf.Abs(agent.Rb2d.velocity.x) > 0f)
             {
                 agent.TransitionToState(moveState);

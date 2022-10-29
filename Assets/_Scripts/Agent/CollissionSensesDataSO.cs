@@ -6,7 +6,7 @@ using UnityEngine;
 public class CollissionSensesDataSO : ScriptableObject
 {
     [SerializeField] private LayerMask groundMask;
-
+    [SerializeField] private LayerMask wallMask;
 
 
     [Header("Gizmo Parameters:")]
@@ -26,6 +26,7 @@ public class CollissionSensesDataSO : ScriptableObject
 
     #region Public Fields
     public LayerMask GroundMask => groundMask;
+    public LayerMask WallMask => wallMask;
 
 
     public float BoxCastXOffset => boxCastXOffset;

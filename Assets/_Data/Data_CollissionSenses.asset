@@ -14,10 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundMask:
     serializedVersion: 2
+    m_Bits: 2112
+  wallMask:
+    serializedVersion: 2
     m_Bits: 64
   boxCastXOffset: 0.05
-  boxCastYOffset: 0.1
+  boxCastYOffset: 0.15
   boxCastWidth: 1
-  boxCastHeight: 0.01
+  boxCastHeight: 0.1
   isGroundedColor: {r: 0, g: 1, b: 0, a: 1}
   isNotGroundColor: {r: 1, g: 0, b: 0, a: 1}
