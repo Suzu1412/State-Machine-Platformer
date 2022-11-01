@@ -231,7 +231,7 @@ public partial class @PlayerInputConfig : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""2a11390b-5a8d-46d3-be6a-bd0e7c03e26d"",
-                    ""path"": """",
+                    ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -257,6 +257,17 @@ public partial class @PlayerInputConfig : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""483c4121-157a-4f9c-a475-6122ff3a7e1a"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
