@@ -21,7 +21,7 @@ public class JumpState : MoveState
 
     public override void StateFixedUpdate()
     {
-        SetPlayerVelocity(movementData);
+        SetPlayerVelocity();
         if (agent.Rb2d.velocity.y <= 0f)
         {
             agent.TransitionToState(fallState);

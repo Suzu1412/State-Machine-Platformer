@@ -40,11 +40,11 @@ public class FallState : MoveState
     public override void StateFixedUpdate()
     {
         agent.Senses.CheckIsGrounded();
-        SetPlayerVelocity(movementData);
+        SetPlayerVelocity();
 
         if (agent.Senses.IsGrounded)
         {
-            Debug.Log("is grounded");
+            if (agent.Rb2d.velocity.y < 0) return; 
             if (Mathf.Abs(agent.Rb2d.velocity.x) > 0f)
             {
                 agent.TransitionToState(moveState);
@@ -59,5 +59,13 @@ public class FallState : MoveState
     protected override void ExitState()
     {
         ResetJump();
+    }
+
+    protected override void CalculateVelocity()
+    {
+        CalculateSpeed(agent.Input.MovementVector, movementData);
+        CalculateHorizontalDirection(movementData);
+        movementData.SetCurrentVelocity(Vector3.right * movementData.HorizontalMovementDirection * movementData.CurrentSpeed);
+        movementData.SetCurrentVelocity(new Vector2(movementData.CurrentVelocity.x, Mathf.Clamp(agent.Rb2d.velocity.y, agent.Data.MaxFallSpeed, 30f)));
     }
 }

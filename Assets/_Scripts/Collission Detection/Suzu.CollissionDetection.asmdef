@@ -1,11 +1,7 @@
 {
-    "name": "AgentDefinition",
+    "name": "Suzu.CollissionDetection",
     "rootNamespace": "",
-    "references": [
-        "GUID:8b76341700a5b90408014f4554c1c7be",
-        "GUID:0f090c2237b85474497792ec511c687d",
-        "GUID:50f7ea3f0570eb94690a7ff2df4ae267"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

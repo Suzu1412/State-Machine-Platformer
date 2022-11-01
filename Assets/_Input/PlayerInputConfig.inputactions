@@ -208,6 +208,17 @@
                 },
                 {
                     "name": "",
+                    "id": "2a11390b-5a8d-46d3-be6a-bd0e7c03e26d",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "89dd8b45-a899-4590-9c4a-f2ac24513083",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",

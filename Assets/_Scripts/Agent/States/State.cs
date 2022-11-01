@@ -39,7 +39,6 @@ public abstract class State : MonoBehaviour
 
     public virtual void StateUpdate()
     {
-
     }
 
     public virtual void StateFixedUpdate()
