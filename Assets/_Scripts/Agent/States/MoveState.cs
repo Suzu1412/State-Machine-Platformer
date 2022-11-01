@@ -24,7 +24,7 @@ public class MoveState : State
     public override void StateFixedUpdate()
     {
         base.StateFixedUpdate();
-        SetPlayerVelocity(movementData);
+        SetPlayerVelocity();
 
         if (Mathf.Abs(agent.Rb2d.velocity.x) < 0.01f || agent.Senses.IsTouchingWall)
         {
@@ -71,7 +71,7 @@ public class MoveState : State
         movementData.SetCurrentSpeed(Mathf.Clamp(data.CurrentSpeed, 0, agent.Data.MaxSpeed));
     }
 
-    protected void SetPlayerVelocity(MovementData movementData)
+    protected void SetPlayerVelocity()
     {
         agent.Rb2d.velocity = movementData.CurrentVelocity;
     }

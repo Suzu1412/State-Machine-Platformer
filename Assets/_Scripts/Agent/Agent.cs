@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Codice.Client.Common.WebApi.WebApiEndpoints;
 
 public class Agent : MonoBehaviour
 {
@@ -69,10 +70,13 @@ public class Agent : MonoBehaviour
     private void Update()
     {
         if (currentState != null) currentState.StateUpdate();
+
+        
     }
 
     private void FixedUpdate()
     {
         if (currentState != null) currentState.StateFixedUpdate();
+        
     }
 }

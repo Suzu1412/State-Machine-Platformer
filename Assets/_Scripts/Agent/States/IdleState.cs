@@ -29,8 +29,8 @@ public class IdleState : State
             agent.TransitionToState(moveState);
         }
 
-        movement.Set(0f, agent.Rb2d.velocity.y);
+        //movement.Set(0f, agent.Rb2d.velocity.y);
 
-        agent.Rb2d.velocity = movement;
+        //agent.Rb2d.velocity = movement;
     }
 }

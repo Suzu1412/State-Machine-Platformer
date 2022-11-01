@@ -30,7 +30,14 @@ public class CollissionSenses : MonoBehaviour
     {
         RaycastHit2D hit = Physics2D.BoxCast(agentCollider.bounds.center, agentCollider.bounds.size, 0f, Vector2.down, collissionData.BoxCastYOffset, collissionData.GroundMask);
 
-        isGrounded = hit.collider != null ? true : false;
+        if (hit.collider != null)
+        {
+            isGrounded = true;
+        }
+        else
+        {
+            isGrounded = false;
+        }
     }
 
     /// <summary>
@@ -38,7 +45,7 @@ public class CollissionSenses : MonoBehaviour
     /// </summary>
     public void CheckIsTouchingWall()
     {
-        RaycastHit2D hit = Physics2D.Raycast(agentCollider.bounds.center, transform.TransformDirection(Vector2.right), agentCollider.bounds.extents.x + collissionData.BoxCastXOffset, collissionData.GroundMask);
+        RaycastHit2D hit = Physics2D.Raycast(agentCollider.bounds.center, transform.TransformDirection(Vector2.right), agentCollider.bounds.extents.x + collissionData.BoxCastXOffset, collissionData.WallMask);
 
         isTouchingWall = hit.collider != null ? true : false;
     }
