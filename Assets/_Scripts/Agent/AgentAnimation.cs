@@ -1,3 +1,4 @@
+using Codice.Client.Common.GameUI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -57,6 +58,16 @@ public class AgentAnimation : MonoBehaviour
     private void Play(string animation)
     {
         animator.Play(animation);
+    }
+
+    public void Pause()
+    {
+        animator.speed = 0f;
+    }
+
+    public void Resume()
+    {
+        animator.speed = 1f;
     }
 }
 

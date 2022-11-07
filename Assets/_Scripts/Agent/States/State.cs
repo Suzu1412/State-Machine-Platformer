@@ -9,8 +9,11 @@ public abstract class State : MonoBehaviour
     protected Agent agent;
     [SerializeField] protected State jumpState;
     [SerializeField] protected State fallState;
-    private int amountOfJumps;
+    [SerializeField] protected State climbState;
+    private int jumpPressed;
+    [SerializeField] private int amountOfJumps;
     private bool isJumping;
+    private bool isClimbing;
     private bool canEnterCoyoteTime;
     
     public UnityEvent OnEnter, OnExit;
@@ -43,8 +46,7 @@ public abstract class State : MonoBehaviour
 
     public virtual void StateFixedUpdate()
     {
-        agent.Senses.CheckIsGrounded();
-        agent.Senses.CheckIsTouchingWall();
+        DetectCollissions();
     }
 
     public void Exit()
@@ -69,11 +71,15 @@ public abstract class State : MonoBehaviour
 
     protected virtual void HandleMovement(Vector2 movement)
     {
+        if (Mathf.Abs(movement.y) > 0.5f)
+        {
+            ActivateClimb();
+        }
     }
 
     protected virtual void HandleJumpPressed()
     {
-        CheckIfCanJump();
+        ActivateJump();
     }
 
     protected virtual void HandleJumpReleased()
@@ -81,31 +87,54 @@ public abstract class State : MonoBehaviour
         EndJump();
     }
 
-    protected void EndJump()
-    {
-        isJumping = false;
-    }
-
-    
     #endregion
 
-    private void TestJumpTransition()
+    protected bool CheckIfCanClimb()
     {
-        if (agent.Senses.IsGrounded)
-        {
-            agent.TransitionToState(jumpState);
-        }
+        if (!agent.ClimbingDetector.CanClimb) return false;
+
+        return true;
     }
 
-    protected void CheckIfCanJump()
+    private void ActivateClimb()
     {
-        ActivateJump();
+        if (!CheckIfCanClimb()) return;
+
+        isClimbing = true;
+
+        agent.TransitionToState(climbState);
+    }
+
+    protected void EndClimb()
+    {
+        isClimbing = false;
+    }
+
+    /// <summary>
+    /// The same method as the activate Jump but without the grounded condition
+    /// </summary>
+    protected void ActivateJumpClimbing()
+    {
+        ConsumeJump();
+        canEnterCoyoteTime = false;
+
+        isJumping = true;
+
+        agent.TransitionToState(jumpState);
+    }
+
+    #region Jump Action
+    private bool CheckIfCanJump()
+    {
+        if (isJumping) return false;
+        if (amountOfJumps <= 0) return false;
+
+        return true;
     }
 
     protected void ActivateJump()
     {
-        if (isJumping) return;
-        if (amountOfJumps <= 0) return;
+        if (!CheckIfCanJump()) return;
 
         ConsumeJump();
         canEnterCoyoteTime = false;
@@ -117,7 +146,7 @@ public abstract class State : MonoBehaviour
 
     protected void ResetJump()
     {
-        if (!agent.Senses.IsGrounded) return;
+        if (!agent.GroundDetector.IsGrounded && !isClimbing) return;
         isJumping = false;
         canEnterCoyoteTime = true;
         amountOfJumps = agent.Data.AmountOfJumps;
@@ -126,5 +155,18 @@ public abstract class State : MonoBehaviour
     protected void ConsumeJump()
     {
         amountOfJumps--;
+    }
+
+    private void EndJump()
+    {
+        isJumping = false;
+    }
+    #endregion
+
+    protected void DetectCollissions()
+    {
+        agent.GroundDetector.CheckIsGrounded();
+        agent.WallDetector.CheckIsTouchingWall();
+        agent.ClimbingDetector.CheckIfCanClimb();
     }
 }

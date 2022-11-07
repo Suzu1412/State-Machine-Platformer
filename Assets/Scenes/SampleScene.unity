@@ -4369,6 +4369,7 @@ GameObject:
   - component: {fileID: 1311753819}
   - component: {fileID: 1311753822}
   - component: {fileID: 1311753821}
+  - component: {fileID: 1311753823}
   m_Layer: 15
   m_Name: State
   m_TagString: Untagged
@@ -4405,6 +4406,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpState: {fileID: 1311753822}
   fallState: {fileID: 1311753821}
+  climbState: {fileID: 1311753823}
+  amountOfJumps: 0
   OnEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -4427,6 +4430,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpState: {fileID: 1311753822}
   fallState: {fileID: 1311753821}
+  climbState: {fileID: 1311753823}
+  amountOfJumps: 0
   OnEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -4448,6 +4453,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpState: {fileID: 1311753822}
   fallState: {fileID: 1311753821}
+  climbState: {fileID: 1311753823}
+  amountOfJumps: 0
   OnEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -4471,6 +4478,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpState: {fileID: 0}
   fallState: {fileID: 1311753821}
+  climbState: {fileID: 1311753823}
+  amountOfJumps: 0
   OnEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -4480,6 +4489,29 @@ MonoBehaviour:
   movementData: {fileID: 1305376070}
   idleState: {fileID: 1311753820}
   jumpDuration: 0
+--- !u!114 &1311753823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1311753817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ba8ccb177754a64282874e48e7ecc5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpState: {fileID: 1311753822}
+  fallState: {fileID: 1311753821}
+  climbState: {fileID: 1311753823}
+  amountOfJumps: 0
+  OnEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  OnExit:
+    m_PersistentCalls:
+      m_Calls: []
+  idleState: {fileID: 1311753820}
 --- !u!4 &1380471600 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1359131514812174717, guid: 47726689d8081e243803bbf524bc5222, type: 3}
@@ -4873,6 +4905,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1819352573}
   - component: {fileID: 1819352574}
+  - component: {fileID: 1819352577}
+  - component: {fileID: 1819352576}
   - component: {fileID: 1819352575}
   m_Layer: 15
   m_Name: Ground Collider
@@ -4931,7 +4965,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 1819352572}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00c45c09d3d11b04b9b1c126c753dbcd, type: 3}
+  m_Script: {fileID: 11500000, guid: ef25809c21ab6e5408f66778712e63ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collissionData: {fileID: 11400000, guid: c3becc7934ffaab489ceee58cf47c1f7, type: 2}
+--- !u!114 &1819352576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1819352572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d7e8453cbeee8141b25f15e464b5375, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collissionData: {fileID: 11400000, guid: c3becc7934ffaab489ceee58cf47c1f7, type: 2}
+--- !u!114 &1819352577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1819352572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ffe2818faeb3df49b77396b61eb1b30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   collissionData: {fileID: 11400000, guid: c3becc7934ffaab489ceee58cf47c1f7, type: 2}

@@ -21,6 +21,7 @@ public class JumpState : MoveState
 
     public override void StateFixedUpdate()
     {
+        DetectCollissions();
         SetPlayerVelocity();
         if (agent.Rb2d.velocity.y <= 0f)
         {

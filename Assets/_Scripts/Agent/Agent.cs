@@ -9,14 +9,18 @@ public class Agent : MonoBehaviour
     private IAgentInput input;
     private AgentRenderer rendererManager;
     private AgentAnimation animationManager;
-    private CollissionSenses senses;
+    private GroundDetector groundDetector;
+    private WallDetector wallDetector;
+    private ClimbingDetector climbingDetector;
     [SerializeField] private AgentDataSO data;
 
     public Rigidbody2D Rb2d => rb2d;
     public IAgentInput Input => input;
     public AgentRenderer RendererManager => rendererManager;
     public AgentAnimation AnimationManager => animationManager;
-    public CollissionSenses Senses => senses;
+    public GroundDetector GroundDetector => groundDetector;
+    public WallDetector WallDetector => wallDetector;
+    public ClimbingDetector ClimbingDetector => climbingDetector;
     public AgentDataSO Data => data;
 
     [SerializeField] private State currentState, initialState;
@@ -32,7 +36,9 @@ public class Agent : MonoBehaviour
         input = GetComponentInParent<IAgentInput>();
         rendererManager = GetComponentInChildren<AgentRenderer>();
         animationManager = GetComponentInChildren<AgentAnimation>();
-        senses = GetComponentInChildren<CollissionSenses>();
+        groundDetector = GetComponentInChildren<GroundDetector>();
+        wallDetector = GetComponentInChildren<WallDetector>();
+        climbingDetector = GetComponentInChildren<ClimbingDetector>();
         states = GetComponentsInChildren<State>();
 
         foreach (var state in states)
@@ -67,16 +73,20 @@ public class Agent : MonoBehaviour
         }
     }
 
+    public void ResetRigidbodyProperties()
+    {
+        if (data == null) return;
+
+        rb2d.gravityScale = data.GravityScale;
+    }
+
     private void Update()
     {
         if (currentState != null) currentState.StateUpdate();
-
-        
     }
 
     private void FixedUpdate()
     {
         if (currentState != null) currentState.StateFixedUpdate();
-        
     }
 }

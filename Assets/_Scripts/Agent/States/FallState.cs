@@ -39,10 +39,10 @@ public class FallState : MoveState
 
     public override void StateFixedUpdate()
     {
-        agent.Senses.CheckIsGrounded();
+        DetectCollissions();
         SetPlayerVelocity();
 
-        if (agent.Senses.IsGrounded)
+        if (agent.GroundDetector.IsGrounded)
         {
             if (agent.Rb2d.velocity.y < 0) return; 
             if (Mathf.Abs(agent.Rb2d.velocity.x) > 0f)

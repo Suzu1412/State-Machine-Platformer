@@ -2,16 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CollissionSenses : MonoBehaviour
+public class GroundDetector : MonoBehaviour
 {
     private Collider2D agentCollider;
     [SerializeField] private CollissionSensesDataSO collissionData;
 
     private bool isGrounded = false;
-    private bool isTouchingWall = false;
     public bool IsGrounded => isGrounded;
-    public bool IsTouchingWall => isTouchingWall;
-
 
     private void Awake()
     {
@@ -33,17 +30,6 @@ public class CollissionSenses : MonoBehaviour
         isGrounded = raycastHit.collider != null ? true : false;
     }
 
-    /// <summary>
-    /// Used to Prevent Agent to Keep moving when colliding against Wall
-    /// </summary>
-    public void CheckIsTouchingWall()
-    {
-        RaycastHit2D raycastHit = Physics2D.Raycast(agentCollider.bounds.center, transform.TransformDirection(Vector2.right), agentCollider.bounds.extents.x + collissionData.BoxCastXOffset, collissionData.WallMask);
-
-        isTouchingWall = raycastHit.collider != null ? true : false;
-    }
-
-
     #region Gizmos
     private void OnDrawGizmos()
     {
@@ -56,7 +42,6 @@ public class CollissionSenses : MonoBehaviour
         DrawBottomRightRay(agentCollider);
         DrawBottomLeftRay(agentCollider);
         DrawBottomRay(agentCollider);
-        DrawTouchingWallRay(agentCollider);
     }
 
     /// <summary>
@@ -81,11 +66,6 @@ public class CollissionSenses : MonoBehaviour
     private void DrawBottomRay(Collider2D agentCollider)
     {
         Gizmos.DrawRay(agentCollider.bounds.center - new Vector3(agentCollider.bounds.extents.x, agentCollider.bounds.extents.y + collissionData.BoxCastYOffset), Vector2.right * (agentCollider.bounds.extents.x * 2));
-    }
-
-    private void DrawTouchingWallRay(Collider2D agentCollider)
-    {
-        Gizmos.DrawRay(agentCollider.bounds.center, transform.TransformDirection(Vector2.right) * agentCollider.bounds.extents.x);
     }
     #endregion
 }

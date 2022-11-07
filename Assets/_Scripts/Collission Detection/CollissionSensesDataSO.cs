@@ -7,6 +7,7 @@ public class CollissionSensesDataSO : ScriptableObject
 {
     [SerializeField] private LayerMask groundMask;
     [SerializeField] private LayerMask wallMask;
+    [SerializeField] private LayerMask climbingMask;
 
 
     [Header("Gizmo Parameters:")]
@@ -20,20 +21,20 @@ public class CollissionSensesDataSO : ScriptableObject
     [SerializeField] private float boxCastWidth = 1;
     [SerializeField] private float boxCastHeight = 1;
 
-    [SerializeField] private Color isGroundedColor = Color.green;
-    [SerializeField] private Color isNotGroundColor = Color.red;
+    [SerializeField] private Color isCollidingColor = Color.green;
+    [SerializeField] private Color isNotCollidingColor = Color.red;
 
 
     #region Public Fields
     public LayerMask GroundMask => groundMask;
     public LayerMask WallMask => wallMask;
-
+    public LayerMask ClimbingMask => climbingMask;
 
     public float BoxCastXOffset => boxCastXOffset;
     public float BoxCastYOffset => boxCastYOffset;
     public float BoxCastWidth => boxCastWidth;
     public float BoxCastHeight => boxCastHeight;
-    public Color IsGroundedColor => isGroundedColor;
-    public Color IsNotGroundColor => isNotGroundColor;
+    public Color IsCollidingColor => isCollidingColor;
+    public Color IsNotCollidingColor => isNotCollidingColor;
     #endregion
 }

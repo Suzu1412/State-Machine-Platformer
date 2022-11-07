@@ -14,9 +14,9 @@ public class IdleState : State
 
     public override void StateFixedUpdate()
     {
-        base.StateFixedUpdate();
+        DetectCollissions();
 
-        if (!agent.Senses.IsGrounded)
+        if (!agent.GroundDetector.IsGrounded)
         {
             agent.TransitionToState(fallState);
         }
@@ -24,13 +24,11 @@ public class IdleState : State
 
     protected override void HandleMovement(Vector2 input)
     {
+        base.HandleMovement(input);
+
         if (Mathf.Abs(input.x) > 0f)
         {
             agent.TransitionToState(moveState);
         }
-
-        //movement.Set(0f, agent.Rb2d.velocity.y);
-
-        //agent.Rb2d.velocity = movement;
     }
 }

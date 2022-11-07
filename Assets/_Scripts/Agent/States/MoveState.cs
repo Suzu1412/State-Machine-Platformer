@@ -23,15 +23,15 @@ public class MoveState : State
 
     public override void StateFixedUpdate()
     {
-        base.StateFixedUpdate();
+        DetectCollissions();
         SetPlayerVelocity();
 
-        if (Mathf.Abs(agent.Rb2d.velocity.x) < 0.01f || agent.Senses.IsTouchingWall)
+        if (Mathf.Abs(agent.Rb2d.velocity.x) < 0.01f || agent.WallDetector.IsTouchingWall)
         {
             agent.TransitionToState(idleState);
         }
 
-        if (!agent.Senses.IsGrounded)
+        if (!agent.GroundDetector.IsGrounded)
         {
             agent.TransitionToState(fallState);
         }
