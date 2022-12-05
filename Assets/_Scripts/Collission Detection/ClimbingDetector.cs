@@ -5,10 +5,14 @@ using UnityEngine;
 public class ClimbingDetector : MonoBehaviour
 {
     private Collider2D agentCollider;
-    [SerializeField] private CollissionSensesDataSO collissionData;
+    private CollissionSensesDataSO collissionData;
+    [SerializeField] private Collider2D ladder;
+    [SerializeField] private Collider2D topLadder;
 
-    private bool canClimb = false;
+    [SerializeField] private bool canClimb = false;
     public bool CanClimb => canClimb;
+    public Collider2D Ladder => ladder;
+    public Collider2D TopLadder => topLadder;
 
     private void Awake()
     {
@@ -16,16 +20,18 @@ public class ClimbingDetector : MonoBehaviour
         {
             agentCollider = GetComponent<Collider2D>();
         }
+    }
 
-        if (collissionData == null)
-        {
-            Debug.LogError(this.name + ": Has no Collission Senses Data attached");
-        }
+    public void SetCollissionData(CollissionSensesDataSO data)
+    {
+        collissionData = data;
     }
 
     public void CheckIfCanClimb()
     {
         RaycastHit2D raycastHit = Physics2D.Raycast(agentCollider.bounds.center, transform.TransformDirection(Vector2.down), agentCollider.bounds.extents.y + collissionData.BoxCastYOffset, collissionData.ClimbingMask);
+
+        if (raycastHit.collider != null) ladder = raycastHit.collider.GetComponent<BoxCollider2D>();
 
         canClimb = raycastHit.collider != null ? true : false;
     }
@@ -50,4 +56,9 @@ public class ClimbingDetector : MonoBehaviour
         Gizmos.DrawRay(agentCollider.bounds.center + (Vector3.up * (agentCollider.bounds.extents.y + collissionData.BoxCastYOffset)), transform.TransformDirection(Vector2.down) * (agentCollider.bounds.extents.y + collissionData.BoxCastYOffset) * 2);
     }
     #endregion
+
+    public void SetTopLadder(Collider2D topLadder)
+    {
+        this.topLadder = topLadder;
+    }
 }

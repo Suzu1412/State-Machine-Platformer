@@ -5,9 +5,9 @@ using UnityEngine;
 public class GroundDetector : MonoBehaviour
 {
     private Collider2D agentCollider;
-    [SerializeField] private CollissionSensesDataSO collissionData;
+    private CollissionSensesDataSO collissionData;
 
-    private bool isGrounded = false;
+    [SerializeField] private bool isGrounded = false;
     public bool IsGrounded => isGrounded;
 
     private void Awake()
@@ -16,16 +16,23 @@ public class GroundDetector : MonoBehaviour
         {
             agentCollider = GetComponent<Collider2D>();
         }
+    }
 
-        if (collissionData == null)
-        {
-            Debug.LogError(this.name + ": Has no Collission Senses Data attached");
-        }
+    public void SetCollissionData(CollissionSensesDataSO data)
+    {
+        collissionData = data;
     }
 
     public void CheckIsGrounded()
     {
         RaycastHit2D raycastHit = Physics2D.BoxCast(agentCollider.bounds.center, agentCollider.bounds.size, 0f, Vector2.down, collissionData.BoxCastYOffset, collissionData.GroundMask);
+
+        isGrounded = raycastHit.collider != null ? true : false;
+    }
+
+    public void CheckIsGroundedWhileClimbing()
+    {
+        RaycastHit2D raycastHit = Physics2D.Raycast(agentCollider.bounds.center, transform.TransformDirection(Vector2.down), agentCollider.bounds.extents.y + collissionData.BoxCastYOffset, collissionData.GroundMask);
 
         isGrounded = raycastHit.collider != null ? true : false;
     }

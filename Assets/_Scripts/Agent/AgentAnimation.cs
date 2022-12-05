@@ -70,16 +70,3 @@ public class AgentAnimation : MonoBehaviour
         animator.speed = 1f;
     }
 }
-
-public enum AnimationType
-{
-    die, 
-    hit,
-    idle,
-    attack,
-    run,
-    jump,
-    fall,
-    climb,
-    land
-}

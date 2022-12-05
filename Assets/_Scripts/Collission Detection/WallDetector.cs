@@ -5,9 +5,9 @@ using UnityEngine;
 public class WallDetector : MonoBehaviour
 {
     private Collider2D agentCollider;
-    [SerializeField] private CollissionSensesDataSO collissionData;
+    private CollissionSensesDataSO collissionData;
 
-    private bool isTouchingWall = false;
+    [SerializeField] private bool isTouchingWall = false;
     public bool IsTouchingWall => isTouchingWall;
 
     private void Awake()
@@ -16,11 +16,11 @@ public class WallDetector : MonoBehaviour
         {
             agentCollider = GetComponent<Collider2D>();
         }
+    }
 
-        if (collissionData == null)
-        {
-            Debug.LogError(this.name + ": Has no Collission Senses Data attached");
-        }
+    public void SetCollissionData(CollissionSensesDataSO data)
+    {
+        collissionData = data;
     }
 
     /// <summary>

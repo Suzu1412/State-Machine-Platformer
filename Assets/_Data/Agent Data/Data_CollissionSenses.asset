@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundMask:
     serializedVersion: 2
-    m_Bits: 2368
+    m_Bits: 2112
   wallMask:
     serializedVersion: 2
     m_Bits: 64

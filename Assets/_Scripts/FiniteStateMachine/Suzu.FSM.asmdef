@@ -1,11 +1,11 @@
 {
-    "name": "AgentDefinition",
+    "name": "Suzu.FSM",
     "rootNamespace": "",
     "references": [
-        "GUID:8b76341700a5b90408014f4554c1c7be",
+        "GUID:9a930c232f5b6764594b157f1b8c598d",
         "GUID:50f7ea3f0570eb94690a7ff2df4ae267",
-        "GUID:916d3981cdfbab041a0a4161d410e51c",
-        "GUID:8983950237eae9440a3b9fad3b3659d8"
+        "GUID:8983950237eae9440a3b9fad3b3659d8",
+        "GUID:916d3981cdfbab041a0a4161d410e51c"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
