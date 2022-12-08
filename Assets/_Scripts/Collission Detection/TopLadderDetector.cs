@@ -2,15 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClimbingDetector : MonoBehaviour
+public class TopLadderDetector : MonoBehaviour
 {
     private Collider2D agentCollider;
     private CollissionSensesDataSO collissionData;
-    [SerializeField] private Collider2D ladder;
+    [SerializeField] private Collider2D topLadder;
 
-    [SerializeField] private bool canClimb = false;
-    public bool CanClimb => canClimb;
-    public Collider2D Ladder => ladder;
+    [SerializeField] private bool isOnTop = false;
+    [SerializeField] private bool isOnBottom = false;
+
+    public Collider2D TopLadder => topLadder;
 
     private void Awake()
     {
@@ -25,13 +26,26 @@ public class ClimbingDetector : MonoBehaviour
         collissionData = data;
     }
 
-    public void CheckIfCanClimb()
+    public void CheckIfOnTop()
     {
-        RaycastHit2D raycastHit = Physics2D.Raycast(agentCollider.bounds.center, transform.TransformDirection(Vector2.down), agentCollider.bounds.extents.y + collissionData.BoxCastYOffset, collissionData.ClimbingMask);
+        RaycastHit2D raycastHit = Physics2D.Raycast(agentCollider.bounds.center, transform.TransformDirection(Vector2.down), agentCollider.bounds.extents.y + collissionData.BoxCastYOffset, collissionData.GroundMask);
 
-        ladder = raycastHit.collider != null ? raycastHit.collider : null;
+        topLadder = null;
+        isOnTop = false;
 
-        canClimb = raycastHit.collider != null ? true : false;
+        if (raycastHit.collider != null)
+        {
+            if (raycastHit.collider.GetComponent<TopLadder>() != null)
+            {
+                topLadder = raycastHit.collider;
+                isOnTop = true;
+            }
+        }
+    }
+
+    public void CheckIfOnBottom()
+    {
+
     }
 
     #region Gizmos
@@ -41,7 +55,7 @@ public class ClimbingDetector : MonoBehaviour
 
         Gizmos.color = collissionData.IsNotCollidingColor;
 
-        if (canClimb) Gizmos.color = collissionData.IsCollidingColor;
+        if (isOnTop) Gizmos.color = collissionData.IsCollidingColor;
 
         DrawTouchingLadderRay(agentCollider);
     }

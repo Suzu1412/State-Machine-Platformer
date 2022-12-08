@@ -1,9 +1,7 @@
 {
     "name": "Suzu.Misc",
     "rootNamespace": "",
-    "references": [
-        "GUID:916d3981cdfbab041a0a4161d410e51c"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

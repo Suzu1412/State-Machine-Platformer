@@ -1,7 +1,9 @@
 {
     "name": "Suzu.CollissionDetection",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "GUID:ef49f253570efa24784cfe63b64b4c79"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

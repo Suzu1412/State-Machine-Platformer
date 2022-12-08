@@ -50,6 +50,7 @@ public abstract class State : MonoBehaviour
         fsm.Agent.GroundDetector.CheckIsGrounded();
         fsm.Agent.WallDetector.CheckIsTouchingWall();
         fsm.Agent.ClimbingDetector.CheckIfCanClimb();
+        fsm.Agent.TopLadderDetector.CheckIfOnTop();
     }
 
     protected virtual void ExitState()
@@ -58,23 +59,14 @@ public abstract class State : MonoBehaviour
     }
 
     #region State Override Methods
-    protected virtual void HandleMovement(Vector2 movement)
+    protected virtual void HandleMovement(Vector2 input)
     {
-        Debug.Log(movement);
-
-
-        if (Mathf.Abs(movement.y) > 0.33f)
-        {
-            if (fsm.Agent.ClimbingDetector.CanClimb)
-            {
-                fsm.TransitionToState(fsm.StateFactory.GetState(StateType.Climb));
-            }
-        }
+        
     }
 
     protected void HandleJumpPressed()
     {
-        if (fsm.Agent.MovementData.ActivateJump()) 
+        if (fsm.Agent.MovementData.AmountOfJumps > 0) 
         {
             fsm.TransitionToState(fsm.StateFactory.GetState(StateType.Jump));
         }

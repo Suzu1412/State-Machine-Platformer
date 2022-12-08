@@ -21,8 +21,6 @@ public class IdleState : State
         {
             fsm.TransitionToState(fsm.StateFactory.GetState(StateType.Fall));
         }
-
-        
     }
 
     public override void PhysicsUpdate()
@@ -40,6 +38,14 @@ public class IdleState : State
         if (Mathf.Abs(input.x) > 0f)
         {
             fsm.TransitionToState(fsm.StateFactory.GetState(StateType.Move));
+        }
+
+        if (Mathf.Abs(input.y) > 0.33f)
+        {
+            if (fsm.Agent.ClimbingDetector.CanClimb)
+            {
+                fsm.TransitionToState(fsm.StateFactory.GetState(StateType.Climb));
+            }
         }
     }
 }

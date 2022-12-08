@@ -57,10 +57,14 @@ public class FallState : MoveState
                 fsm.TransitionToState(fsm.StateFactory.GetState(StateType.Idle));
             }
         }
+
+        ClimbLadder();
     }
 
     protected override void ExitState()
     {
+        if (!fsm.Agent.GroundDetector.IsGrounded) return;
+
         fsm.Agent.MovementData.ResetJump(fsm.Agent);
     }
 }

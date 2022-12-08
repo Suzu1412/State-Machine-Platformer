@@ -36,6 +36,8 @@ public class MoveState : State
         {
             fsm.TransitionToState(fsm.StateFactory.GetState(StateType.Idle));
         }
+
+        ClimbLadder();
     }
 
     protected virtual void CalculateVelocity()
@@ -75,5 +77,16 @@ public class MoveState : State
     protected void SetPlayerVelocity()
     {
         fsm.Agent.Rb2d.velocity = fsm.Agent.MovementData.CurrentVelocity;
+    }
+
+    protected void ClimbLadder()
+    {
+        if (Mathf.Abs(fsm.Agent.Input.MovementVector.y) > 0.33f)
+        {
+            if (fsm.Agent.ClimbingDetector.CanClimb)
+            {
+                fsm.TransitionToState(fsm.StateFactory.GetState(StateType.Climb));
+            }
+        }
     }
 }

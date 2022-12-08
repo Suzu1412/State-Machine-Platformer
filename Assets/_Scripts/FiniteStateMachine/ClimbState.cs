@@ -10,8 +10,6 @@ public class ClimbState : State
     {
         // The Kinematic body Type will avoid collissions, this way the player will be able to climb on top of the collider
         // While we could use Gravity Scale 0, it will have problems when trying to stay on top of the ladder
-        
-
         fsm.Agent.Rb2d.bodyType = RigidbodyType2D.Kinematic;
         fsm.Agent.Rb2d.velocity = Vector2.zero;
         
@@ -23,7 +21,7 @@ public class ClimbState : State
 
     public override void LogicUpdate()
     {
-        if (fsm.Agent.Input.MovementVector.magnitude > 0f)
+        if (Mathf.Abs(fsm.Agent.Input.MovementVector.y) > 0f)
         {
             fsm.Agent.AnimationManager.Resume();
         }
@@ -39,19 +37,23 @@ public class ClimbState : State
         fsm.Agent.GroundDetector.CheckIsGroundedWhileClimbing();
         fsm.Agent.WallDetector.CheckIsTouchingWall();
         fsm.Agent.ClimbingDetector.CheckIfCanClimb();
+        fsm.Agent.TopLadderDetector.CheckIfOnTop();
 
         fsm.Agent.Rb2d.velocity =  fsm.Agent.Input.MovementVector.y * fsm.Agent.Data.ClimbSpeed * Vector2.up;
 
-        if (fsm.Agent.GroundDetector.IsGrounded && 
-            fsm.Agent.ClimbingDetector.TopLadder != null && 
-            fsm.Agent.Input.MovementVector.y < 0f)
+        if (fsm.Agent.Input.MovementVector.y > 0)
         {
-            fsm.TransitionToState(fsm.StateFactory.GetState(StateType.Idle));
+
+        }
+
+        if (fsm.Agent.Input.MovementVector.y < 0)
+        {
+            MoveToGround();
         }
 
         if (!fsm.Agent.ClimbingDetector.CanClimb)
         {
-            fsm.TransitionToState(fsm.StateFactory.GetState(StateType.Idle));
+            //fsm.TransitionToState(fsm.StateFactory.GetState(StateType.Idle));
         }
     }
 
@@ -60,7 +62,7 @@ public class ClimbState : State
         fsm.Agent.AnimationManager.Resume();
         fsm.Agent.Rb2d.bodyType = RigidbodyType2D.Dynamic;
         fsm.Agent.MovementData.ResetJump(fsm.Agent);
-        // EndClimb();
+        fsm.Agent.MovementData.CanEnterCoyoteTime = false;
     }
 
     private void PlacePlayerInCenterLadder()
@@ -68,4 +70,22 @@ public class ClimbState : State
         fsm.Agent.Rb2d.position = new Vector2(fsm.Agent.ClimbingDetector.Ladder.bounds.center.x, fsm.Agent.Rb2d.position.y);
     }
 
+    private void MoveInLadder()
+    {
+
+    }
+
+    private void MoveToTopLadder()
+    {
+
+    }
+
+    private void MoveToGround()
+    {
+        if (!fsm.Agent.GroundDetector.IsGrounded) return;
+
+        if (fsm.Agent.TopLadderDetector.TopLadder != null) return;
+
+        fsm.TransitionToState(fsm.StateFactory.GetState(StateType.Idle));
+    }
 }

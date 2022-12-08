@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
+using UnityEngine.Windows;
 using static Codice.Client.Common.WebApi.WebApiEndpoints;
 
 public class JumpState : MoveState
@@ -10,6 +11,7 @@ public class JumpState : MoveState
 
     protected override void EnterState()
     {
+        fsm.Agent.MovementData.ActivateJump();
         fsm.Agent.AnimationManager.PlayAnimation(AnimationType.jump);
         jumpDuration = fsm.Agent.Data.JumpDuration;
     }
@@ -33,6 +35,8 @@ public class JumpState : MoveState
         {
             fsm.TransitionToState(fsm.StateFactory.GetState(StateType.Fall));
         }
+
+        ClimbLadder();
     }
 
     protected override void CalculateVelocity()
