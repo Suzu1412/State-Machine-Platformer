@@ -53,7 +53,7 @@ public class ClimbState : State
 
         if (!fsm.Agent.ClimbingDetector.CanClimb)
         {
-            //fsm.TransitionToState(fsm.StateFactory.GetState(StateType.Idle));
+            fsm.TransitionToState(fsm.StateFactory.GetState(StateType.Idle));
         }
     }
 

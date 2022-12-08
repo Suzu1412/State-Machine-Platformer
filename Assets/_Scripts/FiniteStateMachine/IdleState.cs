@@ -27,7 +27,7 @@ public class IdleState : State
     {
         base.PhysicsUpdate();
 
-        if (fsm.Agent.Rb2d.velocity.x > 0f)
+        if (Mathf.Abs(fsm.Agent.Input.MovementVector.x) > 0f)
         {
             fsm.TransitionToState(fsm.StateFactory.GetState(StateType.Move));
         }
@@ -35,14 +35,17 @@ public class IdleState : State
 
     protected override void HandleMovement(Vector2 input)
     {
-        if (Mathf.Abs(input.x) > 0f)
+        if (input.y > 0.33f)
         {
-            fsm.TransitionToState(fsm.StateFactory.GetState(StateType.Move));
+            if (fsm.Agent.ClimbingDetector.CanClimb && fsm.Agent.TopLadderDetector.TopLadder == null)
+            {
+                fsm.TransitionToState(fsm.StateFactory.GetState(StateType.Climb));
+            }
         }
 
-        if (Mathf.Abs(input.y) > 0.33f)
+        if (input.y < -0.33f)
         {
-            if (fsm.Agent.ClimbingDetector.CanClimb)
+            if (fsm.Agent.ClimbingDetector.CanClimb && fsm.Agent.TopLadderDetector.TopLadder != null)
             {
                 fsm.TransitionToState(fsm.StateFactory.GetState(StateType.Climb));
             }

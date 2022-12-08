@@ -29,6 +29,7 @@ public class MoveState : State
         fsm.Agent.GroundDetector.CheckIsGrounded();
         fsm.Agent.WallDetector.CheckIsTouchingWall();
         fsm.Agent.ClimbingDetector.CheckIfCanClimb();
+        fsm.Agent.TopLadderDetector.CheckIfOnTop();
 
         SetPlayerVelocity();
 
@@ -81,9 +82,17 @@ public class MoveState : State
 
     protected void ClimbLadder()
     {
-        if (Mathf.Abs(fsm.Agent.Input.MovementVector.y) > 0.33f)
+        if (fsm.Agent.Input.MovementVector.y > 0.33f)
         {
-            if (fsm.Agent.ClimbingDetector.CanClimb)
+            if (fsm.Agent.ClimbingDetector.CanClimb && fsm.Agent.TopLadderDetector.TopLadder == null)
+            {
+                fsm.TransitionToState(fsm.StateFactory.GetState(StateType.Climb));
+            }
+        }
+
+        if (fsm.Agent.Input.MovementVector.y < -0.33f)
+        {
+            if (fsm.Agent.ClimbingDetector.CanClimb && (fsm.Agent.TopLadderDetector.TopLadder != null || !fsm.Agent.GroundDetector.IsGrounded))
             {
                 fsm.TransitionToState(fsm.StateFactory.GetState(StateType.Climb));
             }
