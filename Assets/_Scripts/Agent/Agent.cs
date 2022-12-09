@@ -14,6 +14,7 @@ public class Agent : MonoBehaviour
     private ClimbingDetector climbingDetector;
     private TopLadderDetector topLadderDetector;
     private MovementData movementData;
+    private Collider2D agentCollider;
     [SerializeField] private AgentDataSO data;
     [SerializeField] private CollissionSensesDataSO collissionData;
 
@@ -26,6 +27,7 @@ public class Agent : MonoBehaviour
     public ClimbingDetector ClimbingDetector => climbingDetector;
     public TopLadderDetector TopLadderDetector => topLadderDetector;
     public MovementData MovementData => movementData;
+    public Collider2D AgentCollider => agentCollider;
     public AgentDataSO Data => data;
 
     private void Awake()
@@ -38,6 +40,7 @@ public class Agent : MonoBehaviour
         wallDetector = GetComponentInChildren<WallDetector>();
         climbingDetector = GetComponentInChildren<ClimbingDetector>();
         topLadderDetector = GetComponentInChildren<TopLadderDetector>();
+        agentCollider = GetComponentInChildren<Collider2D>();
         movementData = GetComponent<MovementData>();
 
         if (data == null) Debug.LogError("Agent Data is Empty in: " + this.name);

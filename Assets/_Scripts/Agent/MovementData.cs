@@ -17,7 +17,7 @@ public class MovementData : MonoBehaviour
 
     public int AmountOfJumps => amountOfJumps;
     public bool IsJumping => isJumping;
-    public bool CanEnterCoyoteTime { set => canEnterCoyoteTime = value; get => canEnterCoyoteTime; }
+    public bool CanEnterCoyoteTime => canEnterCoyoteTime;
 
     public void SetHorizontalMovementDirection(int horizontalMovementDirection)
     {

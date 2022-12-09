@@ -6,6 +6,8 @@ using static Codice.Client.Common.WebApi.WebApiEndpoints;
 
 public class ClimbState : State
 {
+    private bool isGettingOnTopLadder;
+
     protected override void EnterState()
     {
         // The Kinematic body Type will avoid collissions, this way the player will be able to climb on top of the collider
@@ -17,6 +19,8 @@ public class ClimbState : State
 
         PlacePlayerInCenterLadder();
         fsm.Agent.MovementData.ResetJump(fsm.Agent);
+
+        isGettingOnTopLadder = false;
     }
 
     public override void LogicUpdate()
@@ -38,12 +42,13 @@ public class ClimbState : State
         fsm.Agent.WallDetector.CheckIsTouchingWall();
         fsm.Agent.ClimbingDetector.CheckIfCanClimb();
         fsm.Agent.TopLadderDetector.CheckIfOnTop();
+        fsm.Agent.TopLadderDetector.CheckIfOnBottom();
 
-        fsm.Agent.Rb2d.velocity =  fsm.Agent.Input.MovementVector.y * fsm.Agent.Data.ClimbSpeed * Vector2.up;
+        MoveInLadder();
 
         if (fsm.Agent.Input.MovementVector.y > 0)
         {
-
+            MoveToTopLadder();
         }
 
         if (fsm.Agent.Input.MovementVector.y < 0)
@@ -59,10 +64,10 @@ public class ClimbState : State
 
     protected override void ExitState()
     {
+        isGettingOnTopLadder = false;
         fsm.Agent.AnimationManager.Resume();
         fsm.Agent.Rb2d.bodyType = RigidbodyType2D.Dynamic;
         fsm.Agent.MovementData.ResetJump(fsm.Agent);
-        fsm.Agent.MovementData.CanEnterCoyoteTime = false;
     }
 
     private void PlacePlayerInCenterLadder()
@@ -72,12 +77,22 @@ public class ClimbState : State
 
     private void MoveInLadder()
     {
+        if (isGettingOnTopLadder) return;
 
+        fsm.Agent.Rb2d.velocity = fsm.Agent.Input.MovementVector.y * fsm.Agent.Data.ClimbSpeed * Vector2.up;
     }
 
     private void MoveToTopLadder()
     {
+        if (!fsm.Agent.TopLadderDetector.IsOnBottom) return;
 
+        fsm.Agent.Rb2d.position = new Vector2(fsm.Agent.ClimbingDetector.Ladder.bounds.center.x, fsm.Agent.TopLadderDetector.TopLadder.transform.parent.position.y + fsm.Agent.AgentCollider.bounds.size.y / 2);
+
+        fsm.Agent.Rb2d.velocity = Vector2.zero;
+
+        isGettingOnTopLadder = true;
+
+        fsm.TransitionToState(fsm.StateFactory.GetState(StateType.Idle));
     }
 
     private void MoveToGround()
