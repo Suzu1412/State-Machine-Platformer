@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using static Codice.Client.Common.WebApi.WebApiEndpoints;
 
 public abstract class State : MonoBehaviour
 {

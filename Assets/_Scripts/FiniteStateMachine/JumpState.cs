@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
-using UnityEngine.Windows;
-using static Codice.Client.Common.WebApi.WebApiEndpoints;
+
 
 public class JumpState : MoveState
 {
