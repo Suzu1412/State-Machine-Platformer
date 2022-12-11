@@ -40,5 +40,10 @@ public class StatController : MonoBehaviour
         {
             stats.Add(definition.name, new Stat(definition));
         }
+
+        foreach(StatDefinitionSO definition in statDatabase.attributes)
+        {
+            stats.Add(definition.name, new Attribute(definition));
+        }
     }
 }

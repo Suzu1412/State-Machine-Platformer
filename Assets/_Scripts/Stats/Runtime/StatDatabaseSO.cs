@@ -6,4 +6,5 @@ using UnityEngine;
 public class StatDatabaseSO : ScriptableObject
 {
     public List<StatDefinitionSO> stats;
+    public List<StatDefinitionSO> attributes;
 }
