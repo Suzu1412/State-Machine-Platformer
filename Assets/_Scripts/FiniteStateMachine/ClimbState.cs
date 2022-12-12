@@ -34,11 +34,11 @@ public class ClimbState : State
 
     public override void PhysicsUpdate()
     {
-        fsm.Agent.GroundDetector.CheckIsGroundedWhileClimbing();
-        fsm.Agent.WallDetector.CheckIsTouchingWall();
-        fsm.Agent.ClimbingDetector.CheckIfCanClimb();
-        fsm.Agent.TopLadderDetector.CheckIfOnTop();
-        fsm.Agent.TopLadderDetector.CheckIfOnBottom();
+        fsm.Agent.CollissionSenses.DetectGroundWhileClimbing();
+        fsm.Agent.CollissionSenses.DetectWall();
+        fsm.Agent.CollissionSenses.DetectLadder();
+        fsm.Agent.CollissionSenses.DetectIfOnTopOfLadder();
+        fsm.Agent.CollissionSenses.DetectIfOnBottomOfLadder();
 
         MoveInLadder();
 
@@ -52,9 +52,9 @@ public class ClimbState : State
             MoveToGround();
         }
 
-        if (!fsm.Agent.ClimbingDetector.CanClimb)
+        if (!fsm.Agent.CollissionSenses.IsTouchingLadder)
         {
-            fsm.TransitionToState(fsm.StateFactory.GetState(StateType.Idle));
+            fsm.TransitionToState(StateType.Idle);
         }
     }
 
@@ -68,7 +68,7 @@ public class ClimbState : State
 
     private void PlacePlayerInCenterLadder()
     {
-        fsm.Agent.Rb2d.position = new Vector2(fsm.Agent.ClimbingDetector.Ladder.bounds.center.x, fsm.Agent.Rb2d.position.y);
+        fsm.Agent.Rb2d.position = new Vector2(fsm.Agent.CollissionSenses.Ladder.bounds.center.x, fsm.Agent.Rb2d.position.y);
     }
 
     private void MoveInLadder()
@@ -80,23 +80,23 @@ public class ClimbState : State
 
     private void MoveToTopLadder()
     {
-        if (!fsm.Agent.TopLadderDetector.IsOnBottom) return;
+        if (!fsm.Agent.CollissionSenses.IsOnBottomOfTopLadder) return;
 
-        fsm.Agent.Rb2d.position = new Vector2(fsm.Agent.ClimbingDetector.Ladder.bounds.center.x, fsm.Agent.TopLadderDetector.TopLadder.transform.parent.position.y + fsm.Agent.AgentCollider.bounds.size.y / 2);
+        fsm.Agent.Rb2d.position = new Vector2(fsm.Agent.CollissionSenses.Ladder.bounds.center.x, fsm.Agent.CollissionSenses.TopLadder.transform.parent.position.y + (fsm.Agent.CollissionSenses.AgentCollider.bounds.size.y + 0.1f / 2));
 
         fsm.Agent.Rb2d.velocity = Vector2.zero;
 
         isGettingOnTopLadder = true;
 
-        fsm.TransitionToState(fsm.StateFactory.GetState(StateType.Idle));
+        fsm.TransitionToState(StateType.Idle);
     }
 
     private void MoveToGround()
     {
-        if (!fsm.Agent.GroundDetector.IsGrounded) return;
+        if (!fsm.Agent.CollissionSenses.IsGrounded) return;
 
-        if (fsm.Agent.TopLadderDetector.TopLadder != null) return;
+        if (fsm.Agent.CollissionSenses.TopLadder != null) return;
 
-        fsm.TransitionToState(fsm.StateFactory.GetState(StateType.Idle));
+        fsm.TransitionToState(StateType.Idle);
     }
 }

@@ -5,12 +5,15 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Data/Collission Senses Data", fileName = "Data_")]
 public class CollissionSensesDataSO : ScriptableObject
 {
+    [Header("Mask Parameters:")]
+    [Space]
     [SerializeField] private LayerMask groundMask;
     [SerializeField] private LayerMask wallMask;
     [SerializeField] private LayerMask climbingMask;
 
 
     [Header("Gizmo Parameters:")]
+    [Space]
     [Range(-2f, 2f)]
     [SerializeField] private float boxCastXOffset = 0f;
 

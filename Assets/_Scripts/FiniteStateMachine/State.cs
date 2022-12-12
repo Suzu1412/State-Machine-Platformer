@@ -18,6 +18,8 @@ public abstract class State : MonoBehaviour
         fsm.Agent.Input.OnMovement += fsm.Agent.RendererManager.FaceDirection;
         fsm.Agent.Input.OnJumpPressed += HandleJumpPressed;
         fsm.Agent.Input.OnJumpReleased += HandleJumpReleased;
+        fsm.Agent.Input.OnRollPressed += HandleRollPressed;
+        fsm.Agent.Input.OnRollReleased += HandleRollReleased;
         OnEnter?.Invoke();
         EnterState();
     }
@@ -28,6 +30,8 @@ public abstract class State : MonoBehaviour
         fsm.Agent.Input.OnMovement -= fsm.Agent.RendererManager.FaceDirection;
         fsm.Agent.Input.OnJumpPressed -= HandleJumpPressed;
         fsm.Agent.Input.OnJumpReleased -= HandleJumpReleased;
+        fsm.Agent.Input.OnRollPressed -= HandleRollPressed;
+        fsm.Agent.Input.OnRollReleased -= HandleRollReleased;
         OnExit?.Invoke();
         ExitState();
     }
@@ -44,10 +48,6 @@ public abstract class State : MonoBehaviour
 
     public virtual void PhysicsUpdate()
     {
-        fsm.Agent.GroundDetector.CheckIsGrounded();
-        fsm.Agent.WallDetector.CheckIsTouchingWall();
-        fsm.Agent.ClimbingDetector.CheckIfCanClimb();
-        fsm.Agent.TopLadderDetector.CheckIfOnTop();
     }
 
     protected virtual void ExitState()
@@ -65,12 +65,22 @@ public abstract class State : MonoBehaviour
     {
         if (fsm.Agent.MovementData.AmountOfJumps > 0) 
         {
-            fsm.TransitionToState(fsm.StateFactory.GetState(StateType.Jump));
+            fsm.TransitionToState(StateType.Jump);
         }
     }
 
     protected virtual void HandleJumpReleased()
     {
+    }
+    
+    protected virtual void HandleRollPressed()
+    {
+
+    }
+
+    protected virtual void HandleRollReleased()
+    {
+
     }
     #endregion
 }

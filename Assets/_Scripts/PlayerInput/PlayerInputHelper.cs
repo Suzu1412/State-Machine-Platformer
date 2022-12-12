@@ -15,6 +15,8 @@ public class PlayerInputHelper : MonoBehaviour, IAgentInput
     public event Action OnJumpReleased;
     public event Action<Vector2> OnMovement;
     public event Action OnWeaponChange;
+    public event Action OnRollPressed;
+    public event Action OnRollReleased;
 
     public UnityEvent OnMenuPressed;
 
@@ -24,6 +26,8 @@ public class PlayerInputHelper : MonoBehaviour, IAgentInput
         input.OnAttackPressed += () => OnAttackPressed?.Invoke();
         input.OnJumpPressed += () => OnJumpPressed?.Invoke();
         input.OnJumpReleased += () => OnJumpReleased?.Invoke();
+        input.OnRollPressed += () => OnRollPressed?.Invoke();
+        input.OnRollReleased += () => OnRollReleased?.Invoke();
         input.OnMovement += (vector) => OnMovement?.Invoke(vector);
         input.OnMenu += () => OnMenuPressed?.Invoke(); 
     }

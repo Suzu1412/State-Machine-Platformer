@@ -14,6 +14,8 @@ public class PlayerInputSO : ScriptableObject, PlayerInputConfig.IGameplayAction
     public event Action<Vector2> OnMovement;
     public event Action OnJumpReleased;
     public event Action OnWeaponChange;
+    public event Action OnRollPressed;
+    public event Action OnRollReleased;
 
     public Vector2 MovementVector { get; private set; }
 
@@ -46,6 +48,7 @@ public class PlayerInputSO : ScriptableObject, PlayerInputConfig.IGameplayAction
         OnJumpReleased = null;
         OnMovement = null;
         OnWeaponChange = null;
+        OnRollPressed = null;
     }
 
     public void OnMoveAgent(InputAction.CallbackContext context)
@@ -93,6 +96,18 @@ public class PlayerInputSO : ScriptableObject, PlayerInputConfig.IGameplayAction
             OnMenu?.Invoke();
             input.PauseMenu.Disable();
             input.Gameplay.Enable();
+        }
+    }
+
+    public void OnRoll(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            OnRollPressed?.Invoke();
+        }
+        else if (context.canceled)
+        {
+            OnRollReleased?.Invoke();
         }
     }
 }
