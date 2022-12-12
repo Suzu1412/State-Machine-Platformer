@@ -5,87 +5,108 @@ using UnityEngine;
 public class CollissionSenses : MonoBehaviour
 {
     private Collider2D agentCollider;
+    [SerializeField] private Collider2D agentColliderStanding;
+    [SerializeField] private Collider2D agentColliderCrouching;
     [SerializeField] private CollissionSensesDataSO collissionData;
 
-    private bool isGrounded = false;
-    private bool isTouchingWall = false;
-    public bool IsGrounded => isGrounded;
-    public bool IsTouchingWall => isTouchingWall;
+    #region Detectors
+    private GroundDetector groundDetector;
+    private WallDetector wallDetector;
+    private ClimbingDetector climbingDetector;
+    private TopLadderDetector topLadderDetector;
 
+    #endregion
+    public Collider2D AgentCollider => agentCollider;
+
+    public GroundDetector GroundDetector => groundDetector;
+    public WallDetector WallDetector => wallDetector;
+    public ClimbingDetector ClimbingDetector => climbingDetector;
+    public TopLadderDetector TopLadderDetector => topLadderDetector;
+
+    public bool IsGrounded => groundDetector.IsGrounded;
+    public bool IsTouchingWall => wallDetector.IsTouchingWall;
+    public bool IsTouchingLadder => climbingDetector.CanClimb;
+    public bool IsOnBottomOfTopLadder => topLadderDetector.IsOnBottom;
+
+    public Collider2D Ladder => climbingDetector.Ladder;
+
+    public Collider2D TopLadder => topLadderDetector.TopLadder;
 
     private void Awake()
     {
-        if (agentCollider == null)
+        if (agentColliderStanding == null) Debug.LogError("Agent Collider Standing is Empty in: " + this.name);
+        if (agentColliderCrouching == null) Debug.LogError("Agent Collider Crouching is Empty in: " + this.name);
+        if (collissionData == null) Debug.LogError("Agent Collission Data is Empty in: " + this.name);
+
+        groundDetector = GetComponent<GroundDetector>();
+        wallDetector = GetComponent<WallDetector>();
+        climbingDetector = GetComponent<ClimbingDetector>();
+        topLadderDetector = GetComponent<TopLadderDetector>();
+
+        SetAgentCollider(false);
+        SetCollissionData();
+    }
+
+    public void SetAgentCollider(bool isCrouching)
+    {
+        if (!isCrouching)
         {
-            agentCollider = GetComponent<Collider2D>();
+            agentCollider = agentColliderStanding;
+
+            agentColliderStanding.enabled = true;
+            agentColliderCrouching.enabled = false;
+        }
+        else
+        {
+            agentCollider = agentColliderCrouching;
+
+            agentColliderStanding.enabled = false;
+            agentColliderCrouching.enabled = true;
         }
 
-        if (collissionData == null)
-        {
-            Debug.LogError(this.name + ": Has no Collission Senses Data attached");
-        }
+        groundDetector.SetCollider(agentCollider);
+        wallDetector.SetCollider(agentCollider);
+        climbingDetector.SetCollider(agentCollider);
+        TopLadderDetector.SetCollider(agentCollider);
     }
 
-    public void CheckIsGrounded()
+    private void SetCollissionData()
     {
-        RaycastHit2D raycastHit = Physics2D.BoxCast(agentCollider.bounds.center, agentCollider.bounds.size, 0f, Vector2.down, collissionData.BoxCastYOffset, collissionData.GroundMask);
-
-        isGrounded = raycastHit.collider != null ? true : false;
+        groundDetector.SetCollissionData(collissionData);
+        wallDetector.SetCollissionData(collissionData);
+        climbingDetector.SetCollissionData(collissionData);
+        TopLadderDetector.SetCollissionData(collissionData);
     }
 
-    /// <summary>
-    /// Used to Prevent Agent to Keep moving when colliding against Wall
-    /// </summary>
-    public void CheckIsTouchingWall()
+    public void DetectGround()
     {
-        RaycastHit2D raycastHit = Physics2D.Raycast(agentCollider.bounds.center, transform.TransformDirection(Vector2.right), agentCollider.bounds.extents.x + collissionData.BoxCastXOffset, collissionData.WallMask);
-
-        isTouchingWall = raycastHit.collider != null ? true : false;
+        groundDetector.CheckIsGrounded();
     }
 
-
-    #region Gizmos
-    private void OnDrawGizmos()
+    public void DetectGroundWhileClimbing()
     {
-        if (agentCollider == null) return;
-
-        Gizmos.color = collissionData.IsNotCollidingColor;
-
-        if (isGrounded) Gizmos.color = collissionData.IsCollidingColor;
-
-        DrawBottomRightRay(agentCollider);
-        DrawBottomLeftRay(agentCollider);
-        DrawBottomRay(agentCollider);
-        DrawTouchingWallRay(agentCollider);
+        groundDetector.CheckIsGroundedWhileClimbing();
     }
 
-    /// <summary>
-    /// Draw Ray Gizmos on the right side of the collider in direction to the ground
-    /// </summary>
-    private void DrawBottomRightRay(Collider2D agentCollider)
+    public void DetectWall()
     {
-        Gizmos.DrawRay(agentCollider.bounds.center + new Vector3(agentCollider.bounds.extents.x, 0), Vector2.down * (agentCollider.bounds.extents.y + collissionData.BoxCastYOffset));
+        wallDetector.CheckIsTouchingWall();
     }
 
-    /// <summary>
-    /// Draw Ray Gizmos on the left side of the collider in direction to the ground
-    /// </summary>
-    private void DrawBottomLeftRay(Collider2D agentCollider)
+    public void DetectLadder()
     {
-        Gizmos.DrawRay(agentCollider.bounds.center - new Vector3(agentCollider.bounds.extents.x, 0), Vector2.down * (agentCollider.bounds.extents.y + collissionData.BoxCastYOffset));
+        climbingDetector.CheckIfCanClimb();
     }
 
-    /// <summary>
-    /// Draw Ray gizmos that covers all of the ground area of the collider
-    /// </summary>
-    private void DrawBottomRay(Collider2D agentCollider)
+    public void DetectIfOnTopOfLadder()
     {
-        Gizmos.DrawRay(agentCollider.bounds.center - new Vector3(agentCollider.bounds.extents.x, agentCollider.bounds.extents.y + collissionData.BoxCastYOffset), Vector2.right * (agentCollider.bounds.extents.x * 2));
+        topLadderDetector.CheckIfOnTop();
     }
 
-    private void DrawTouchingWallRay(Collider2D agentCollider)
+    public void DetectIfOnBottomOfLadder()
     {
-        Gizmos.DrawRay(agentCollider.bounds.center, transform.TransformDirection(Vector2.right) * agentCollider.bounds.extents.x);
+        topLadderDetector.CheckIfOnBottom();
     }
-    #endregion
+
+    
 }

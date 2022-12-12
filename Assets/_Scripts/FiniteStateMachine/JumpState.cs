@@ -21,15 +21,15 @@ public class JumpState : MoveState
 
     public override void PhysicsUpdate()
     {
-        fsm.Agent.GroundDetector.CheckIsGrounded();
-        fsm.Agent.WallDetector.CheckIsTouchingWall();
-        fsm.Agent.ClimbingDetector.CheckIfCanClimb();
+        fsm.Agent.CollissionSenses.DetectGround();
+        fsm.Agent.CollissionSenses.DetectWall();
+        fsm.Agent.CollissionSenses.DetectLadder();
 
         SetPlayerVelocity();
 
         if (fsm.Agent.Rb2d.velocity.y <= 0f)
         {
-            fsm.TransitionToState(fsm.StateFactory.GetState(StateType.Fall));
+            fsm.TransitionToState(StateType.Fall);
         }
 
         ClimbLadder();
@@ -54,5 +54,10 @@ public class JumpState : MoveState
     protected override void ExitState()
     {
         jumpDuration = 0f;
+    }
+
+    protected override void HandleRollPressed()
+    {
+        
     }
 }

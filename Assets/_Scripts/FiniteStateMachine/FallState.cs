@@ -34,22 +34,22 @@ public class FallState : MoveState
 
     public override void PhysicsUpdate()
     {
-        fsm.Agent.GroundDetector.CheckIsGrounded();
-        fsm.Agent.WallDetector.CheckIsTouchingWall();
-        fsm.Agent.ClimbingDetector.CheckIfCanClimb();
+        fsm.Agent.CollissionSenses.DetectGround();
+        fsm.Agent.CollissionSenses.DetectWall();
+        fsm.Agent.CollissionSenses.DetectLadder();
 
         SetPlayerVelocity();
 
-        if (fsm.Agent.GroundDetector.IsGrounded)
+        if (fsm.Agent.CollissionSenses.IsGrounded)
         {
             if (fsm.Agent.Rb2d.velocity.y < 0) return;
             if (Mathf.Abs(fsm.Agent.Rb2d.velocity.x) > 0f)
             {
-                fsm.TransitionToState(fsm.StateFactory.GetState(StateType.Move));
+                fsm.TransitionToState(StateType.Move);
             }
             else
             {
-                fsm.TransitionToState(fsm.StateFactory.GetState(StateType.Idle));
+                fsm.TransitionToState(StateType.Idle);
             }
         }
 
@@ -58,8 +58,13 @@ public class FallState : MoveState
 
     protected override void ExitState()
     {
-        if (!fsm.Agent.GroundDetector.IsGrounded) return;
+        if (!fsm.Agent.CollissionSenses.IsGrounded) return;
 
         fsm.Agent.MovementData.ResetJump(fsm.Agent);
+    }
+
+    protected override void HandleRollPressed()
+    {
+
     }
 }

@@ -7,25 +7,28 @@ public class IdleState : State
     {
         base.EnterState();
         fsm.Agent.AnimationManager.PlayAnimation(AnimationType.idle);
+        fsm.Agent.Rb2d.velocity = Vector2.zero;
     }
 
     public override void LogicUpdate()
     {
-        base.LogicUpdate();
-
-        if (!fsm.Agent.GroundDetector.IsGrounded)
+        if (!fsm.Agent.CollissionSenses.IsGrounded)
         {
-            fsm.TransitionToState(fsm.StateFactory.GetState(StateType.Fall));
+            fsm.TransitionToState(StateType.Fall);
         }
     }
 
     public override void PhysicsUpdate()
     {
-        base.PhysicsUpdate();
+        fsm.Agent.CollissionSenses.DetectGround();
+        fsm.Agent.CollissionSenses.DetectWall();
+        fsm.Agent.CollissionSenses.DetectLadder();
+        fsm.Agent.CollissionSenses.DetectIfOnTopOfLadder();
 
-        if (Mathf.Abs(fsm.Agent.Input.MovementVector.x) > 0f)
+        if (Mathf.Abs(fsm.Agent.Input.MovementVector.x) > 0f && 
+            !fsm.Agent.CollissionSenses.IsTouchingWall)
         {
-            fsm.TransitionToState(fsm.StateFactory.GetState(StateType.Move));
+            fsm.TransitionToState(StateType.Move);
         }
     }
 
@@ -33,18 +36,25 @@ public class IdleState : State
     {
         if (input.y > 0.33f)
         {
-            if (fsm.Agent.ClimbingDetector.CanClimb && fsm.Agent.TopLadderDetector.TopLadder == null)
+            if (fsm.Agent.CollissionSenses.IsTouchingLadder && fsm.Agent.CollissionSenses.TopLadder == null)
             {
-                fsm.TransitionToState(fsm.StateFactory.GetState(StateType.Climb));
+                fsm.TransitionToState(StateType.Climb);
             }
         }
 
         if (input.y < -0.33f)
         {
-            if (fsm.Agent.ClimbingDetector.CanClimb && fsm.Agent.TopLadderDetector.TopLadder != null)
+            if (fsm.Agent.CollissionSenses.IsTouchingLadder && fsm.Agent.CollissionSenses.TopLadder != null)
             {
-                fsm.TransitionToState(fsm.StateFactory.GetState(StateType.Climb));
+                fsm.TransitionToState(StateType.Climb);
             }
         }
+    }
+
+    protected override void HandleRollPressed()
+    {
+        if (fsm.Agent.CollissionSenses.IsTouchingWall) return;
+
+        fsm.TransitionToState(StateType.Roll);
     }
 }

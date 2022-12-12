@@ -48,6 +48,9 @@ public class AgentAnimation : MonoBehaviour
             case AnimationType.land:
                 Play("Land");
                 break;
+            case AnimationType.roll:
+                Play("Roll");
+                break;
             default:
                 Play("Idle");
                 break;

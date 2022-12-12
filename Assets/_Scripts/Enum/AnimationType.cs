@@ -8,5 +8,6 @@ public enum AnimationType
     jump,
     fall,
     climb,
-    land
+    land,
+    roll
 }
