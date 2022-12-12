@@ -16,8 +16,20 @@ public class AgentDataSO : ScriptableObject
     public float MaxSpeed => maxSpeed;
     public float Acceleration => acceleration;
     public float Deacceleration => deacceleration;
+    #endregion
 
-
+    #region Roll Data
+    [Header("Rolling Data")]
+    [Space]
+    [Range(0.1f, 0.9f)]
+    [SerializeField] private float rollDuration = 0.5f;
+    [SerializeField] private float maxRollingSpeed = 10f;
+    [SerializeField] private float rollAcceleration = 50f;
+    [SerializeField] private float rollDeacceleration = 50f;
+    public float MaxRollingSpeed => maxRollingSpeed;
+    public float RollAcceleration => rollAcceleration;
+    public float RollDeacceleration => rollDeacceleration;
+    public float RollDuration => rollDuration;
     #endregion
 
     #region Jump Data

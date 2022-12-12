@@ -12,12 +12,9 @@ public class ClimbingDetector : MonoBehaviour
     public bool CanClimb => canClimb;
     public Collider2D Ladder => ladder;
 
-    private void Awake()
+    public void SetCollider(Collider2D agentCollider)
     {
-        if (agentCollider == null)
-        {
-            agentCollider = GetComponent<Collider2D>();
-        }
+        this.agentCollider = agentCollider;
     }
 
     public void SetCollissionData(CollissionSensesDataSO data)

@@ -7,8 +7,8 @@ public class FiniteStateMachine : MonoBehaviour
 {
     private Agent agent;
     private StateFactory stateFactory;
-    [SerializeField] private State initialState;
-    [SerializeField] private State currentState;
+    [SerializeField] private StateType initialState;
+    private State currentState;
     private State previousState;
     private State[] states;
 
@@ -16,7 +16,7 @@ public class FiniteStateMachine : MonoBehaviour
     [SerializeField] private string stateName = "";
 
     public Agent Agent => agent;
-    public StateFactory StateFactory => stateFactory;
+    //public StateFactory StateFactory => stateFactory;
 
     private void Awake()
     {
@@ -48,14 +48,16 @@ public class FiniteStateMachine : MonoBehaviour
         if (currentState != null) currentState.PhysicsUpdate();
     }
 
-    public void TransitionToState(State newState)
+    public void TransitionToState(StateType newState)
     {
-        if (newState == null) return;
+        State state = stateFactory.GetState(newState);
+
+        if (state == null) return;
 
         if (currentState != null) currentState.Exit();
 
         previousState = currentState;
-        currentState = newState;
+        currentState = state;
         currentState.Enter();
 
         DisplayState();

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StateFactory : MonoBehaviour
 {
-    [SerializeField] private State idle, move, jump, fall, climb;
+    [SerializeField] private State idle, move, jump, fall, climb,roll;
 
     public State GetState(StateType type)
     {
@@ -20,6 +20,8 @@ public class StateFactory : MonoBehaviour
                 return fall;
             case StateType.Climb:
                 return climb;
+            case StateType.Roll:
+                return roll;
             default:
                 Debug.LogError("State Type not defined");
                 return idle;

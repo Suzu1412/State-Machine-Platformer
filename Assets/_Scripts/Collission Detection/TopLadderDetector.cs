@@ -16,12 +16,9 @@ public class TopLadderDetector : MonoBehaviour
 
     public bool IsOnBottom => isOnBottom;
 
-    private void Awake()
+    public void SetCollider(Collider2D agentCollider)
     {
-        if (agentCollider == null)
-        {
-            agentCollider = GetComponent<Collider2D>();
-        }
+        this.agentCollider = agentCollider;
     }
 
     public void SetCollissionData(CollissionSensesDataSO data)

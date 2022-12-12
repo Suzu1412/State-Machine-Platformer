@@ -15,24 +15,24 @@ public class MoveState : State
     {
         CalculateVelocity();
 
-        if (!fsm.Agent.GroundDetector.IsGrounded)
+        if (!fsm.Agent.CollissionSenses.IsGrounded)
         {
-            fsm.TransitionToState(fsm.StateFactory.GetState(StateType.Fall));
+            fsm.TransitionToState(StateType.Fall);
         }
     }
 
     public override void PhysicsUpdate()
     {
-        fsm.Agent.GroundDetector.CheckIsGrounded();
-        fsm.Agent.WallDetector.CheckIsTouchingWall();
-        fsm.Agent.ClimbingDetector.CheckIfCanClimb();
-        fsm.Agent.TopLadderDetector.CheckIfOnTop();
+        fsm.Agent.CollissionSenses.DetectGround();
+        fsm.Agent.CollissionSenses.DetectWall();
+        fsm.Agent.CollissionSenses.DetectLadder();
+        fsm.Agent.CollissionSenses.DetectIfOnTopOfLadder();
 
         SetPlayerVelocity();
 
-        if (Mathf.Abs(fsm.Agent.Rb2d.velocity.x) < 0.01f || fsm.Agent.WallDetector.IsTouchingWall)
+        if (Mathf.Abs(fsm.Agent.Rb2d.velocity.x) < 0.01f || fsm.Agent.CollissionSenses.IsTouchingWall)
         {
-            fsm.TransitionToState(fsm.StateFactory.GetState(StateType.Idle));
+            fsm.TransitionToState(StateType.Idle);
         }
 
         ClimbLadder();
@@ -46,7 +46,7 @@ public class MoveState : State
         fsm.Agent.MovementData.SetCurrentVelocity(new Vector2(fsm.Agent.MovementData.CurrentVelocity.x, Mathf.Clamp(fsm.Agent.Rb2d.velocity.y, fsm.Agent.Data.MaxFallSpeed, 30f)));
     }
 
-    protected void CalculateHorizontalDirection()
+    protected virtual void CalculateHorizontalDirection()
     {
         if (fsm.Agent.Input.MovementVector.x > 0)
         {
@@ -58,7 +58,7 @@ public class MoveState : State
         }
     }
 
-    protected void CalculateSpeed(Vector2 movementVector)
+    protected virtual void CalculateSpeed(Vector2 movementVector)
     {
         if (Mathf.Abs(movementVector.x) > 0)
         {
@@ -81,18 +81,28 @@ public class MoveState : State
     {
         if (fsm.Agent.Input.MovementVector.y > 0.33f)
         {
-            if (fsm.Agent.ClimbingDetector.CanClimb && fsm.Agent.TopLadderDetector.TopLadder == null)
+            if (fsm.Agent.CollissionSenses.IsTouchingLadder && 
+                fsm.Agent.CollissionSenses.TopLadder == null)
             {
-                fsm.TransitionToState(fsm.StateFactory.GetState(StateType.Climb));
+                fsm.TransitionToState(StateType.Climb);
             }
         }
 
         if (fsm.Agent.Input.MovementVector.y < -0.33f)
         {
-            if (fsm.Agent.ClimbingDetector.CanClimb && (fsm.Agent.TopLadderDetector.TopLadder != null || !fsm.Agent.GroundDetector.IsGrounded))
+            if (fsm.Agent.CollissionSenses.IsTouchingLadder && 
+                (fsm.Agent.CollissionSenses.TopLadder != null || 
+                !fsm.Agent.CollissionSenses.IsGrounded))
             {
-                fsm.TransitionToState(fsm.StateFactory.GetState(StateType.Climb));
+                fsm.TransitionToState(StateType.Climb);
             }
         }
+    }
+
+    protected override void HandleRollPressed()
+    {
+        if (fsm.Agent.CollissionSenses.IsTouchingWall) return;
+
+        fsm.TransitionToState(StateType.Roll);
     }
 }
