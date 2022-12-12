@@ -10,7 +10,7 @@ public class RollState : MoveState
     {
         fsm.Agent.CollissionSenses.SetAgentCollider(true);
         fsm.Agent.AnimationManager.PlayAnimation(AnimationType.roll);
-        duration = 0.7f;
+        duration = fsm.Agent.Data.RollDuration;
     }
 
     public override void LogicUpdate()
