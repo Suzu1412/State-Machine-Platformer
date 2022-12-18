@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6823709432463920354}
   m_Layer: 15
   m_Name: Collider Crouching
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -455,6 +455,7 @@ GameObject:
   - component: {fileID: 8192466888533151385}
   - component: {fileID: 8192466888533151391}
   - component: {fileID: 8192466888533151388}
+  - component: {fileID: 4259071966255198218}
   m_Layer: 15
   m_Name: Agent
   m_TagString: Player
@@ -470,7 +471,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8192466888533151384}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.69, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -536,6 +537,18 @@ MonoBehaviour:
   amountOfJumps: 0
   isJumping: 0
   canEnterCoyoteTime: 0
+--- !u!114 &4259071966255198218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8192466888533151384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c6afd4fc55a65045b506b3314efbf5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8192466888560393603
 GameObject:
   m_ObjectHideFlags: 0
@@ -929,7 +942,7 @@ GameObject:
   - component: {fileID: 8192466889060148696}
   m_Layer: 15
   m_Name: Collider Senses
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1009,7 +1022,6 @@ MonoBehaviour:
   agentColliderStanding: {fileID: 8192466889060148772}
   agentColliderCrouching: {fileID: 6823709432463920354}
   collissionData: {fileID: 11400000, guid: c3becc7934ffaab489ceee58cf47c1f7, type: 2}
-  AgentCollider: {fileID: 0}
 --- !u!114 &8192466889060148699
 MonoBehaviour:
   m_ObjectHideFlags: 0

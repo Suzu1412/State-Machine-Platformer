@@ -11,6 +11,7 @@ public class Agent : MonoBehaviour
     private AgentAnimation animationManager;
     private CollissionSenses collissionSenses;
     private MovementData movementData;
+    private Respawn respawn;
     [SerializeField] private AgentDataSO data;
 
     public Rigidbody2D Rb2d => rb2d;
@@ -19,6 +20,7 @@ public class Agent : MonoBehaviour
     public AgentAnimation AnimationManager => animationManager;
     public CollissionSenses CollissionSenses => collissionSenses;
     public MovementData MovementData => movementData;
+    public Respawn Respawn => respawn;
     public AgentDataSO Data => data;
 
     private void Awake()
@@ -29,6 +31,7 @@ public class Agent : MonoBehaviour
         animationManager = GetComponentInChildren<AgentAnimation>();
         collissionSenses = GetComponentInChildren<CollissionSenses>();
         movementData = GetComponent<MovementData>();
+        respawn = GetComponent<Respawn>();
 
         if (data == null) Debug.LogError("Agent Data is Empty in: " + this.name);
     }

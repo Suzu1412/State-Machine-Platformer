@@ -15,8 +15,8 @@ MonoBehaviour:
   maxSpeed: 8
   acceleration: 50
   deacceleration: 50
-  rollDuration: 0.5
-  maxRollingSpeed: 15
+  rollDuration: 0.6
+  maxRollingSpeed: 20
   rollAcceleration: 75
   rollDeacceleration: 25
   jumpSpeed: 11
