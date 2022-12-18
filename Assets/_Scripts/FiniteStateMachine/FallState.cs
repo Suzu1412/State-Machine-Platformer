@@ -1,7 +1,9 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class FallState : MoveState
 {
+    public UnityEvent OnGrounded;
     [SerializeField] private bool isInCoyoteTime;
     [SerializeField] private float coyoteTimeDuration;
 
@@ -60,6 +62,7 @@ public class FallState : MoveState
     {
         if (!fsm.Agent.CollissionSenses.IsGrounded) return;
 
+        OnGrounded?.Invoke();
         fsm.Agent.MovementData.ResetJump(fsm.Agent);
     }
 

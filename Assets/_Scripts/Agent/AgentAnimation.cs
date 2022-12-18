@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Animator))]
 [DefaultExecutionOrder(-900)] // To Prevent any kind of errors it allows the awake to be called earlier
 public class AgentAnimation : MonoBehaviour
 {
     private Animator animator;
+
+    public UnityEvent OnAnimationAction;
+    public UnityEvent OnAnimationEnd;
+
 
     private void Awake()
     {
@@ -70,5 +75,21 @@ public class AgentAnimation : MonoBehaviour
     public void Resume()
     {
         animator.speed = 1f;
+    }
+
+    public void ResetEvents()
+    {
+        OnAnimationAction.RemoveAllListeners();
+        OnAnimationEnd.RemoveAllListeners();
+    }
+
+    public void InvokeAnimationAction()
+    {
+        OnAnimationAction?.Invoke();
+    }
+
+    public void InvokeAnimationEnd()
+    {
+        OnAnimationEnd?.Invoke();
     }
 }

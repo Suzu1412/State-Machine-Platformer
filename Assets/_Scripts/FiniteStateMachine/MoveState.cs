@@ -1,11 +1,16 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 
 public class MoveState : State
 {
+    public UnityEvent OnStep;
+
     protected override void EnterState()
     {
         fsm.Agent.AnimationManager.PlayAnimation(AnimationType.run);
+        fsm.Agent.AnimationManager.OnAnimationAction.AddListener(() => OnStep.Invoke());
+
         fsm.Agent.MovementData.SetHorizontalMovementDirection(0);
         fsm.Agent.MovementData.SetCurrentSpeed(0f);
         fsm.Agent.MovementData.SetCurrentVelocity(Vector2.zero);
@@ -104,5 +109,10 @@ public class MoveState : State
         if (fsm.Agent.CollissionSenses.IsTouchingWall) return;
 
         fsm.TransitionToState(StateType.Roll);
+    }
+
+    protected override void ExitState()
+    {
+        fsm.Agent.AnimationManager.ResetEvents();
     }
 }
