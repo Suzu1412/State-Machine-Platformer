@@ -7703,6 +7703,10 @@ PrefabInstance:
       propertyPath: clip
       value: 
       objectReference: {fileID: 8300000, guid: fbf62b3abdb2e0742a24e6b3bbf530fe, type: 3}
+    - target: {fileID: 6626812315559483627, guid: afeadfe36e5fa0641b625322ffbd06f8, type: 3}
+      propertyPath: volume
+      value: 0.05
+      objectReference: {fileID: 0}
     - target: {fileID: 7835832676307496995, guid: afeadfe36e5fa0641b625322ffbd06f8, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -8043,6 +8047,18 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8858285795982237367, guid: afeadfe36e5fa0641b625322ffbd06f8, type: 3}
+      propertyPath: volume
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922182919246146702, guid: afeadfe36e5fa0641b625322ffbd06f8, type: 3}
+      propertyPath: volume
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 8991301463198833722, guid: afeadfe36e5fa0641b625322ffbd06f8, type: 3}
+      propertyPath: initialWeapon
+      value: 
+      objectReference: {fileID: 11400000, guid: cf0a0358c51759b48bca8891c00edc63, type: 2}
     m_RemovedComponents:
     - {fileID: 5348636542088841950, guid: afeadfe36e5fa0641b625322ffbd06f8, type: 3}
     - {fileID: 6772738432524726900, guid: afeadfe36e5fa0641b625322ffbd06f8, type: 3}
