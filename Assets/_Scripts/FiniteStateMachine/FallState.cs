@@ -42,9 +42,8 @@ public class FallState : MoveState
 
         SetPlayerVelocity();
 
-        if (fsm.Agent.CollissionSenses.IsGrounded)
+        if (fsm.Agent.CollissionSenses.IsGrounded && fsm.Agent.Rb2d.velocity.y == 0f)
         {
-            if (fsm.Agent.Rb2d.velocity.y < 0) return;
             if (Mathf.Abs(fsm.Agent.Rb2d.velocity.x) > 0f)
             {
                 fsm.TransitionToState(StateType.Move);
@@ -69,5 +68,13 @@ public class FallState : MoveState
     protected override void HandleRollPressed()
     {
 
+    }
+
+    protected override void HandleAttackPressed()
+    {
+        if (fsm.Agent.AgentWeapon.CanIUseWeapon())
+        {
+            fsm.TransitionToState(StateType.AirFallAttack);
+        }
     }
 }

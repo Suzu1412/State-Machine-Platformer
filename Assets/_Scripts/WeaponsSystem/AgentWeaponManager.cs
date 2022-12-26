@@ -22,9 +22,10 @@ public class AgentWeaponManager : MonoBehaviour
         weaponStorage = new WeaponStorage();
         weaponSprite = GetComponent<SpriteRenderer>();
         AddWeaponData(initialWeapon);
+        ToggleWeaponVisibility(false);
     }
 
-    private void ToggleWeaponVisibility(bool val)
+    public void ToggleWeaponVisibility(bool val)
     {
         if (val)
         {
@@ -76,7 +77,7 @@ public class AgentWeaponManager : MonoBehaviour
         OnWeaponPickup?.Invoke();
     }
 
-    public bool CanIUseWeapon(bool isGrounded)
+    public bool CanIUseWeapon()
     {
         if (weaponStorage.WeaponCount <= 0)
         {
@@ -91,13 +92,5 @@ public class AgentWeaponManager : MonoBehaviour
     public List<string> GetPlayerWeaponNames()
     {
         return weaponStorage.GetPlayerWeaponNames();
-    }
-
-
-    private void OnDrawGizmos()
-    {
-        if (weaponStorage == null) return; 
-
-        weaponStorage.GetCurrentWeapon().DrawWeaponGizmos(this.transform.position, transform.right, weaponRangeColor);
     }
 }

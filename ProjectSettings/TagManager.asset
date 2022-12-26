@@ -21,7 +21,7 @@ TagManager:
   - Pickable
   - Enemies
   - AgentCollider
-  - 
+  - Obstacle
   - 
   - 
   - 
@@ -46,6 +46,9 @@ TagManager:
     locked: 0
   - name: Exit
     uniqueID: 1676016171
+    locked: 0
+  - name: Obstacle
+    uniqueID: 2211324403
     locked: 0
   - name: Agent
     uniqueID: 3845275319

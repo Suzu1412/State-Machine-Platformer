@@ -16,7 +16,6 @@ public class FiniteStateMachine : MonoBehaviour
     [SerializeField] private string stateName = "";
 
     public Agent Agent => agent;
-    //public StateFactory StateFactory => stateFactory;
 
     private void Awake()
     {
@@ -52,7 +51,11 @@ public class FiniteStateMachine : MonoBehaviour
     {
         State state = stateFactory.GetState(newState);
 
-        if (state == null) return;
+        if (state == null)
+        {
+            Debug.LogError(gameObject.name + " is missing the state: " + newState.ToString());
+            return;
+        }
 
         if (currentState != null) currentState.Exit();
 

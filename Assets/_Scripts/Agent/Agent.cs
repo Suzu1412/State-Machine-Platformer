@@ -14,6 +14,7 @@ public class Agent : MonoBehaviour
     private Respawn respawn;
     private AgentWeaponManager agentWeapon;
     [SerializeField] private AgentDataSO data;
+    [SerializeField] private LayerMask hittableLayerMask;
 
     public Rigidbody2D Rb2d => rb2d;
     public IAgentInput Input => input;
@@ -24,6 +25,7 @@ public class Agent : MonoBehaviour
     public Respawn Respawn => respawn;
     public AgentWeaponManager AgentWeapon => agentWeapon;
     public AgentDataSO Data => data;
+    public LayerMask HittableLayerMask => hittableLayerMask;
 
     private void Awake()
     {

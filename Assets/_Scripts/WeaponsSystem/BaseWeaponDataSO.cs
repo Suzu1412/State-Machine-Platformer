@@ -8,11 +8,13 @@ public abstract class BaseWeaponDataSO : ScriptableObject, IAttack
     [SerializeField] protected Sprite weaponSprite;
     [SerializeField] protected int weaponDamage = 1;
     [SerializeField] protected AudioClip weaponSwingSound;
+    protected Color attackRangeColor = Color.blue;
+    protected Color attackHitColor = Color.white;
 
     public string WeaponName => weaponName;
     public Sprite WeaponSprite => weaponSprite;
     public int WeaponDamage => weaponDamage;
-    public AudioClip WeaponSwingSound => WeaponSwingSound;
+    public AudioClip WeaponSwingSound => weaponSwingSound;
 
     public bool Equals(WeaponDataSO other)
     {
@@ -21,7 +23,7 @@ public abstract class BaseWeaponDataSO : ScriptableObject, IAttack
 
     protected abstract bool TryAttack();
 
-    public virtual void DrawWeaponGizmos(Vector3 origin, Vector3 direction, Color color)
+    public virtual void DrawWeaponGizmos(Vector3 origin, Vector3 direction)
     {
     }
 

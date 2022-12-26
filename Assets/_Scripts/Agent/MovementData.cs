@@ -10,6 +10,7 @@ public class MovementData : MonoBehaviour
     [SerializeField] private int amountOfJumps;
     [SerializeField] private bool isJumping;
     [SerializeField] private bool canEnterCoyoteTime;
+    private float jumpDuration;
 
     public int HorizontalMovementDirection => horizontalMovementDirection;
     public float CurrentSpeed => currentSpeed;
@@ -18,6 +19,7 @@ public class MovementData : MonoBehaviour
     public int AmountOfJumps => amountOfJumps;
     public bool IsJumping => isJumping;
     public bool CanEnterCoyoteTime => canEnterCoyoteTime;
+    public float JumpDuration => jumpDuration;
 
     public void SetHorizontalMovementDirection(int horizontalMovementDirection)
     {
@@ -53,5 +55,15 @@ public class MovementData : MonoBehaviour
         {
             amountOfJumps--;
         }
+    }
+
+    public void SetJumpDuration(float jumpDuration)
+    {
+        this.jumpDuration = jumpDuration;
+    }
+
+    public void ReduceJumpDuration(float time)
+    {
+        jumpDuration -= time;
     }
 }

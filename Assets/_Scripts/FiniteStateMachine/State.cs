@@ -20,6 +20,7 @@ public abstract class State : MonoBehaviour
         fsm.Agent.Input.OnJumpReleased += HandleJumpReleased;
         fsm.Agent.Input.OnRollPressed += HandleRollPressed;
         fsm.Agent.Input.OnRollReleased += HandleRollReleased;
+        fsm.Agent.Input.OnAttackPressed += HandleAttackPressed;
         OnEnter?.Invoke();
         EnterState();
     }
@@ -32,6 +33,7 @@ public abstract class State : MonoBehaviour
         fsm.Agent.Input.OnJumpReleased -= HandleJumpReleased;
         fsm.Agent.Input.OnRollPressed -= HandleRollPressed;
         fsm.Agent.Input.OnRollReleased -= HandleRollReleased;
+        fsm.Agent.Input.OnAttackPressed -= HandleAttackPressed;
         OnExit?.Invoke();
         ExitState();
     }
@@ -61,7 +63,7 @@ public abstract class State : MonoBehaviour
         
     }
 
-    protected void HandleJumpPressed()
+    protected virtual void HandleJumpPressed()
     {
         if (fsm.Agent.MovementData.AmountOfJumps > 0) 
         {
@@ -81,6 +83,14 @@ public abstract class State : MonoBehaviour
     protected virtual void HandleRollReleased()
     {
 
+    }
+
+    protected virtual void HandleAttackPressed()
+    {
+        if (fsm.Agent.AgentWeapon.CanIUseWeapon())
+        {
+            fsm.TransitionToState(StateType.Attack);
+        }
     }
     #endregion
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StateFactory : MonoBehaviour
 {
-    [SerializeField] private State idle, move, jump, fall, climb,roll;
+    [SerializeField] private State idle, move, jump, fall, climb, roll, attack, airJumpAttack, airFallAttack;
 
     public State GetState(StateType type)
     {
@@ -22,6 +22,12 @@ public class StateFactory : MonoBehaviour
                 return climb;
             case StateType.Roll:
                 return roll;
+            case StateType.Attack:
+                return attack;
+            case StateType.AirJumpAttack:
+                return airJumpAttack;
+            case StateType.AirFallAttack:
+                return airFallAttack;
             default:
                 Debug.LogError("State Type not defined");
                 return idle;

@@ -7,13 +7,10 @@ public class MeleeWeaponDataSO : BaseWeaponDataSO
 {
     [SerializeField] private float attackRange = 2;
 
-    public override void DrawWeaponGizmos(Vector3 origin, Vector3 direction, Color color)
+    public override void DrawWeaponGizmos(Vector3 origin, Vector3 direction)
     {
-        Gizmos.color = color;
-
         Gizmos.DrawLine(origin, origin + direction * attackRange);
     }
-
 
     public override void PerformAttack(Transform origin, LayerMask hittableMask, Vector3 direction)
     {
@@ -33,6 +30,6 @@ public class MeleeWeaponDataSO : BaseWeaponDataSO
 
     protected override bool TryAttack()
     {
-        throw new System.NotImplementedException();
+        return true;
     }
 }

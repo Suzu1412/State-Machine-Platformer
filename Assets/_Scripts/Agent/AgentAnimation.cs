@@ -77,6 +77,11 @@ public class AgentAnimation : MonoBehaviour
         animator.speed = 1f;
     }
 
+    public void CheckCurrentAnimation()
+    {
+        Debug.Log(animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"));
+    }
+
     public void ResetEvents()
     {
         OnAnimationAction.RemoveAllListeners();

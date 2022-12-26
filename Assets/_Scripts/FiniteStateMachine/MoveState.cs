@@ -20,7 +20,7 @@ public class MoveState : State
     {
         CalculateVelocity();
 
-        if (!fsm.Agent.CollissionSenses.IsGrounded)
+        if (!fsm.Agent.CollissionSenses.IsGrounded && fsm.Agent.Rb2d.velocity.y < 0f)
         {
             fsm.TransitionToState(StateType.Fall);
         }
