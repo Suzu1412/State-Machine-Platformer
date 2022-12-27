@@ -5,19 +5,20 @@ using UnityEngine.Events;
 
 public class AirFallAttack : FallState
 {
-    public UnityEvent OnAttack;
+    public UnityEvent<AudioClip> OnWeaponSound;
     private Vector2 direction;
-    private bool debugGizmos;
+    private bool showGizmos;
 
     protected override void EnterState()
     {
+        fsm.Agent.AnimationManager.ResetEvents();
         fsm.Agent.AnimationManager.PlayAnimation(AnimationType.attack);
-        fsm.Agent.AnimationManager.OnAnimationAction.AddListener(() => OnAttack?.Invoke());
-        fsm.Agent.AnimationManager.OnAnimationAction.AddListener(() => OnAttackTrigger());
+        fsm.Agent.AnimationManager.OnAnimationAction.AddListener(() => PerformAttack());
         fsm.Agent.AnimationManager.OnAnimationEnd.AddListener(() => OnAttackEnd());
 
+        fsm.Agent.AgentWeapon.ToggleWeaponVisibility(true);
         direction = fsm.Agent.transform.right * (fsm.Agent.transform.localScale.x > 0 ? 1 : -1);
-        debugGizmos = true;
+        showGizmos = true;
     }
 
     public override void LogicUpdate()
@@ -34,32 +35,38 @@ public class AirFallAttack : FallState
     {
         base.ExitState();
         fsm.Agent.AnimationManager.ResetEvents();
-        debugGizmos = false;
+        showGizmos = false;
+        fsm.Agent.AgentWeapon.ToggleWeaponVisibility(false);
+    }
+
+    protected override void HandleTransitionToStates()
+    {
+        if (fsm.Agent.CollissionSenses.IsGrounded && fsm.Agent.Rb2d.velocity.y == 0f)
+        {
+            fsm.TransitionToState(StateType.Attack);
+        }
     }
 
 
     private void OnAttackEnd()
     {
-        if (fsm.Agent.MovementData.JumpDuration > 0f)
-        {
-            fsm.TransitionToState(StateType.Jump);
-        }
-        else
-        {
-            fsm.TransitionToState(StateType.Fall);
-        }
+        fsm.TransitionToState(StateType.Fall);
     }
 
 
-    private void OnAttackTrigger()
+    private void PerformAttack()
     {
-        //fsm.Agent.AgentWeapon.GetCurrentWeapon().PerformAttack();
+        OnWeaponSound?.Invoke(fsm.Agent.AgentWeapon.GetCurrentWeapon().WeaponSwingSound);
+        fsm.Agent.AnimationManager.OnAnimationAction?.RemoveListener(PerformAttack);
+        fsm.Agent.AgentWeapon.GetCurrentWeapon().PerformAttack(fsm.Agent.AgentWeapon.transform, fsm.Agent.HittableLayerMask, direction);
     }
 
     private void OnDrawGizmos()
     {
-        if (!debugGizmos) return;
+        if (Application.isPlaying == false) return;
 
-        fsm.Agent.AgentWeapon.GetCurrentWeapon().DrawWeaponGizmos(this.transform.position, direction);
+        if (!showGizmos) return;
+
+        fsm.Agent.AgentWeapon.GetCurrentWeapon().DrawWeaponGizmos(fsm.Agent.AgentWeapon.transform.position, direction);
     }
 }

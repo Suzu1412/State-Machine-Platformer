@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class AgentWeaponManager : MonoBehaviour
 {
     [SerializeField] private BaseWeaponDataSO initialWeapon;
+    [SerializeField] private Transform weaponPosition;
 
     private SpriteRenderer weaponSprite;
 
@@ -16,6 +17,7 @@ public class AgentWeaponManager : MonoBehaviour
     public UnityEvent OnWeaponPickup;
 
     [SerializeField] private Color weaponRangeColor = Color.blue;
+    public Transform WeaponPosition => weaponPosition;
 
     private void Awake()
     {

@@ -54,7 +54,7 @@ public class AttackState : State
     {
         OnWeaponSound?.Invoke(fsm.Agent.AgentWeapon.GetCurrentWeapon().WeaponSwingSound);
         fsm.Agent.AnimationManager.OnAnimationAction?.RemoveListener(PerformAttack);
-        fsm.Agent.AgentWeapon.GetCurrentWeapon().PerformAttack(this.transform, fsm.Agent.HittableLayerMask, direction);
+        fsm.Agent.AgentWeapon.GetCurrentWeapon().PerformAttack(fsm.Agent.AgentWeapon.transform, fsm.Agent.HittableLayerMask, direction);
     }
 
     private void OnAttackEnd()
@@ -76,6 +76,6 @@ public class AttackState : State
 
         if (!showGizmos) return;
 
-        fsm.Agent.AgentWeapon.GetCurrentWeapon().DrawWeaponGizmos(this.transform.position, direction);
+        fsm.Agent.AgentWeapon.GetCurrentWeapon().DrawWeaponGizmos(fsm.Agent.AgentWeapon.transform.position, direction);
     }
 }

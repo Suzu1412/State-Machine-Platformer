@@ -7,12 +7,12 @@ public class JumpState : MoveState
     {
         fsm.Agent.MovementData.ActivateJump();
         fsm.Agent.AnimationManager.PlayAnimation(AnimationType.jump);
-        fsm.Agent.MovementData.SetJumpDuration(fsm.Agent.Data.JumpDuration);
+        fsm.Agent.MovementData.JumpDuration = fsm.Agent.Data.JumpDuration;
     }
 
     public override void LogicUpdate()
     {
-        fsm.Agent.MovementData.ReduceJumpDuration(Time.deltaTime);
+        fsm.Agent.MovementData.ReduceJumpDurationByTime(Time.deltaTime);
         if (fsm.Agent.MovementData.JumpDuration <= 0f) HandleJumpReleased();
         CalculateVelocity();
     }

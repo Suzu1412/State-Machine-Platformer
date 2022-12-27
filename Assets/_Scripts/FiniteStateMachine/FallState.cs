@@ -4,8 +4,6 @@ using UnityEngine.Events;
 public class FallState : MoveState
 {
     public UnityEvent OnGrounded;
-    [SerializeField] private bool isInCoyoteTime;
-    [SerializeField] private float coyoteTimeDuration;
 
     protected override void EnterState()
     {
@@ -13,8 +11,8 @@ public class FallState : MoveState
 
         if (fsm.Agent.MovementData.CanEnterCoyoteTime)
         {
-            isInCoyoteTime = true;
-            coyoteTimeDuration = fsm.Agent.Data.CoyoteDuration;
+            fsm.Agent.MovementData.IsInCoyoteTime = true;
+            fsm.Agent.MovementData.CoyoteTimeDuration = fsm.Agent.Data.CoyoteDuration;
         }
     }
 
@@ -22,13 +20,13 @@ public class FallState : MoveState
     {
         CalculateVelocity();
 
-        if (isInCoyoteTime)
+        if (fsm.Agent.MovementData.IsInCoyoteTime)
         {
-            coyoteTimeDuration -= Time.deltaTime;
+            fsm.Agent.MovementData.ReduceCoyoteTimeDurationByTime(Time.deltaTime);
 
-            if (coyoteTimeDuration <= 0f)
+            if (fsm.Agent.MovementData.CoyoteTimeDuration <= 0f)
             {
-                isInCoyoteTime = false;
+                fsm.Agent.MovementData.IsInCoyoteTime = false;
                 fsm.Agent.MovementData.ConsumeJump();
             }
         }
@@ -42,17 +40,7 @@ public class FallState : MoveState
 
         SetPlayerVelocity();
 
-        if (fsm.Agent.CollissionSenses.IsGrounded && fsm.Agent.Rb2d.velocity.y == 0f)
-        {
-            if (Mathf.Abs(fsm.Agent.Rb2d.velocity.x) > 0f)
-            {
-                fsm.TransitionToState(StateType.Move);
-            }
-            else
-            {
-                fsm.TransitionToState(StateType.Idle);
-            }
-        }
+        HandleTransitionToStates();
 
         ClimbLadder();
     }
@@ -67,7 +55,7 @@ public class FallState : MoveState
 
     protected override void HandleRollPressed()
     {
-
+        // We avoid the player being able to roll while in this state
     }
 
     protected override void HandleAttackPressed()
@@ -75,6 +63,21 @@ public class FallState : MoveState
         if (fsm.Agent.AgentWeapon.CanIUseWeapon())
         {
             fsm.TransitionToState(StateType.AirFallAttack);
+        }
+    }
+
+    protected virtual void HandleTransitionToStates()
+    {
+        if (fsm.Agent.CollissionSenses.IsGrounded && fsm.Agent.Rb2d.velocity.y == 0f)
+        {
+            if (Mathf.Abs(fsm.Agent.Rb2d.velocity.x) > 0f)
+            {
+                fsm.TransitionToState(StateType.Move);
+            }
+            else
+            {
+                fsm.TransitionToState(StateType.Idle);
+            }
         }
     }
 }
