@@ -13,6 +13,8 @@ public class Agent : MonoBehaviour
     private MovementData movementData;
     private Respawn respawn;
     private AgentWeaponManager agentWeapon;
+    private HealthSystem healthSystem;
+    
     [SerializeField] private AgentDataSO data;
     [SerializeField] private LayerMask hittableLayerMask;
 
@@ -26,6 +28,7 @@ public class Agent : MonoBehaviour
     public AgentWeaponManager AgentWeapon => agentWeapon;
     public AgentDataSO Data => data;
     public LayerMask HittableLayerMask => hittableLayerMask;
+    public HealthSystem HealthSystem => healthSystem;
 
     private void Awake()
     {
@@ -37,9 +40,13 @@ public class Agent : MonoBehaviour
         movementData = GetComponent<MovementData>();
         respawn = GetComponent<Respawn>();
         agentWeapon = GetComponentInChildren<AgentWeaponManager>();
+        healthSystem = GetComponent<HealthSystem>();
 
         if (data == null) Debug.LogError("Agent Data is Empty in: " + this.name);
     }
 
-
+    private void OnEnable()
+    {
+        healthSystem.Initialize(data.Health, data.InvulnerabilityDuration);
+    }
 }

@@ -1,6 +1,6 @@
 public enum AnimationType
 {
-    die,
+    death,
     hit,
     idle,
     attack,
@@ -9,5 +9,5 @@ public enum AnimationType
     fall,
     climb,
     land,
-    roll
+    roll,
 }

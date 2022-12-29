@@ -8,14 +8,17 @@ public class HealthSystem : MonoBehaviour, IHittable, IHealable
 {
     [SerializeField] private int maxHealth;
     [SerializeField] private int currentHealth;
+    private float invulnerabilityDuration;
 
-    public UnityEvent OnGetHit;
-    public UnityEvent OnDie;
     public UnityEvent OnAddHealth;
 
     public UnityEvent<int> OnHealthValueChanged;
     public UnityEvent<int> OnInitializeMaxHealth;
 
+    public event Action OnHit;
+    public event Action OnDeath;
+
+    private Coroutine InvulnerabilityCoroutine;
 
     public int CurrentHealth
     {
@@ -27,6 +30,8 @@ public class HealthSystem : MonoBehaviour, IHittable, IHealable
         }
     }
 
+    public bool isInvulnerable;
+
     public void GetHit(GameObject gameObject, int weaponDamage)
     {
         GetHit(weaponDamage);
@@ -34,15 +39,18 @@ public class HealthSystem : MonoBehaviour, IHittable, IHealable
 
     public void GetHit(int amount)
     {
+        if (isInvulnerable) return;
+
         CurrentHealth = Mathf.Clamp(currentHealth - amount, 0, maxHealth);
 
         if (currentHealth <= 0)
         {
-            OnDie?.Invoke();
+            OnDeath?.Invoke();
         }
         else
         {
-            OnGetHit?.Invoke();
+            OnHit?.Invoke();
+            InvulnerabilityCoroutine = StartCoroutine(InvulnerabilityPeriod());
         }
 
     }
@@ -53,10 +61,18 @@ public class HealthSystem : MonoBehaviour, IHittable, IHealable
         OnAddHealth?.Invoke();
     }
 
-    public void Initialize(int health)
+    public void Initialize(int health, float invulnerabilityDuration)
     {
         maxHealth = health;
+        this.invulnerabilityDuration = invulnerabilityDuration;
         OnInitializeMaxHealth?.Invoke(maxHealth);
         CurrentHealth = maxHealth;
+    }
+
+    private IEnumerator InvulnerabilityPeriod()
+    {
+        isInvulnerable = true;
+        yield return new WaitForSeconds(invulnerabilityDuration);
+        isInvulnerable = false;
     }
 }

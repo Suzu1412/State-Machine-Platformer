@@ -21,6 +21,8 @@ public abstract class State : MonoBehaviour
         fsm.Agent.Input.OnRollPressed += HandleRollPressed;
         fsm.Agent.Input.OnRollReleased += HandleRollReleased;
         fsm.Agent.Input.OnAttackPressed += HandleAttackPressed;
+        fsm.Agent.HealthSystem.OnHit += Hit;
+        fsm.Agent.HealthSystem.OnDeath += Death;
         OnEnter?.Invoke();
         EnterState();
     }
@@ -34,6 +36,8 @@ public abstract class State : MonoBehaviour
         fsm.Agent.Input.OnRollPressed -= HandleRollPressed;
         fsm.Agent.Input.OnRollReleased -= HandleRollReleased;
         fsm.Agent.Input.OnAttackPressed -= HandleAttackPressed;
+        fsm.Agent.HealthSystem.OnHit -= Hit;
+        fsm.Agent.HealthSystem.OnDeath -= Death;
         OnExit?.Invoke();
         ExitState();
     }
@@ -91,6 +95,16 @@ public abstract class State : MonoBehaviour
         {
             fsm.TransitionToState(StateType.Attack);
         }
+    }
+
+    protected virtual void Hit()
+    {
+        fsm.TransitionToState(StateType.Hit);
+    }
+
+    protected virtual void Death()
+    {
+        fsm.TransitionToState(StateType.Death);
     }
     #endregion
 }

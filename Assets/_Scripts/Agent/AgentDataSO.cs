@@ -6,6 +6,16 @@ using UnityEngine;
 public class AgentDataSO : ScriptableObject
 {
     #region Movement Data
+    [Header("Health Data")]
+    [Space]
+    [SerializeField] private int health = 2;
+    [SerializeField] private float invulnerabilityDuration = 0.3f;
+
+    public int Health => health;
+    public float InvulnerabilityDuration => invulnerabilityDuration;
+    #endregion
+
+    #region Movement Data
     [Header("Movement Data")]
     [Space]
 

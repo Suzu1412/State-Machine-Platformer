@@ -6,6 +6,11 @@ public class DestroyFallingObjects : MonoBehaviour
     {
         if (collision.transform.parent.TryGetComponent(out Respawn respawn))
         {
+            if (collision.transform.parent.TryGetComponent(out HealthSystem health))
+            {
+                health.GetHit(1);
+            }
+
             respawn.RespawnFromRespawnPoint();
         }
     }

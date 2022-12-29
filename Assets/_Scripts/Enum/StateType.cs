@@ -7,6 +7,9 @@ public enum StateType
     Climb,
     Roll,
     Attack,
+    MovingAttack,
     AirJumpAttack,
-    AirFallAttack
+    AirFallAttack,
+    Hit,
+    Death
 }

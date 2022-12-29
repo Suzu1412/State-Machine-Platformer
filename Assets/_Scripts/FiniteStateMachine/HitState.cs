@@ -2,26 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DeathState : State
+public class HitState : State
 {
     protected override void EnterState()
     {
-        fsm.Agent.AnimationManager.PlayAnimation(AnimationType.death);
+        fsm.Agent.AnimationManager.PlayAnimation(AnimationType.hit);
     }
 
     public override void LogicUpdate()
     {
-    }
-
-    public override void PhysicsUpdate()
-    {
+        if (!fsm.Agent.HealthSystem.isInvulnerable)
+        {
+            fsm.TransitionToState(StateType.Idle);
+        }
     }
 
     protected override void ExitState()
     {
-        fsm.Agent.Respawn.RespawnFromCheckPoint();
     }
-
 
 
     protected override void HandleMovement(Vector2 input)

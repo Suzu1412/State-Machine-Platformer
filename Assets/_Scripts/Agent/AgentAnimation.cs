@@ -26,8 +26,8 @@ public class AgentAnimation : MonoBehaviour
     {
         switch (type)
         {
-            case AnimationType.die:
-                Play("Die");
+            case AnimationType.death:
+                Play("Death");
                 break;
             case AnimationType.hit:
                 Play("Hit");

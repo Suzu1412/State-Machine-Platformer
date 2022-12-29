@@ -895,6 +895,8 @@ GameObject:
   - component: {fileID: 8192466888533151388}
   - component: {fileID: 4259071966255198218}
   - component: {fileID: 8192466887521958880}
+  - component: {fileID: 1305376070}
+  - component: {fileID: 1305376069}
   m_Layer: 15
   m_Name: Agent
   m_TagString: Player
@@ -1041,6 +1043,89 @@ MonoBehaviour:
     responseForSentGameObject:
       m_PersistentCalls:
         m_Calls: []
+--- !u!70 &1305376070
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8192466888533151384}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.068011105, y: -0.06801081}
+  m_Size: {x: 1.3161334, y: 1.7481222}
+  m_Direction: 0
+--- !u!114 &1305376069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8192466888533151384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b3fc692323c848e29774da8ee384967, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 0
+  currentHealth: 0
+  OnAddHealth:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHealthValueChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8192466887861848057}
+        m_TargetAssemblyTypeName: HealthUI, Assembly-CSharp
+        m_MethodName: SetHealth
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnInitializeMaxHealth:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8192466887861848057}
+        m_TargetAssemblyTypeName: HealthUI, Assembly-CSharp
+        m_MethodName: Initialize
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  isInvulnerable: 0
 --- !u!1 &8192466888560393603
 GameObject:
   m_ObjectHideFlags: 0
@@ -1061,6 +1146,8 @@ GameObject:
   - component: {fileID: 1442883385}
   - component: {fileID: 1442883397}
   - component: {fileID: 1442883396}
+  - component: {fileID: 1776148963}
+  - component: {fileID: 1776148962}
   m_Layer: 15
   m_Name: FiniteStateMachine
   m_TagString: Untagged
@@ -1121,8 +1208,11 @@ MonoBehaviour:
   climb: {fileID: 8192466888560393659}
   roll: {fileID: 8192466888560393656}
   attack: {fileID: 1442883385}
+  movingAttack: {fileID: 0}
   airJumpAttack: {fileID: 1442883397}
   airFallAttack: {fileID: 1442883396}
+  hit: {fileID: 1776148963}
+  death: {fileID: 1776148962}
 --- !u!114 &8192466888560393607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1390,6 +1480,42 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1776148963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8192466888560393603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d16d5be1828c44c79ad8bc1ef846b19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  OnExit:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1776148962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8192466888560393603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 625ccc09e2bf04f49a7a71eeb284ea3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  OnExit:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &8192466888692110568
 GameObject:
   m_ObjectHideFlags: 0
@@ -1467,6 +1593,7 @@ GameObject:
   - component: {fileID: 8192466888788721065}
   - component: {fileID: 8192466888788721070}
   - component: {fileID: 1493584576102407651}
+  - component: {fileID: 988810981}
   m_Layer: 15
   m_Name: Avatar
   m_TagString: Untagged
@@ -1600,6 +1727,30 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8192466888788721077}
   m_Enabled: 1
+--- !u!114 &988810981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8192466888788721077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b3fc692323c848e29774da8ee384967, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 0
+  OnAddHealth:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHealthValueChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnInitializeMaxHealth:
+    m_PersistentCalls:
+      m_Calls: []
+  isInvulnerable: 0
 --- !u!1 &8192466889060148774
 GameObject:
   m_ObjectHideFlags: 0

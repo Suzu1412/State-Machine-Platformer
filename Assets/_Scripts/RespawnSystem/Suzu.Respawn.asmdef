@@ -1,3 +1,16 @@
 {
-	"name": "Suzu.Respawn"
+    "name": "Suzu.Respawn",
+    "rootNamespace": "",
+    "references": [
+        "GUID:7ee614582a3f74c62953c73b0eb40032"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }
