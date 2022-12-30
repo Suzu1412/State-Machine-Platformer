@@ -15,6 +15,7 @@ public class DeathState : State
 
     public override void PhysicsUpdate()
     {
+        fsm.Agent.Rb2d.velocity = new Vector2(0, fsm.Agent.Rb2d.velocity.y);
     }
 
     protected override void ExitState()

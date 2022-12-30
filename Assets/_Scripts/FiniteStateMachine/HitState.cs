@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HitState : State
+public class HitState : FallState
 {
     protected override void EnterState()
     {
         fsm.Agent.AnimationManager.PlayAnimation(AnimationType.hit);
+        fsm.Agent.Rb2d.velocity = new Vector2(0, fsm.Agent.Rb2d.velocity.y);
     }
 
     public override void LogicUpdate()
@@ -16,11 +17,6 @@ public class HitState : State
             fsm.TransitionToState(StateType.Idle);
         }
     }
-
-    protected override void ExitState()
-    {
-    }
-
 
     protected override void HandleMovement(Vector2 input)
     {
