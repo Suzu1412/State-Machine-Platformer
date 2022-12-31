@@ -15,7 +15,7 @@ public abstract class State : MonoBehaviour
     public void Enter()
     {
         fsm.Agent.Input.OnMovement += HandleMovement;
-        fsm.Agent.Input.OnMovement += fsm.Agent.RendererManager.FaceDirection;
+        fsm.Agent.Input.OnMovement += HandleFaceDirection;
         fsm.Agent.Input.OnJumpPressed += HandleJumpPressed;
         fsm.Agent.Input.OnJumpReleased += HandleJumpReleased;
         fsm.Agent.Input.OnRollPressed += HandleRollPressed;
@@ -30,7 +30,7 @@ public abstract class State : MonoBehaviour
     public void Exit()
     {
         fsm.Agent.Input.OnMovement -= HandleMovement;
-        fsm.Agent.Input.OnMovement -= fsm.Agent.RendererManager.FaceDirection;
+        fsm.Agent.Input.OnMovement -= HandleFaceDirection;
         fsm.Agent.Input.OnJumpPressed -= HandleJumpPressed;
         fsm.Agent.Input.OnJumpReleased -= HandleJumpReleased;
         fsm.Agent.Input.OnRollPressed -= HandleRollPressed;
@@ -65,6 +65,11 @@ public abstract class State : MonoBehaviour
     protected virtual void HandleMovement(Vector2 input)
     {
         
+    }
+
+    protected virtual void HandleFaceDirection(Vector2 input)
+    {
+        fsm.Agent.RendererManager.FaceDirection(input);
     }
 
     protected virtual void HandleJumpPressed()

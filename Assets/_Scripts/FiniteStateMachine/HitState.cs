@@ -7,7 +7,7 @@ public class HitState : FallState
     protected override void EnterState()
     {
         fsm.Agent.AnimationManager.PlayAnimation(AnimationType.hit);
-        fsm.Agent.Rb2d.velocity = new Vector2(0, fsm.Agent.Rb2d.velocity.y);
+        
     }
 
     public override void LogicUpdate()
@@ -18,7 +18,16 @@ public class HitState : FallState
         }
     }
 
+    public override void PhysicsUpdate()
+    {
+        fsm.Agent.Rb2d.velocity = new Vector2(0, fsm.Agent.Rb2d.velocity.y);
+    }
+
     protected override void HandleMovement(Vector2 input)
+    {
+    }
+
+    protected override void HandleFaceDirection(Vector2 input)
     {
     }
 
@@ -41,4 +50,6 @@ public class HitState : FallState
     protected override void HandleRollReleased()
     {
     }
+
+    
 }

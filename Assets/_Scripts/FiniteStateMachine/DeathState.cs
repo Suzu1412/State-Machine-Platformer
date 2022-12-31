@@ -6,6 +6,7 @@ public class DeathState : State
 {
     protected override void EnterState()
     {
+        fsm.Agent.AnimationManager.ResetEvents();
         fsm.Agent.AnimationManager.PlayAnimation(AnimationType.death);
     }
 
@@ -20,12 +21,16 @@ public class DeathState : State
 
     protected override void ExitState()
     {
-        fsm.Agent.Respawn.RespawnFromCheckPoint();
+        fsm.Agent.Respawn.RespawnFromCheckPoint();        
     }
 
 
 
     protected override void HandleMovement(Vector2 input)
+    {
+    }
+
+    protected override void HandleFaceDirection(Vector2 input)
     {
     }
 
@@ -48,4 +53,5 @@ public class DeathState : State
     protected override void HandleRollReleased()
     {
     }
+
 }
