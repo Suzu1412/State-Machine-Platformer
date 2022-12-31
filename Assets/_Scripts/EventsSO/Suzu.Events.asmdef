@@ -1,3 +1,16 @@
 {
-	"name": "Suzu.Events"
+    "name": "Suzu.Events",
+    "rootNamespace": "",
+    "references": [
+        "GUID:ff26dc249caf60e438d2aa3fb3237e9e"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }
