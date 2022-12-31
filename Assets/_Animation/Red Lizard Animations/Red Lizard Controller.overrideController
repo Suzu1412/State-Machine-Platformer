@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Red Lizard Controller
+  m_Controller: {fileID: 9100000, guid: e04426af690792a498dc7c767fbd8088, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 416790453ee237147846cfffb8b27b2e, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: a64d1421a9fa89648b4af01cba551d2f, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 3810ce640753a884381b36d96f2dcc05, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 2afd231c97eaa84488555499d626193b, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: ff12a1d06c4084584acfc54de2e90ea4, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 5fc9aed11840ebd40ae9a9ebd563ce9c, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: d5caba6f6afedf34c936bb488e860c6d, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 759b5ba78c3ba8b4db8cc68ae561fdc5, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 1e6119bc1fbb84468a2c9b2c872ed8e4, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: a1139c3501a46974288a16add9004c93, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: a70738190d2c50f48add099e1972c4f8, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 106d678f55cd2b04db3056cb4dfe5d89, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 58ef67ddcd5dd3a41aea890c8a5c5598, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 5587eaa25cfefe74b8fcebecb350a938, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 2f5d3e41789bf314c9a727e2477af232, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: cca8b8d922974e44f9adf24be80ce0a8, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 6de1013b77d12f9419d61d2d1ecb3181, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: d3b88a65414317541b4956984f3617b0, type: 2}

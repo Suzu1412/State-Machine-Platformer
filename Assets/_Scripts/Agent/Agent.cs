@@ -38,7 +38,7 @@ public class Agent : MonoBehaviour
         animationManager = GetComponentInChildren<AgentAnimation>();
         collissionSenses = GetComponentInChildren<CollissionSenses>();
         movementData = GetComponent<MovementData>();
-        respawn = GetComponent<Respawn>();
+        respawn = GetComponentInParent<Respawn>();
         agentWeapon = GetComponentInChildren<AgentWeaponManager>();
         healthSystem = GetComponent<HealthSystem>();
 
