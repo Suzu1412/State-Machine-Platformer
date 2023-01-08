@@ -6896,7 +6896,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 00000000f3a2602f2bfae563b73e32e5ab97914897ade2f95f145e593516c3b2377c0a16f321ce83
+  m_ApplyToSortingLayers: 00000000f3a2602f2bfae563f321ce83b73e32e5ab97914897ade2f95f145e593516c3b2377c0a16
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -6963,7 +6963,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1637842346}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.2504992, y: 0.18283387, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7980,6 +7980,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8192466888788721067, guid: afeadfe36e5fa0641b625322ffbd06f8, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b4f6224bca15f47a1bde38154a3516f4, type: 2}
     - target: {fileID: 8192466889316513453, guid: afeadfe36e5fa0641b625322ffbd06f8, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
