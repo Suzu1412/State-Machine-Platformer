@@ -11,4 +11,18 @@ public interface IAgentInput
     event Action OnWeaponChange;
     event Action OnRollPressed;
     event Action OnRollReleased;
+
+    void CallOnMovementVector(Vector2 input);
+
+    void CallOnAttackPressed();
+
+    void CallOnJumpPressed();
+
+    void CallOnJumpReleased();
+
+    void CallOnWeaponChange();
+
+    void CallOnRollPressed();
+
+    void CallOnRollReleased();
 }

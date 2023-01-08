@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class AIEnemy : MonoBehaviour, IAgentInput
+public class AIEnemyInput : MonoBehaviour, IAgentInput
 {
-    public Vector2 MovementVector { get; protected set; }
+    public Vector2 MovementVector { get; private set; }
 
     public event Action OnAttackPressed;
     public event Action OnJumpPressed;
@@ -17,6 +17,7 @@ public abstract class AIEnemy : MonoBehaviour, IAgentInput
 
     public void CallOnMovementVector(Vector2 input)
     {
+        MovementVector = input;
         OnMovement?.Invoke(input);
     }
 
@@ -38,5 +39,15 @@ public abstract class AIEnemy : MonoBehaviour, IAgentInput
     public void CallOnWeaponChange()
     {
         OnWeaponChange?.Invoke();
+    }
+
+    public void CallOnRollPressed()
+    {
+        OnRollPressed?.Invoke();
+    }
+
+    public void CallOnRollReleased()
+    {
+        OnRollReleased?.Invoke();
     }
 }

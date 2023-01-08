@@ -5,14 +5,18 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Data/Agent Data", fileName = "Data_")]
 public class AgentDataSO : ScriptableObject
 {
-    #region Movement Data
+    #region Health Data
     [Header("Health Data")]
     [Space]
     [SerializeField] private int health = 2;
-    [SerializeField] private float invulnerabilityDuration = 0.3f;
+    [SerializeField] private Vector2 knockbackForce = new Vector2(2f, 1f);
+    [SerializeField] private float invulnerabilityDuration = 1f;
+    [SerializeField] private float hitStunDuration = 0.25f;
 
     public int Health => health;
+    public Vector2 KnockbackForce => knockbackForce;
     public float InvulnerabilityDuration => invulnerabilityDuration;
+    public float HitStunDuration => hitStunDuration;
     #endregion
 
     #region Movement Data
@@ -61,13 +65,32 @@ public class AgentDataSO : ScriptableObject
     #endregion
 
     #region Climb Data
+    [Header("Climb Data")]
+    [Space]
     [SerializeField] private float climbSpeed = 5f;
 
     public float ClimbSpeed => climbSpeed;
     #endregion
 
+    #region Attack Data
+    [SerializeField] private LayerMask hittableLayerMask;
+    public LayerMask HittableLayerMask => hittableLayerMask;
+    #endregion
+
     #region Rigidbody defaults
     private float gravityScale = 4f;
     public float GravityScale => gravityScale;
+    #endregion
+
+    #region AI Data
+    [Header("AI Data")]
+    [Space]
+    [SerializeField] private float idleTime;
+    [SerializeField] private float attackCooldown = 1f;
+    [SerializeField] private LayerMask targetDetectorLayer;
+
+    public float IdleTime => idleTime;
+    public float AttackCooldown => attackCooldown;
+    public LayerMask TargetDetectorLayer => targetDetectorLayer;
     #endregion
 }

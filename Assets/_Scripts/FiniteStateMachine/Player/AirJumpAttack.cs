@@ -67,7 +67,7 @@ public class AirJumpAttack : JumpState
     {
         OnWeaponSound?.Invoke(fsm.Agent.AgentWeapon.GetCurrentWeapon().WeaponSwingSound);
         fsm.Agent.AnimationManager.OnAnimationAction?.RemoveListener(PerformAttack);
-        fsm.Agent.AgentWeapon.GetCurrentWeapon().PerformAttack(fsm.Agent.AgentWeapon.transform, fsm.Agent.HittableLayerMask, direction);
+        fsm.Agent.AgentWeapon.GetCurrentWeapon().PerformAttack(fsm.Agent.AgentWeapon.transform, fsm.Agent.Data.HittableLayerMask, direction);
     }
 
     private void OnDrawGizmos()

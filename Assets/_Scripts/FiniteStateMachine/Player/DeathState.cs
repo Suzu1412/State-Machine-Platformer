@@ -8,6 +8,7 @@ public class DeathState : State
     {
         fsm.Agent.AnimationManager.ResetEvents();
         fsm.Agent.AnimationManager.PlayAnimation(AnimationType.death);
+        fsm.Agent.AnimationManager.OnAnimationEnd.AddListener(() => DeathBehaviour());
     }
 
     public override void LogicUpdate()
@@ -21,10 +22,18 @@ public class DeathState : State
 
     protected override void ExitState()
     {
-        fsm.Agent.Respawn.RespawnFromCheckPoint();        
+        if (fsm.Agent.Respawn != null)
+        {
+            fsm.Agent.gameObject.SetActive(true);
+            fsm.Agent.Respawn.RespawnFromCheckPoint();
+        }
+          
     }
 
-
+    private void DeathBehaviour()
+    {
+        fsm.Agent.gameObject.SetActive(false);
+    }
 
     protected override void HandleMovement(Vector2 input)
     {

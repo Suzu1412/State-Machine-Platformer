@@ -23,13 +23,16 @@ public class Respawn : MonoBehaviour
 
     public void RespawnFromRespawnPoint()
     {
-        this.transform.position = respawnPoint.transform.position;
+        if (respawnPoint == null) return;
 
+        this.transform.GetChild(0).position = respawnPoint.transform.position;
     }
 
     public void RespawnFromCheckPoint()
     {
-        this.transform.position = checkPoint.transform.position;
+        if (checkPoint == null) return;
+
+        this.transform.GetChild(0).position = checkPoint.transform.position;
     }
 
     private void AddCheckpoint(RespawnPoint respawnPoint)

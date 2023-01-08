@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AIPatrollingEnemyBrain : AIEnemy
+public enum BossPhaseType
 {
-
+    Phase1,
+    Phase2,
+    DesperationAttack,
+    Phase3
 }

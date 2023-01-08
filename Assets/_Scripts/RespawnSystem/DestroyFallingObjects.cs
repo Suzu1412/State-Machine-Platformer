@@ -4,7 +4,7 @@ public class DestroyFallingObjects : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.transform.parent.TryGetComponent(out Respawn respawn))
+        if (collision.transform.root.TryGetComponent(out Respawn respawn))
         {
             if (collision.transform.parent.TryGetComponent(out HealthSystem health))
             {
@@ -12,6 +12,8 @@ public class DestroyFallingObjects : MonoBehaviour
             }
 
             respawn.RespawnFromRespawnPoint();
+
+            return;
         }
     }
 

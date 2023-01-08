@@ -16,12 +16,17 @@ public class FiniteStateMachine : MonoBehaviour
     [SerializeField] private string stateName = "";
 
     public Agent Agent => agent;
+    public StateType PreviousState => previousState.StateType;
 
     private void Awake()
     {
         agent = GetComponentInParent<Agent>();
         stateFactory = GetComponent<StateFactory>();
         states = GetComponents<State>();
+
+        if (agent == null) Debug.LogError("Agent missing in: " + this.name);
+        if (stateFactory == null) Debug.LogError("State Factory missing in: " + this.name);
+        if (states == null) Debug.LogError("States missing in: " + this.name);
 
         foreach (var state in states)
         {

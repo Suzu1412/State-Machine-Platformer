@@ -8,7 +8,7 @@ public class PlayerInputHelper : MonoBehaviour, IAgentInput
 {
     [SerializeField] private PlayerInputSO input;
 
-    public Vector2 MovementVector => input.MovementVector;
+    public Vector2 MovementVector { get; private set; }
 
     public event Action OnAttackPressed;
     public event Action OnJumpPressed;
@@ -23,12 +23,49 @@ public class PlayerInputHelper : MonoBehaviour, IAgentInput
     private void Awake()
     {
         input.ResetEvents();
-        input.OnAttackPressed += () => OnAttackPressed?.Invoke();
-        input.OnJumpPressed += () => OnJumpPressed?.Invoke();
-        input.OnJumpReleased += () => OnJumpReleased?.Invoke();
-        input.OnRollPressed += () => OnRollPressed?.Invoke();
-        input.OnRollReleased += () => OnRollReleased?.Invoke();
-        input.OnMovement += (vector) => OnMovement?.Invoke(vector);
+        input.OnAttackPressed += CallOnAttackPressed;
+        input.OnJumpPressed += CallOnJumpPressed;
+        input.OnJumpReleased += CallOnJumpReleased;
+        input.OnRollPressed += CallOnRollPressed;
+        input.OnRollReleased += CallOnRollReleased;
+        input.OnWeaponChange += CallOnWeaponChange;
+        input.OnMovement += CallOnMovementVector;
         input.OnMenu += () => OnMenuPressed?.Invoke(); 
+    }
+
+    public void CallOnMovementVector(Vector2 input)
+    {
+        MovementVector = input;
+        OnMovement?.Invoke(input);
+    }
+
+    public void CallOnAttackPressed()
+    {
+        OnAttackPressed?.Invoke();
+    }
+
+    public void CallOnJumpPressed()
+    {
+        OnJumpPressed?.Invoke();
+    }
+
+    public void CallOnJumpReleased()
+    {
+        OnJumpReleased?.Invoke();
+    }
+
+    public void CallOnWeaponChange()
+    {
+        OnWeaponChange?.Invoke();
+    }
+
+    public void CallOnRollPressed()
+    {
+        OnRollPressed?.Invoke();
+    }
+
+    public void CallOnRollReleased()
+    {
+        OnRollReleased?.Invoke();
     }
 }

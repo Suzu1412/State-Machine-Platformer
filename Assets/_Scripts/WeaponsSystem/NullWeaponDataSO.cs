@@ -9,4 +9,9 @@ public class NullWeaponDataSO : BaseWeaponDataSO
     {
         return false;
     }
+
+    public override bool CheckIfTargetInRange(Transform origin, LayerMask hittableMask, Vector3 direction)
+    {
+        return false;
+    }
 }

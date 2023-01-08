@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 [CreateAssetMenu(fileName = "PlayerInputSO", menuName = "PlayerHelpers/Player Input")]
 public class PlayerInputSO : ScriptableObject, PlayerInputConfig.IGameplayActions, 
-    PlayerInputConfig.IPauseMenuActions, IAgentInput
+    PlayerInputConfig.IPauseMenuActions, IAgentInputReader
 {
     PlayerInputConfig input;
 
@@ -17,7 +17,7 @@ public class PlayerInputSO : ScriptableObject, PlayerInputConfig.IGameplayAction
     public event Action OnRollPressed;
     public event Action OnRollReleased;
 
-    public Vector2 MovementVector { get; private set; }
+    public Vector2 MovementVector { get; set; }
 
     public event Action OnMenu;
     public event Action OnAttackPressed;

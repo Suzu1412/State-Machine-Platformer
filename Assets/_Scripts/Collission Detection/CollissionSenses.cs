@@ -14,19 +14,23 @@ public class CollissionSenses : MonoBehaviour
     private WallDetector wallDetector;
     private ClimbingDetector climbingDetector;
     private TopLadderDetector topLadderDetector;
+    private GroundAheadDetector groundAheadDetector;
+    private TargetDetector targetDetector;
 
     #endregion
     public Collider2D AgentCollider => agentCollider;
-
     public GroundDetector GroundDetector => groundDetector;
     public WallDetector WallDetector => wallDetector;
     public ClimbingDetector ClimbingDetector => climbingDetector;
     public TopLadderDetector TopLadderDetector => topLadderDetector;
+    public GroundAheadDetector GroundAheadDetector => groundAheadDetector;
+    public TargetDetector TargetDetector => targetDetector;
 
     public bool IsGrounded => groundDetector.IsGrounded;
     public bool IsTouchingWall => wallDetector.IsTouchingWall;
     public bool IsTouchingLadder => climbingDetector.CanClimb;
     public bool IsOnBottomOfTopLadder => topLadderDetector.IsOnBottom;
+    public bool IsThereGroundAhead => groundAheadDetector.IsThereGroundAhead;
 
     public Collider2D Ladder => climbingDetector.Ladder;
 
@@ -42,6 +46,13 @@ public class CollissionSenses : MonoBehaviour
         wallDetector = GetComponent<WallDetector>();
         climbingDetector = GetComponent<ClimbingDetector>();
         topLadderDetector = GetComponent<TopLadderDetector>();
+        groundAheadDetector = GetComponent<GroundAheadDetector>();
+        targetDetector = GetComponent<TargetDetector>();
+
+        if (groundDetector == null) Debug.LogError("Ground Detector is Missing in: " + this.name);
+        if (wallDetector == null) Debug.LogError("Wall Detector is Missing in: " + this.name);
+        if (climbingDetector == null) Debug.LogError("Climbing Detector is Missing in: " + this.name);
+        if (topLadderDetector == null) Debug.LogError("Top Ladder Detector is Missing in: " + this.name);
 
         SetAgentCollider(false);
         SetCollissionData();
@@ -76,6 +87,8 @@ public class CollissionSenses : MonoBehaviour
         wallDetector.SetCollissionData(collissionData);
         climbingDetector.SetCollissionData(collissionData);
         TopLadderDetector.SetCollissionData(collissionData);
+        if (groundAheadDetector != null) groundAheadDetector.SetCollissionData(collissionData);
+        if (targetDetector != null) targetDetector.SetCollissionData(collissionData); 
     }
 
     public void DetectGround()
@@ -108,5 +121,8 @@ public class CollissionSenses : MonoBehaviour
         topLadderDetector.CheckIfOnBottom();
     }
 
-    
+    public void DetectGroundAhead()
+    {
+        groundAheadDetector.CheckIfThereIsPathAhead();
+    }
 }

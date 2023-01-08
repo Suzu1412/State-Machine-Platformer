@@ -4,40 +4,21 @@ using UnityEngine;
 
 public class StateFactory : MonoBehaviour
 {
-    [SerializeField] private State idle, move, jump, fall, climb, roll, attack, movingAttack, airJumpAttack, airFallAttack, hit, death;
+    //[SerializeField] private State idle, move, jump, fall, climb, roll, attack, movingAttack, airJumpAttack, airFallAttack, hit, death;
+    [SerializeField] private State[] states;
 
     public State GetState(StateType type)
     {
-        switch (type)
+        for (int i=0; i < states.Length; i++)
         {
-            case StateType.Idle:
-                return idle;
-            case StateType.Move:
-                return move;
-            case StateType.Jump:
-                return jump;
-            case StateType.Fall:
-                return fall;
-            case StateType.Climb:
-                return climb;
-            case StateType.Roll:
-                return roll;
-            case StateType.Attack:
-                return attack;
-            case StateType.MovingAttack:
-                return movingAttack;
-            case StateType.AirJumpAttack:
-                return airJumpAttack;
-            case StateType.AirFallAttack:
-                return airFallAttack;
-            case StateType.Hit:
-                return hit;
-            case StateType.Death:
-                return death;
-            default:
-                Debug.LogError("State Type not defined");
-                return idle;
+            if (states[i].StateType == type)
+            {
+                return states[i];
+            }
         }
+
+        Debug.LogError("State Type " + type + " not defined in: " + this.gameObject.name);
+        return null;
     }
 
     

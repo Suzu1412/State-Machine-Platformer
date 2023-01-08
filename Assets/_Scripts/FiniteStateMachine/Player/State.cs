@@ -6,6 +6,9 @@ public abstract class State : MonoBehaviour
     protected FiniteStateMachine fsm;
     public UnityEvent OnEnter, OnExit;
     protected Vector2 movement;
+    [SerializeField] protected StateType stateType;
+
+    public StateType StateType => stateType;
 
     public void InitializeState(FiniteStateMachine fsm)
     {
@@ -22,6 +25,7 @@ public abstract class State : MonoBehaviour
         fsm.Agent.Input.OnRollReleased += HandleRollReleased;
         fsm.Agent.Input.OnAttackPressed += HandleAttackPressed;
         fsm.Agent.HealthSystem.OnHit += Hit;
+        fsm.Agent.KnockbackSystem.OnHitKnockback += HitKnockback;
         fsm.Agent.HealthSystem.OnDeath += Death;
         OnEnter?.Invoke();
         EnterState();
@@ -38,6 +42,7 @@ public abstract class State : MonoBehaviour
         fsm.Agent.Input.OnAttackPressed -= HandleAttackPressed;
         fsm.Agent.HealthSystem.OnHit -= Hit;
         fsm.Agent.HealthSystem.OnDeath -= Death;
+        fsm.Agent.KnockbackSystem.OnHitKnockback -= HitKnockback;
         OnExit?.Invoke();
         ExitState();
     }
@@ -110,6 +115,11 @@ public abstract class State : MonoBehaviour
     protected virtual void Death()
     {
         fsm.TransitionToState(StateType.Death);
+    }
+
+    protected virtual void HitKnockback()
+    {
+
     }
     #endregion
 }

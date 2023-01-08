@@ -7,6 +7,7 @@ public class AgentWeaponManager : MonoBehaviour
 {
     [SerializeField] private BaseWeaponDataSO initialWeapon;
     [SerializeField] private Transform weaponPosition;
+    private Vector2 direction;
 
     private SpriteRenderer weaponSprite;
 
@@ -94,5 +95,25 @@ public class AgentWeaponManager : MonoBehaviour
     public List<string> GetPlayerWeaponNames()
     {
         return weaponStorage.GetPlayerWeaponNames();
+    }
+
+    public void PerformAttack(LayerMask hittableTarget)
+    {
+        direction = transform.parent.parent.transform.right * (transform.parent.parent.transform.localScale.x > 0 ? 1 : -1);
+
+        GetCurrentWeapon().PerformAttack(WeaponPosition, hittableTarget, direction);
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (Application.isPlaying == false) return;
+
+        if (GetCurrentWeapon() == null) return;
+
+        Gizmos.color = weaponRangeColor;
+
+        direction = transform.parent.parent.transform.right * (transform.parent.parent.transform.localScale.x > 0 ? 1 : -1);
+
+        GetCurrentWeapon().DrawWeaponGizmos(weaponPosition.position, direction);
     }
 }

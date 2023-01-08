@@ -31,5 +31,6 @@ public abstract class BaseWeaponDataSO : ScriptableObject, IAttack
     {
     }
 
+    public abstract bool CheckIfTargetInRange(Transform origin, LayerMask hittableMask, Vector3 direction);
 
 }

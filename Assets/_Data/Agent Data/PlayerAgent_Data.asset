@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c64dba671d243b94e861ac7894b4cf53, type: 3}
   m_Name: PlayerAgent_Data
   m_EditorClassIdentifier: 
-  health: 2
-  invulnerabilityDuration: 0.25
+  health: 10
+  knockbackForce: {x: 3, y: 5}
+  invulnerabilityDuration: 1
+  hitStunDuration: 0.4
   maxSpeed: 8
   acceleration: 50
   deacceleration: 50
@@ -28,3 +30,11 @@ MonoBehaviour:
   maxFallSpeed: -30
   coyoteDuration: 0.15
   climbSpeed: 5
+  hittableLayerMask:
+    serializedVersion: 2
+    m_Bits: 16384
+  idleTime: 0
+  attackCooldown: 1
+  targetDetectorLayer:
+    serializedVersion: 2
+    m_Bits: 49152

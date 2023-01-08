@@ -19,6 +19,7 @@ public class HealthSystem : MonoBehaviour, IHittable, IHealable
     public event Action OnDeath;
 
     private Coroutine InvulnerabilityCoroutine;
+    
 
     public int CurrentHealth
     {
@@ -30,7 +31,10 @@ public class HealthSystem : MonoBehaviour, IHittable, IHealable
         }
     }
 
-    public bool isInvulnerable;
+    private bool isInvulnerable;
+    private bool isHitStunned;
+    public bool IsInvulnerable => isInvulnerable;
+    public bool IsHitStunned => isHitStunned;
 
     public void GetHit(GameObject gameObject, int weaponDamage)
     {
@@ -39,7 +43,7 @@ public class HealthSystem : MonoBehaviour, IHittable, IHealable
 
     public void GetHit(int amount)
     {
-        if (isInvulnerable) return;
+        if (isInvulnerable || IsHitStunned) return;
 
         CurrentHealth = Mathf.Clamp(currentHealth - amount, 0, maxHealth);
 
@@ -49,16 +53,21 @@ public class HealthSystem : MonoBehaviour, IHittable, IHealable
         }
         else
         {
-            OnHit?.Invoke();
+            
             InvulnerabilityCoroutine = StartCoroutine(InvulnerabilityPeriod());
+            OnHit?.Invoke();
         }
-
     }
 
     public void Heal(int amount)
     {
         CurrentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
         OnAddHealth?.Invoke();
+    }
+
+    public float GetHealthPercent()
+    {
+        return maxHealth * currentHealth / 100;
     }
 
     public void Initialize(int health, float invulnerabilityDuration)

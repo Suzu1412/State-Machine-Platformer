@@ -10,13 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c64dba671d243b94e861ac7894b4cf53, type: 3}
-  m_Name: LizardEnemy_Data
+  m_Name: TyrannosaurusEnemy_Data
   m_EditorClassIdentifier: 
-  health: 2
-  knockbackForce: {x: 3, y: 1}
+  health: 10
   invulnerabilityDuration: 0.3
-  hitStunDuration: 0.25
-  maxSpeed: 2.5
+  maxSpeed: 8
   acceleration: 50
   deacceleration: 50
   rollDuration: 0.6

@@ -1,5 +1,6 @@
 public enum StateType
 {
+    // Player States Types
     Idle,
     Move,
     Jump,
@@ -11,5 +12,14 @@ public enum StateType
     AirJumpAttack,
     AirFallAttack,
     Hit,
-    Death
+    Death,
+    // Enemy States Types
+    AIPatrolling, 
+    AIChasing,
+    AIAttacking,
+    AIAbility,
+    AIAbility2,
+    AIAbility3,
+    AIDesperationAttack
+
 }

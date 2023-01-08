@@ -14,8 +14,6 @@ public class MeleeWeaponDataSO : BaseWeaponDataSO
 
     public override void PerformAttack(Transform origin, LayerMask hittableMask, Vector3 direction)
     {
-        Debug.Log("Weapon used: " + weaponName);
-
         if (!TryAttack()) return;
         
         RaycastHit2D hit = Physics2D.Raycast(origin.position, direction, attackRange, hittableMask);
@@ -31,5 +29,15 @@ public class MeleeWeaponDataSO : BaseWeaponDataSO
     protected override bool TryAttack()
     {
         return true;
+    }
+
+    public override bool CheckIfTargetInRange(Transform origin, LayerMask hittableMask, Vector3 direction)
+    {
+        RaycastHit2D hit = Physics2D.Raycast(origin.position, direction, attackRange * 0.8f, hittableMask);
+        if (hit.collider != null)
+        {
+            return true;
+        }
+        return false;
     }
 }
