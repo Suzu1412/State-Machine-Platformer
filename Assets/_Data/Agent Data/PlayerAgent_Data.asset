@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c64dba671d243b94e861ac7894b4cf53, type: 3}
   m_Name: PlayerAgent_Data
   m_EditorClassIdentifier: 
-  health: 10
+  health: 3
   knockbackForce: {x: 3, y: 5}
   invulnerabilityDuration: 1
   hitStunDuration: 0.4

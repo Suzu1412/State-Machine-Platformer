@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class DeathState : State
 {
+    public UnityEvent OnDeathAnimation;
+
     protected override void EnterState()
     {
         fsm.Agent.AnimationManager.ResetEvents();
@@ -32,7 +35,8 @@ public class DeathState : State
 
     private void DeathBehaviour()
     {
-        fsm.Agent.gameObject.SetActive(false);
+        OnDeathAnimation?.Invoke();
+        //fsm.Agent.gameObject.SetActive(false);
     }
 
     protected override void HandleMovement(Vector2 input)
