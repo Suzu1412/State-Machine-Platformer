@@ -82,8 +82,8 @@ GameObject:
   - component: {fileID: 8192466887861848005}
   - component: {fileID: 8192466887861848059}
   - component: {fileID: 8192466887861848058}
-  - component: {fileID: 8192466887861848056}
   - component: {fileID: 8192466887861848057}
+  - component: {fileID: 6001005657243393761}
   m_Layer: 0
   m_Name: HealthUI
   m_TagString: Untagged
@@ -159,30 +159,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8192466887861848056
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8192466887861848004}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
-  m_ChildAlignment: 4
-  m_StartCorner: 0
-  m_StartAxis: 0
-  m_CellSize: {x: 80, y: 80}
-  m_Spacing: {x: 15, y: -10}
-  m_Constraint: 1
-  m_ConstraintCount: 5
 --- !u!114 &8192466887861848057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,6 +174,31 @@ MonoBehaviour:
   fullHealth: {fileID: 331079451, guid: 58c3d2aa319d78d4e8c4d372967bf229, type: 3}
   emptyHealth: {fileID: -1237402131, guid: 58c3d2aa319d78d4e8c4d372967bf229, type: 3}
   healthPrefab: {fileID: -895467580600505462, guid: 7f4bcdee996b289429797e81182639e7, type: 3}
+--- !u!114 &6001005657243393761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8192466887861848004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8ddd65262f0340839c0589287ce102b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  fitType: 3
+  rows: 2
+  columns: 5
+  cellsize: {x: 92, y: 72.5}
+  spacing: {x: 10, y: 5}
+  fitX: 1
+  fitY: 1
 --- !u!1 &8192466887879337696
 GameObject:
   m_ObjectHideFlags: 0
@@ -472,7 +473,7 @@ Transform:
   - {fileID: 8192466887879337697}
   - {fileID: 3164528317885075580}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8192466888692110569
 MonoBehaviour:
@@ -1511,6 +1512,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2177181966265394599, guid: 7f4bcdee996b289429797e81182639e7, type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6614884630645979204, guid: 7f4bcdee996b289429797e81182639e7, type: 3}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
