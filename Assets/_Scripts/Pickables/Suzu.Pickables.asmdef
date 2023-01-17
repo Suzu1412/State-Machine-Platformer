@@ -1,0 +1,18 @@
+{
+    "name": "Suzu.Pickables",
+    "rootNamespace": "",
+    "references": [
+        "GUID:50f7ea3f0570eb94690a7ff2df4ae267",
+        "GUID:7ee614582a3f74c62953c73b0eb40032",
+        "GUID:9a930c232f5b6764594b157f1b8c598d"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

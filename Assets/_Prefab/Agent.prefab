@@ -431,7 +431,19 @@ MonoBehaviour:
   currentHealth: 0
   OnAddHealth:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 0
   OnHealthValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -462,7 +474,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  isInvulnerable: 0
 --- !u!1 &2455216108970153029
 GameObject:
   m_ObjectHideFlags: 0
@@ -540,18 +551,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39a4d0086bc8ea740a9201d406d5a1ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idle: {fileID: 2455216108970153025}
-  move: {fileID: 2455216108970153024}
-  jump: {fileID: 2455216108970153084}
-  fall: {fileID: 2455216108970153027}
-  climb: {fileID: 2455216108970153085}
-  roll: {fileID: 2455216108970153086}
-  attack: {fileID: 6026892931161493247}
-  movingAttack: {fileID: 0}
-  airJumpAttack: {fileID: 6026892931161493123}
-  airFallAttack: {fileID: 6026892931161493122}
-  hit: {fileID: 6026892930989213733}
-  death: {fileID: 6026892930989213732}
+  states: []
 --- !u!114 &2455216108970153025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -570,6 +570,7 @@ MonoBehaviour:
   OnExit:
     m_PersistentCalls:
       m_Calls: []
+  stateType: 0
 --- !u!114 &2455216108970153024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -588,6 +589,7 @@ MonoBehaviour:
   OnExit:
     m_PersistentCalls:
       m_Calls: []
+  stateType: 0
   OnStep:
     m_PersistentCalls:
       m_Calls:
@@ -633,6 +635,7 @@ MonoBehaviour:
   OnExit:
     m_PersistentCalls:
       m_Calls: []
+  stateType: 0
   OnStep:
     m_PersistentCalls:
       m_Calls: []
@@ -654,6 +657,7 @@ MonoBehaviour:
   OnExit:
     m_PersistentCalls:
       m_Calls: []
+  stateType: 0
   OnStep:
     m_PersistentCalls:
       m_Calls: []
@@ -690,6 +694,7 @@ MonoBehaviour:
   OnExit:
     m_PersistentCalls:
       m_Calls: []
+  stateType: 0
 --- !u!114 &2455216108970153086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -708,6 +713,7 @@ MonoBehaviour:
   OnExit:
     m_PersistentCalls:
       m_Calls: []
+  stateType: 0
   OnStep:
     m_PersistentCalls:
       m_Calls: []
@@ -729,6 +735,7 @@ MonoBehaviour:
   OnExit:
     m_PersistentCalls:
       m_Calls: []
+  stateType: 0
   OnWeaponSound:
     m_PersistentCalls:
       m_Calls:
@@ -762,6 +769,7 @@ MonoBehaviour:
   OnExit:
     m_PersistentCalls:
       m_Calls: []
+  stateType: 0
   OnStep:
     m_PersistentCalls:
       m_Calls: []
@@ -798,6 +806,7 @@ MonoBehaviour:
   OnExit:
     m_PersistentCalls:
       m_Calls: []
+  stateType: 0
   OnStep:
     m_PersistentCalls:
       m_Calls: []
@@ -837,6 +846,7 @@ MonoBehaviour:
   OnExit:
     m_PersistentCalls:
       m_Calls: []
+  stateType: 0
   OnStep:
     m_PersistentCalls:
       m_Calls: []
@@ -859,6 +869,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnExit:
+    m_PersistentCalls:
+      m_Calls: []
+  stateType: 0
+  OnDeathAnimation:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &2455216108972156766
@@ -942,9 +956,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: a9680827ba7f14b429ae29c07d749bb6, type: 2}
-  hittableLayerMask:
-    serializedVersion: 2
-    m_Bits: 82432
 --- !u!114 &2455216108972156762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1088,7 +1099,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  isInvulnerable: 0
 --- !u!1 &4284924759516584792
 GameObject:
   m_ObjectHideFlags: 0

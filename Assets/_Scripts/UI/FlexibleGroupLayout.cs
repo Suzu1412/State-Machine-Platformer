@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class FlexibleGroupLayout : LayoutGroup
 {
     [SerializeField] private FitType fitType;
-    [SerializeField] private int rows;
+    private int rows;
     [SerializeField] private int columns;
     [SerializeField] private int maxRows = 1;
     [SerializeField] private int maxColumns = 1;

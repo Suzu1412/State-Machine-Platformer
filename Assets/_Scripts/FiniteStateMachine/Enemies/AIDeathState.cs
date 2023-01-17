@@ -1,14 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class AIDeathState : State
 {
+    public UnityEvent OnDeath;
+
     protected override void EnterState()
     {
         fsm.Agent.AnimationManager.ResetEvents();
         fsm.Agent.AnimationManager.PlayAnimation(AnimationType.death);
-        fsm.Agent.AnimationManager.OnAnimationEnd.AddListener(() => DeathBehaviour());
+        fsm.Agent.AnimationManager.OnAnimationEnd.AddListener(() => OnDeath.Invoke());
     }
 
     public override void LogicUpdate()
@@ -28,11 +31,6 @@ public class AIDeathState : State
             fsm.Agent.Respawn.RespawnFromCheckPoint();
         }
 
-    }
-
-    private void DeathBehaviour()
-    {
-        fsm.Agent.gameObject.SetActive(false);
     }
 
     protected override void HandleMovement(Vector2 input)
