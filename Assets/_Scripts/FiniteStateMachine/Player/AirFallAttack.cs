@@ -6,7 +6,6 @@ using UnityEngine.Events;
 public class AirFallAttack : FallState
 {
     public UnityEvent<AudioClip> OnWeaponSound;
-    private Vector2 direction;
     private bool showGizmos;
 
     protected override void EnterState()
@@ -17,7 +16,6 @@ public class AirFallAttack : FallState
         fsm.Agent.AnimationManager.OnAnimationEnd.AddListener(() => OnAttackEnd());
 
         fsm.Agent.AgentWeapon.ToggleWeaponVisibility(true);
-        direction = fsm.Agent.transform.right * (fsm.Agent.transform.localScale.x > 0 ? 1 : -1);
         showGizmos = true;
     }
 
@@ -58,15 +56,6 @@ public class AirFallAttack : FallState
     {
         OnWeaponSound?.Invoke(fsm.Agent.AgentWeapon.GetCurrentWeapon().WeaponSwingSound);
         fsm.Agent.AnimationManager.OnAnimationAction?.RemoveListener(PerformAttack);
-        fsm.Agent.AgentWeapon.GetCurrentWeapon().PerformAttack(fsm.Agent.AgentWeapon.transform, fsm.Agent.Data.HittableLayerMask, direction);
-    }
-
-    private void OnDrawGizmos()
-    {
-        if (Application.isPlaying == false) return;
-
-        if (!showGizmos) return;
-
-        fsm.Agent.AgentWeapon.GetCurrentWeapon().DrawWeaponGizmos(fsm.Agent.AgentWeapon.transform.position, direction);
+        fsm.Agent.AgentWeapon.PerformAttack(fsm.Agent.Data.HittableLayerMask);
     }
 }

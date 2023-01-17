@@ -6,8 +6,6 @@ using UnityEngine.Events;
 public class AttackState : State 
 {
     public UnityEvent<AudioClip> OnWeaponSound;
-    private Vector2 direction;
-    private bool showGizmos;
 
     protected override void EnterState()
     {
@@ -17,9 +15,6 @@ public class AttackState : State
         fsm.Agent.AnimationManager.OnAnimationEnd.AddListener(() => OnAttackEnd());
 
         fsm.Agent.AgentWeapon.ToggleWeaponVisibility(true);
-
-        direction = fsm.Agent.transform.right * (fsm.Agent.transform.localScale.x > 0 ? 1 : -1);
-        showGizmos = true;
 
         fsm.Agent.Rb2d.velocity = Vector2.zero;
     }
@@ -33,7 +28,6 @@ public class AttackState : State
 
     protected override void ExitState()
     {
-        showGizmos = false;
         fsm.Agent.AnimationManager.ResetEvents();
         fsm.Agent.AgentWeapon.ToggleWeaponVisibility(false);
     }
@@ -69,13 +63,4 @@ public class AttackState : State
             fsm.TransitionToState(StateType.Idle);
         }
     }
-
-    //private void OnDrawGizmos()
-    //{
-    //    if (Application.isPlaying == false) return;
-
-    //    if (!showGizmos) return;
-
-    //    fsm.Agent.AgentWeapon.GetCurrentWeapon().DrawWeaponGizmos(fsm.Agent.AgentWeapon.transform.position, direction);
-    //}
 }

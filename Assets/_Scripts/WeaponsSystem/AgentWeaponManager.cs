@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Pool;
 
 public class AgentWeaponManager : MonoBehaviour
 {
@@ -88,8 +89,6 @@ public class AgentWeaponManager : MonoBehaviour
         }
 
         return true;
-
-        // return weaponStorage.GetCurrentWeapon().CanBeUsed(isGrounded);
     }
 
     public List<string> GetPlayerWeaponNames()

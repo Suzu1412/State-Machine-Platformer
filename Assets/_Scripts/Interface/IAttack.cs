@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IAttack
 {
-    void PerformAttack(Transform origin, LayerMask hittableMask, Vector3 direction);
+    GameObject PerformAttack(Transform origin, LayerMask hittableMask, Vector3 direction);
 
     void DrawWeaponGizmos(Vector3 origin, Vector3 direction);
 }
