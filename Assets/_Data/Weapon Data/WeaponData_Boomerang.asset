@@ -17,7 +17,7 @@ MonoBehaviour:
   weaponDamage: 1
   weaponSwingSound: {fileID: 8300000, guid: d2330a81ee5b79045bf412aa41329dca, type: 3}
   rangeWeaponPrefab: {fileID: 9051204766057657881, guid: b4b3b3cac0b6fc641bd9d759c7bdc3d2, type: 3}
-  speed: 15
+  speed: 20
   attackRange: 30
-  rotationSpeed: 250
+  rotationSpeed: 600
   radius: 0.5
