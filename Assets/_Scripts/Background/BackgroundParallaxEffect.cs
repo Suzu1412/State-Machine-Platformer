@@ -2,21 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class BackgroundParallaxEffect : MonoBehaviour
 {
-    private Camera mainCamera;
+    private ParallaxCamera parallaxCamera;
     private CinemachineVirtualCamera cm;
     [Tooltip("The velocity in which the background will move. The objects further away should move slower")]
     [SerializeField] private Vector2 scrollSpeed;
+    [Tooltip("If the component will repeat infinitely then use this. Else uncheck and the object will move")]
+    [SerializeField] private bool hasRepeatingBackground;
     private Rigidbody2D targetRB;
 
     private Vector2 offset;
 
     private Material material;
 
-    private float oldPosition;
-    private float currentPosition;
 
     private void Awake()
     {
@@ -37,8 +38,6 @@ public class BackgroundParallaxEffect : MonoBehaviour
             return;
         }
 
-        
-
         if (cm.Follow.TryGetComponent<Rigidbody2D>(out Rigidbody2D rb2d))
         {
             targetRB = rb2d;
@@ -52,21 +51,40 @@ public class BackgroundParallaxEffect : MonoBehaviour
 
     void Start()
     {
-        mainCamera = Camera.main;
-        oldPosition = mainCamera.transform.position.x;
+        if (parallaxCamera == null)
+            if (Camera.main.TryGetComponent(out ParallaxCamera parallaxCam))
+            {
+                parallaxCamera = parallaxCam;
+            }
+            else
+            {
+                Debug.LogError("Main camera has no Parallax Camera assigned");
+            }
+        if (parallaxCamera != null)
+            parallaxCamera.OnParallaxCamera += Move;
     }
 
-    private void FixedUpdate()
+    /// <summary>
+    /// Move will be called when the camera detects that its position has changed.
+    /// To use Repeating Background your first need to go to the Image Import Settings
+    /// And change the "Wrap Mode" To Repeat. This will ensure that the image loops properly.
+    /// </summary> 
+    /// <param name="delta">Delta is the difference from its previous position compared to the current one</param>
+    private void Move(float delta)
     {
-        oldPosition = Mathf.Round(oldPosition * 10.0f) * 0.1f;
-        currentPosition = Mathf.Round(mainCamera.transform.position.x * 10.0f) * 0.1f;
-
-        if (currentPosition != oldPosition)
+        
+        if (hasRepeatingBackground)
         {
-            offset = (targetRB.velocity.x * 0.1f) * scrollSpeed * Time.deltaTime;
+            offset = (targetRB.velocity.x * 0.1f) * (scrollSpeed / 100) * Time.deltaTime;
             material.mainTextureOffset += offset;
-
-            oldPosition = mainCamera.transform.position.x;
         }
+        else
+        {
+            Vector3 newPos = transform.localPosition;
+            newPos.x += delta * (scrollSpeed.x / 10);
+            newPos.y += delta * (scrollSpeed.y / 10);
+            transform.localPosition = newPos;
+        }
+        
     }
 }
