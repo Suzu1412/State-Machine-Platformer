@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
-using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class BackgroundParallaxEffect : MonoBehaviour
 {
@@ -61,7 +60,9 @@ public class BackgroundParallaxEffect : MonoBehaviour
                 Debug.LogError("Main camera has no Parallax Camera assigned");
             }
         if (parallaxCamera != null)
+        {
             parallaxCamera.OnParallaxCamera += Move;
+        }
     }
 
     /// <summary>
