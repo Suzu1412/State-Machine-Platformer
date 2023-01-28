@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,28 +12,57 @@ public class ClimbingDetector : MonoBehaviour
     [SerializeField] private bool canClimb = false;
     public bool CanClimb => canClimb;
     public Collider2D Ladder => ladder;
+    private Coroutine detectionCoroutine;
+    private WaitForSeconds waitForSeconds = new(0.2f);
 
-    public void SetCollider(Collider2D agentCollider)
+    private void OnEnable()
+    {
+        detectionCoroutine = StartCoroutine(DetectionCoroutine());
+    }
+
+    private void OnDisable()
+    {
+        StopCoroutine(detectionCoroutine);
+    }
+
+    internal void SetCollider(Collider2D agentCollider)
     {
         this.agentCollider = agentCollider;
     }
 
-    public void SetCollissionData(CollissionSensesDataSO data)
+    internal void SetCollissionData(CollissionSensesDataSO data)
     {
         collissionData = data;
+
+        waitForSeconds = new(collissionData.LadderDetectionDelay);
     }
 
-    public void CheckIfCanClimb()
+    private IEnumerator DetectionCoroutine()
+    {
+        while (true)
+        {
+            if (collissionData == null)
+            {
+                yield return null;
+            }
+
+            yield return waitForSeconds;
+
+            CheckIfCanClimb();
+        }
+    }
+
+    private void CheckIfCanClimb()
     {
         RaycastHit2D raycastHit = Physics2D.Raycast(agentCollider.bounds.center, transform.TransformDirection(Vector2.down), agentCollider.bounds.extents.y + collissionData.BoxCastYOffset, collissionData.ClimbingMask);
 
         ladder = raycastHit.collider != null ? raycastHit.collider : null;
 
-        canClimb = raycastHit.collider != null ? true : false;
+        canClimb = raycastHit.collider != null;
     }
 
     #region Gizmos
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
         if (agentCollider == null) return;
 

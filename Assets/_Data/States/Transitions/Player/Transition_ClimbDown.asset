@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbeede435d041944fb8aa9ff83250640, type: 3}
+  m_Name: Transition_ClimbDown
+  m_EditorClassIdentifier: 
+  conditions:
+  - name: Input Y Less Than 0
+    decision: {fileID: 11400000, guid: be53c1617479fda4b860c83061694952, type: 2}
+    expectedResult: 0
+  - name: Is Touching Ladder
+    decision: {fileID: 11400000, guid: 9373112c2e9e10546aaf4d0998ace4a9, type: 2}
+    expectedResult: 0
+  - name: Is Touching Top Ladder
+    decision: {fileID: 11400000, guid: 130dad7f1a7bb9a429e36474cd337428, type: 2}
+    expectedResult: 1
+  - name: Is Not Grounded
+    decision: {fileID: 11400000, guid: e24b42179bb56e2458aa03de8e26e76c, type: 2}
+    expectedResult: 1
+  newStateType: 4
+  debug: 0

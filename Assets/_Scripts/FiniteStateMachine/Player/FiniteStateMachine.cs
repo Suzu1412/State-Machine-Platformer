@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.VersionControl.Asset;
 
 public class FiniteStateMachine : MonoBehaviour
 {
@@ -16,7 +15,10 @@ public class FiniteStateMachine : MonoBehaviour
     [SerializeField] private string stateName = "";
 
     public Agent Agent => agent;
-    public StateType PreviousState => previousState.StateType;
+    internal State PreviousState => previousState;
+    internal State CurrentState => currentState;
+    internal StateType PreviousStateType => previousState.StateType;
+    internal StateType CurrentStateType => currentState.StateType;
 
     private void Awake()
     {
@@ -45,6 +47,7 @@ public class FiniteStateMachine : MonoBehaviour
     void Update()
     {
         if (currentState != null) currentState.LogicUpdate();
+        if (currentState != null) currentState.TransitionToState(this);
     }
 
     private void FixedUpdate()

@@ -10,15 +10,46 @@ public class GroundAheadDetector : MonoBehaviour
     [SerializeField] private bool isThereGroundAhead = false;
     public bool IsThereGroundAhead => isThereGroundAhead;
 
+    private Coroutine detectionCoroutine;
+    private WaitForSeconds waitForSeconds = new(0.2f);
+
     private void Awake()
     {
         if (groundCheck == null) Debug.LogError("There is no Ground Check Transform assigned to: " + this.name);
     }
 
-    public void SetCollissionData(CollissionSensesDataSO data)
+    private void OnEnable()
+    {
+        detectionCoroutine = StartCoroutine(DetectionCoroutine());
+    }
+
+    private void OnDisable()
+    {
+        StopCoroutine(detectionCoroutine);
+    }
+
+    internal void SetCollissionData(CollissionSensesDataSO data)
     {
         collissionData = data;
+
+        waitForSeconds = new(collissionData.GroundDetectionDelay);
     }
+
+    private IEnumerator DetectionCoroutine()
+    {
+        while (true)
+        {
+            if (collissionData == null)
+            {
+                yield return null;
+            }
+
+            yield return waitForSeconds;
+
+            CheckIfThereIsPathAhead();
+        }
+    }
+
 
     /// <summary>
     /// Used to Prevent Agent to Keep moving when the path end

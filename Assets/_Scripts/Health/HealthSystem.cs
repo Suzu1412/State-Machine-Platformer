@@ -8,7 +8,6 @@ public class HealthSystem : MonoBehaviour, IHittable, IHealable
 {
     [SerializeField] private int maxHealth;
     [SerializeField] private int currentHealth;
-    private float invulnerabilityDuration;
 
     public UnityEvent OnAddHealth;
 
@@ -18,8 +17,17 @@ public class HealthSystem : MonoBehaviour, IHittable, IHealable
     public event Action OnHit;
     public event Action OnDeath;
 
-    private Coroutine InvulnerabilityCoroutine;
-    
+    public bool IsDeath { get; private set; }
+    public bool IsHit { get; private set; }
+
+    private Coroutine invulnerabilityCoroutine;
+    private Coroutine hitResetCoroutine;
+    private Coroutine deathResetCoroutine;
+
+    private WaitForSeconds waitForSeconds = new(0.15f);
+    private WaitForSeconds HitStunDuration = new(0.15f);
+    private WaitForSeconds invulnerabilityPeriod = new(0.2f);
+
 
     public int CurrentHealth
     {
@@ -49,12 +57,13 @@ public class HealthSystem : MonoBehaviour, IHittable, IHealable
 
         if (currentHealth <= 0)
         {
+            deathResetCoroutine = StartCoroutine(DeathResetCoroutine());
             OnDeath?.Invoke();
         }
         else
         {
-            
-            InvulnerabilityCoroutine = StartCoroutine(InvulnerabilityPeriod());
+            invulnerabilityCoroutine = StartCoroutine(InvulnerabilityCoroutine());
+            hitResetCoroutine = StartCoroutine(HitResetCoroutine());
             OnHit?.Invoke();
         }
     }
@@ -70,18 +79,35 @@ public class HealthSystem : MonoBehaviour, IHittable, IHealable
         return maxHealth * currentHealth / 100;
     }
 
-    public void Initialize(int health, float invulnerabilityDuration)
+    public void Initialize(int health, float invulnerabilityDuration, float hitStunDuration)
     {
         maxHealth = health;
-        this.invulnerabilityDuration = invulnerabilityDuration;
+        invulnerabilityPeriod = new(invulnerabilityDuration);
+        HitStunDuration = new(hitStunDuration);
         OnInitializeMaxHealth?.Invoke(maxHealth);
         CurrentHealth = maxHealth;
     }
 
-    private IEnumerator InvulnerabilityPeriod()
+    private IEnumerator InvulnerabilityCoroutine()
     {
         isInvulnerable = true;
-        yield return new WaitForSeconds(invulnerabilityDuration);
+        yield return invulnerabilityPeriod;
         isInvulnerable = false;
+    }
+
+    private IEnumerator HitResetCoroutine()
+    {
+        IsHit = true;
+        isHitStunned = true;
+        yield return HitStunDuration;
+        IsHit = false;
+        isHitStunned = false;
+    }
+
+    private IEnumerator DeathResetCoroutine()
+    {
+        IsDeath = true;
+        yield return waitForSeconds;
+        IsDeath = false;
     }
 }

@@ -3,10 +3,11 @@ using UnityEngine.Events;
 
 public abstract class State : MonoBehaviour
 {
+    [SerializeField] private StateTransitionSO stateTransition;
+    [SerializeField] protected StateType stateType;
     protected FiniteStateMachine fsm;
     public UnityEvent OnEnter, OnExit;
     protected Vector2 movement;
-    [SerializeField] protected StateType stateType;
 
     public StateType StateType => stateType;
 
@@ -15,7 +16,7 @@ public abstract class State : MonoBehaviour
         this.fsm = fsm;
     }
 
-    public void Enter()
+    internal void Enter()
     {
         fsm.Agent.Input.OnMovement += HandleMovement;
         fsm.Agent.Input.OnMovement += HandleFaceDirection;
@@ -31,7 +32,7 @@ public abstract class State : MonoBehaviour
         EnterState();
     }
 
-    public void Exit()
+    internal void Exit()
     {
         fsm.Agent.Input.OnMovement -= HandleMovement;
         fsm.Agent.Input.OnMovement -= HandleFaceDirection;
@@ -47,26 +48,33 @@ public abstract class State : MonoBehaviour
         ExitState();
     }
 
-    protected virtual void EnterState()
+    internal virtual void EnterState()
     {
         
     }
 
-    public virtual void LogicUpdate()
-    {
-        
-    }
-
-    public virtual void PhysicsUpdate()
+    internal virtual void LogicUpdate()
     {
     }
 
-    protected virtual void ExitState()
+    internal virtual void PhysicsUpdate()
+    {
+    }
+
+    internal virtual void ExitState()
     {
 
+    }
+
+    internal void TransitionToState(FiniteStateMachine fsm)
+    {
+        if (stateTransition == null) return;
+
+        stateTransition.HandleTransition(fsm);
     }
 
     #region State Override Methods
+
     protected virtual void HandleMovement(Vector2 input)
     {
         
@@ -79,10 +87,10 @@ public abstract class State : MonoBehaviour
 
     protected virtual void HandleJumpPressed()
     {
-        if (fsm.Agent.MovementData.AmountOfJumps > 0) 
-        {
-            fsm.TransitionToState(StateType.Jump);
-        }
+        //if (fsm.Agent.MovementData.AmountOfJumps > 0) 
+        //{
+        //    fsm.TransitionToState(StateType.Jump);
+        //}
     }
 
     protected virtual void HandleJumpReleased()

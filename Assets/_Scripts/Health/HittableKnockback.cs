@@ -7,7 +7,8 @@ using UnityEngine;
 public class HittableKnockback : MonoBehaviour, IHittable
 {
     private int knockbackDirection;
-    public int KnockbackDirection => knockbackDirection;    
+    public int KnockbackDirection => knockbackDirection;
+
     public event Action OnHitKnockback;
 
     public void GetHit(GameObject opponent, int weaponDamage)

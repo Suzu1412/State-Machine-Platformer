@@ -4,31 +4,26 @@ using UnityEngine;
 
 public class HitState : FallState
 {
-    private float hitStunDuration;
     private bool hitForcesApplied;
 
-    protected override void EnterState()
+    private void OnValidate()
     {
-        hitStunDuration = fsm.Agent.Data.HitStunDuration;
+        stateType = StateType.Hit;
+    }
+
+    internal override void EnterState()
+    {
         fsm.Agent.AnimationManager.PlayAnimation(AnimationType.hit);
         fsm.Agent.Rb2d.velocity = new Vector2(0, fsm.Agent.Rb2d.velocity.y);
         hitForcesApplied = false;
     }
 
-    public override void LogicUpdate()
+    internal override void LogicUpdate()
     {
-        hitStunDuration -= Time.deltaTime;
-
-        if (hitStunDuration < 0f)
-        {
-            fsm.TransitionToState(StateType.Idle);
-        }
     }
 
-    public override void PhysicsUpdate()
+    internal override void PhysicsUpdate()
     {
-        fsm.Agent.CollissionSenses.DetectGround();
-        fsm.Agent.CollissionSenses.DetectWall();
     }
 
     protected override void HandleMovement(Vector2 input)

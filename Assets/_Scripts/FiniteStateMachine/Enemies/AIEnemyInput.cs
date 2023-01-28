@@ -7,6 +7,14 @@ public class AIEnemyInput : MonoBehaviour, IAgentInput
 {
     public Vector2 MovementVector { get; private set; }
 
+    public bool JumpPressed { get; private set; }
+    public bool JumpHold { get; private set; }
+
+    public bool JumpReleased { get; private set; }
+    public bool RollPressed { get; private set; }
+    public bool RollReleased { get; private set; }
+
+
     public event Action OnAttackPressed;
     public event Action OnJumpPressed;
     public event Action OnJumpReleased;

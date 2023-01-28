@@ -21,9 +21,21 @@ MonoBehaviour:
   climbingMask:
     serializedVersion: 2
     m_Bits: 256
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 0
+  groundDetectionDelay: 0.05
+  groundAheadDetectionDelay: 0.2
+  wallDetectionDelay: 0.1
+  ladderDetectionDelay: 0.05
+  topLadderDetectionDelay: 0.05
+  targetDetectionDelay: 0.3
+  radiusForGroundAheadDetection: 0.2
   boxCastXOffset: 0.05
   boxCastYOffset: 0.15
   boxCastWidth: 1
   boxCastHeight: 0.1
+  targetDetectorSize: {x: 1, y: 1}
+  detectorOriginOffset: {x: 0, y: 0}
   isCollidingColor: {r: 0, g: 1, b: 0, a: 1}
   isNotCollidingColor: {r: 1, g: 0, b: 0, a: 1}

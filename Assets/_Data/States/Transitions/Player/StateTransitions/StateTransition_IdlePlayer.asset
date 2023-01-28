@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5e6880bbe2c3164c9e57fa7aaa957fc, type: 3}
+  m_Name: StateTransition_IdlePlayer
+  m_EditorClassIdentifier: 
+  transitions:
+  - {fileID: 11400000, guid: 3489314b088430d44b26e839b4b67575, type: 2}
+  - {fileID: 11400000, guid: e7e17cf2b3d80754b859a6cd7fb8bf71, type: 2}
+  - {fileID: 11400000, guid: 7fccc6d1887be4b45a07e9c90d7abb19, type: 2}
+  - {fileID: 11400000, guid: 72d820e912044dc49a83607fd3fae0c2, type: 2}
+  - {fileID: 11400000, guid: 2d272a8595c2966409cdfd801c91faa1, type: 2}
+  - {fileID: 11400000, guid: 426589d3d7ff7df41af2853ae589ba85, type: 2}
+  - {fileID: 11400000, guid: 6ea6dedc24984bf41ae3f9d2e51731ca, type: 2}
+  - {fileID: 11400000, guid: 8746e4902f082c04f8f8b6000427f329, type: 2}
+  - {fileID: 11400000, guid: 4e0ad09829af0914fb78ef6d96b579ba, type: 2}

@@ -11,7 +11,7 @@ public class TyranossaurusIdle : State
     [SerializeField] private bool debugPhase;
 
 
-    protected override void EnterState()
+    internal override void EnterState()
     {
         idleDurationTimeLeft = idleDuration;
 
@@ -32,7 +32,7 @@ public class TyranossaurusIdle : State
         }
     }
 
-    public override void LogicUpdate()
+    internal override void LogicUpdate()
     {
         idleDurationTimeLeft -= Time.deltaTime;
 

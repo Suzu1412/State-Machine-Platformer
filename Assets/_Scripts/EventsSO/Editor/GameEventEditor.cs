@@ -1,6 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
+#if UNITY_EDITOR
 [CustomEditor(typeof(GameEvent))]
 public class GameEventEditor : Editor
 {
@@ -18,3 +19,4 @@ public class GameEventEditor : Editor
         }
     }
 }
+#endif

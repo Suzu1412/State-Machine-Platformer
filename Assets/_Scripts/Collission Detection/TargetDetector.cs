@@ -5,12 +5,11 @@ using UnityEngine;
 public class TargetDetector : MonoBehaviour
 {
     [SerializeField] private bool targetDetected;
-    [SerializeField] private float detectionDelay = 0.3f;
-    private Collider2D agentCollider;
     private CollissionSensesDataSO collissionData;
     private GameObject target;
     private Transform detectorOrigin;
-    private IEnumerator detectionCoroutine;
+    private Coroutine detectionCoroutine;
+    private WaitForSeconds waitForSeconds = new(0.2f);
 
     public bool TargetDetected => targetDetected;
     public GameObject Target
@@ -24,7 +23,7 @@ public class TargetDetector : MonoBehaviour
     }
 
     public Vector2 DirectionToTarget => target.transform.position - detectorOrigin.position;
-    public float DistanceToClosestTarget => (target.transform.position - detectorOrigin.position).sqrMagnitude;
+    public float DistanceToClosestTarget { get => target != null ? (target.transform.position - detectorOrigin.position).sqrMagnitude : Mathf.Infinity; }
 
     public void SetCollissionData(CollissionSensesDataSO data)
     {
@@ -34,34 +33,48 @@ public class TargetDetector : MonoBehaviour
     private void Awake()
     {
         detectorOrigin = transform;
-        detectionCoroutine = DetectionCoroutine();
     }
 
+    private void OnEnable()
+    {
+        detectionCoroutine = StartCoroutine(DetectionCoroutine());
+    }
+
+    private void OnDisable()
+    {
+        StopCoroutine(detectionCoroutine);
+    }
 
     private IEnumerator DetectionCoroutine()
     {
         while (true)
         {
-            yield return new WaitForSeconds(detectionDelay);
-
-            Collider2D[] targets = Physics2D.OverlapBoxAll((Vector2)detectorOrigin.position + collissionData.DetectorOriginOffset, collissionData.TargetDetectorSize, 0, collissionData.TargetMask);
-            if (targets != null)
+            if (collissionData == null)
             {
-                if (targets.Length > 0)
-                {
-                    foreach (Collider2D targetDetected in targets)
-                    {
-                        float distanceToTarget = (targetDetected.transform.position - detectorOrigin.position).sqrMagnitude;
+                yield return null;
+            }
 
-                        if (distanceToTarget < DistanceToClosestTarget)
-                        {
-                            target = targetDetected.gameObject;
-                        }
-                    }
-                }
-                else
+            yield return waitForSeconds;
+
+            DetectTargets();
+        }
+    }
+
+    private void DetectTargets()
+    {
+        Collider2D[] targets = Physics2D.OverlapBoxAll((Vector2)detectorOrigin.position + collissionData.DetectorOriginOffset, collissionData.TargetDetectorSize, 0, collissionData.TargetMask);
+        if (targets != null)
+        {
+            if (targets.Length > 0)
+            {
+                foreach (Collider2D targetDetected in targets)
                 {
-                    target = null;
+                    float distanceToTarget = (targetDetected.transform.position - detectorOrigin.position).sqrMagnitude;
+
+                    if (distanceToTarget < DistanceToClosestTarget)
+                    {
+                        target = targetDetected.gameObject;
+                    }
                 }
             }
             else
@@ -69,19 +82,13 @@ public class TargetDetector : MonoBehaviour
                 target = null;
             }
         }
+        else
+        {
+            target = null;
+        }
     }
 
-    private void OnBecameVisible()
-    {
-        StartCoroutine(detectionCoroutine);
-    }
-
-    private void OnBecameInvisible()
-    {
-        StopCoroutine(detectionCoroutine);
-    }
-
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
         if (detectorOrigin == null) return;
 

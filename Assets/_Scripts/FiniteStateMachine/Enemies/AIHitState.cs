@@ -6,27 +6,25 @@ public class AIHitState : State
 {
     private float hitStunDuration;
 
-    protected override void EnterState()
+    internal override void EnterState()
     {
         hitStunDuration = fsm.Agent.Data.HitStunDuration;
         fsm.Agent.AnimationManager.PlayAnimation(AnimationType.hit);
         fsm.Agent.Rb2d.velocity = new Vector2(0, fsm.Agent.Rb2d.velocity.y);
     }
 
-    public override void LogicUpdate()
+    internal override void LogicUpdate()
     {
         hitStunDuration -= Time.deltaTime;
 
         if (hitStunDuration < 0f)
         {
-            fsm.TransitionToState(fsm.PreviousState);
+            fsm.TransitionToState(fsm.PreviousStateType);
         }
     }
 
-    public override void PhysicsUpdate()
+    internal override void PhysicsUpdate()
     {
-        fsm.Agent.CollissionSenses.DetectGround();
-        fsm.Agent.CollissionSenses.DetectWall();
     }
 
     protected override void HandleMovement(Vector2 input)

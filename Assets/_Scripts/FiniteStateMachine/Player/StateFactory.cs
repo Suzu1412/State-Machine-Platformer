@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class StateFactory : MonoBehaviour
 {
-    //[SerializeField] private State idle, move, jump, fall, climb, roll, attack, movingAttack, airJumpAttack, airFallAttack, hit, death;
     [SerializeField] private State[] states;
 
     public State GetState(StateType type)

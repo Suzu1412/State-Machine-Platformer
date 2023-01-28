@@ -13,7 +13,7 @@ public class AIIdleState : State
         idleCount = 1;
     }
 
-    protected override void EnterState()
+    internal override void EnterState()
     {
         if (idleTimeDuration > 0f)
         {
@@ -25,10 +25,9 @@ public class AIIdleState : State
         }
 
         idleCount++;
-        
     }
 
-    public override void LogicUpdate()
+    internal override void LogicUpdate()
     {
         idleTimeDuration -= Time.deltaTime;
 
@@ -43,15 +42,12 @@ public class AIIdleState : State
         }
     }
 
-    public override void PhysicsUpdate()
+    internal override void PhysicsUpdate()
     {
-        fsm.Agent.CollissionSenses.DetectGround();
-        fsm.Agent.CollissionSenses.DetectWall();
-
         fsm.Agent.Rb2d.velocity = Vector2.zero;
     }
 
-    protected override void ExitState()
+    internal override void ExitState()
     {
         if (idleCount >= 4)
         {

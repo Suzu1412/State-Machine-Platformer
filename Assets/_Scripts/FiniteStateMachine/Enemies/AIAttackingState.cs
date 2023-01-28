@@ -8,7 +8,7 @@ public class AIAttackingState : State
     public UnityEvent<AudioClip> OnWeaponSound;
     private Vector2 direction;
 
-    protected override void EnterState()
+    internal override void EnterState()
     {
         fsm.Agent.AnimationManager.ResetEvents();
         fsm.Agent.AnimationManager.PlayAnimation(AnimationType.attack);
@@ -20,13 +20,11 @@ public class AIAttackingState : State
         fsm.Agent.Rb2d.velocity = Vector2.zero;
     }
 
-    public override void PhysicsUpdate()
+    internal override void PhysicsUpdate()
     {
-        fsm.Agent.CollissionSenses.DetectGround();
-        fsm.Agent.CollissionSenses.DetectWall();
     }
 
-    protected override void ExitState()
+    internal override void ExitState()
     {
         fsm.Agent.AnimationManager.ResetEvents();
     }
@@ -40,9 +38,9 @@ public class AIAttackingState : State
 
     private void OnAttackEnd()
     {
-        if (fsm.PreviousState != StateType.Hit)
+        if (fsm.PreviousStateType != StateType.Hit)
         {
-            fsm.TransitionToState(fsm.PreviousState);
+            fsm.TransitionToState(fsm.PreviousStateType);
         }
         else
         {

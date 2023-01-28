@@ -7,23 +7,23 @@ public class DeathState : State
 {
     public UnityEvent OnDeathAnimation;
 
-    protected override void EnterState()
+    internal override void EnterState()
     {
         fsm.Agent.AnimationManager.ResetEvents();
         fsm.Agent.AnimationManager.PlayAnimation(AnimationType.death);
         fsm.Agent.AnimationManager.OnAnimationEnd.AddListener(() => DeathBehaviour());
     }
 
-    public override void LogicUpdate()
+    internal override void LogicUpdate()
     {
     }
 
-    public override void PhysicsUpdate()
+    internal override void PhysicsUpdate()
     {
         fsm.Agent.Rb2d.velocity = new Vector2(0, fsm.Agent.Rb2d.velocity.y);
     }
 
-    protected override void ExitState()
+    internal override void ExitState()
     {
         if (fsm.Agent.Respawn != null)
         {

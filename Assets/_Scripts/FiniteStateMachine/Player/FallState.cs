@@ -5,7 +5,12 @@ public class FallState : MoveState
 {
     public UnityEvent OnGrounded;
 
-    protected override void EnterState()
+    private void OnValidate()
+    {
+        stateType = StateType.Fall;
+    }
+
+    internal override void EnterState()
     {
         fsm.Agent.AnimationManager.PlayAnimation(AnimationType.fall);
 
@@ -16,13 +21,13 @@ public class FallState : MoveState
         }
     }
 
-    public override void LogicUpdate()
+    internal override void LogicUpdate()
     {
         CalculateVelocity();
 
         if (fsm.Agent.MovementData.IsInCoyoteTime)
         {
-            fsm.Agent.MovementData.ReduceCoyoteTimeDurationByTime(Time.deltaTime);
+            fsm.Agent.MovementData.ReduceCoyoteTimeDurationBySeconds(Time.deltaTime);
 
             if (fsm.Agent.MovementData.CoyoteTimeDuration <= 0f)
             {
@@ -32,12 +37,8 @@ public class FallState : MoveState
         }
     }
 
-    public override void PhysicsUpdate()
+    internal override void PhysicsUpdate()
     {
-        fsm.Agent.CollissionSenses.DetectGround();
-        fsm.Agent.CollissionSenses.DetectWall();
-        fsm.Agent.CollissionSenses.DetectLadder();
-
         SetPlayerVelocity();
 
         HandleTransitionToStates();
@@ -45,7 +46,7 @@ public class FallState : MoveState
         ClimbLadder();
     }
 
-    protected override void ExitState()
+    internal override void ExitState()
     {
         if (!fsm.Agent.CollissionSenses.IsGrounded) return;
 
@@ -68,6 +69,7 @@ public class FallState : MoveState
 
     protected virtual void HandleTransitionToStates()
     {
+        /*
         if (fsm.Agent.CollissionSenses.IsGrounded && fsm.Agent.Rb2d.velocity.y == 0f)
         {
             if (Mathf.Abs(fsm.Agent.Rb2d.velocity.x) > 0f)
@@ -79,5 +81,6 @@ public class FallState : MoveState
                 fsm.TransitionToState(StateType.Idle);
             }
         }
+        */
     }
 }

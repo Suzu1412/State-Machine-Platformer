@@ -7,7 +7,7 @@ public class AttackState : State
 {
     public UnityEvent<AudioClip> OnWeaponSound;
 
-    protected override void EnterState()
+    internal override void EnterState()
     {
         fsm.Agent.AnimationManager.ResetEvents();
         fsm.Agent.AnimationManager.PlayAnimation(AnimationType.attack);
@@ -19,14 +19,11 @@ public class AttackState : State
         fsm.Agent.Rb2d.velocity = Vector2.zero;
     }
 
-    public override void PhysicsUpdate()
+    internal override void PhysicsUpdate()
     {
-        fsm.Agent.CollissionSenses.DetectGround();
-        fsm.Agent.CollissionSenses.DetectWall();
-        fsm.Agent.CollissionSenses.DetectLadder();
     }
 
-    protected override void ExitState()
+    internal override void ExitState()
     {
         fsm.Agent.AnimationManager.ResetEvents();
         fsm.Agent.AgentWeapon.ToggleWeaponVisibility(false);

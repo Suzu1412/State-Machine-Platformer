@@ -59,6 +59,7 @@ public class PlayerInputSO : ScriptableObject, PlayerInputConfig.IGameplayAction
 
     public void OnJump(InputAction.CallbackContext context)
     {
+        if (context.started) OnJumpPressed?.Invoke();
         if (context.performed)
         {
             OnJumpPressed?.Invoke();

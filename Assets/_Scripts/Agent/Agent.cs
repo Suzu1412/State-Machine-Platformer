@@ -58,6 +58,6 @@ public class Agent : MonoBehaviour
 
     private void OnEnable()
     {
-        healthSystem.Initialize(data.Health, data.InvulnerabilityDuration);
+        healthSystem.Initialize(data.Health, data.InvulnerabilityDuration, data.HitStunDuration);
     }     
 }

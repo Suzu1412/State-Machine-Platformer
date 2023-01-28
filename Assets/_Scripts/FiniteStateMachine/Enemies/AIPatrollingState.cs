@@ -8,7 +8,7 @@ public class AIPatrollingState : State
     public UnityEvent OnStep;
     private Vector2 direction = Vector2.zero;
 
-    protected override void EnterState()
+    internal override void EnterState()
     {
         fsm.Agent.AnimationManager.PlayAnimation(AnimationType.run);
         fsm.Agent.AnimationManager.OnAnimationAction.AddListener(() => OnStep.Invoke());
@@ -24,7 +24,7 @@ public class AIPatrollingState : State
         fsm.Agent.Input.CallOnMovementVector(direction);
     }
 
-    public override void LogicUpdate()
+    internal override void LogicUpdate()
     {
         CalculateVelocity();
 
@@ -34,12 +34,8 @@ public class AIPatrollingState : State
         }
     }
 
-    public override void PhysicsUpdate()
+    internal override void PhysicsUpdate()
     {
-        fsm.Agent.CollissionSenses.DetectGround();
-        fsm.Agent.CollissionSenses.DetectWall();
-        fsm.Agent.CollissionSenses.DetectGroundAhead();
-
         SetPlayerVelocity();
 
         if (fsm.Agent.CollissionSenses.IsTouchingWall || !fsm.Agent.CollissionSenses.IsThereGroundAhead)
@@ -55,7 +51,7 @@ public class AIPatrollingState : State
     }
 
 
-    protected override void ExitState()
+    internal override void ExitState()
     {
         fsm.Agent.AnimationManager.ResetEvents();
     }

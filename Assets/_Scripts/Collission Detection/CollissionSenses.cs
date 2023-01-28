@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[DefaultExecutionOrder(-100)]
 public class CollissionSenses : MonoBehaviour
 {
     private Collider2D agentCollider;
@@ -29,8 +30,10 @@ public class CollissionSenses : MonoBehaviour
     public bool IsGrounded => groundDetector.IsGrounded;
     public bool IsTouchingWall => wallDetector.IsTouchingWall;
     public bool IsTouchingLadder => climbingDetector.CanClimb;
-    public bool IsOnBottomOfTopLadder => topLadderDetector.IsOnBottom;
+    public bool IsBelowOfTopLadder => topLadderDetector.IsBelowLadder;
+    public bool IsAboveOfTopLadder => topLadderDetector.IsAboveLadder;
     public bool IsThereGroundAhead => groundAheadDetector.IsThereGroundAhead;
+    public bool IsTargetDetected => targetDetector.TargetDetected;
 
     public Collider2D Ladder => climbingDetector.Ladder;
 
@@ -38,8 +41,6 @@ public class CollissionSenses : MonoBehaviour
 
     private void Awake()
     {
-        if (agentColliderStanding == null) Debug.LogError("Agent Collider Standing is Empty in: " + this.name);
-        if (agentColliderCrouching == null) Debug.LogError("Agent Collider Crouching is Empty in: " + this.name);
         if (collissionData == null) Debug.LogError("Agent Collission Data is Empty in: " + this.name);
 
         groundDetector = GetComponent<GroundDetector>();
@@ -49,11 +50,6 @@ public class CollissionSenses : MonoBehaviour
         groundAheadDetector = GetComponent<GroundAheadDetector>();
         targetDetector = GetComponent<TargetDetector>();
 
-        if (groundDetector == null) Debug.LogError("Ground Detector is Missing in: " + this.name);
-        if (wallDetector == null) Debug.LogError("Wall Detector is Missing in: " + this.name);
-        if (climbingDetector == null) Debug.LogError("Climbing Detector is Missing in: " + this.name);
-        if (topLadderDetector == null) Debug.LogError("Top Ladder Detector is Missing in: " + this.name);
-
         SetAgentCollider(false);
         SetCollissionData();
     }
@@ -62,67 +58,43 @@ public class CollissionSenses : MonoBehaviour
     {
         if (!isCrouching)
         {
-            agentCollider = agentColliderStanding;
+            if (agentColliderStanding == null)
+            {
+                Debug.LogError("Agent Collider Standing is Empty in: " + this.name);
+                return;
+            }
 
+            agentCollider = agentColliderStanding;
             agentColliderStanding.enabled = true;
-            agentColliderCrouching.enabled = false;
+
+            if (agentColliderCrouching != null) agentColliderCrouching.enabled = false;
         }
         else
         {
+            if (agentColliderCrouching == null)
+            {
+                Debug.LogError("Agent Collider Crouching is Empty in: " + this.name);
+            }
+
             agentCollider = agentColliderCrouching;
 
             agentColliderStanding.enabled = false;
             agentColliderCrouching.enabled = true;
         }
 
-        groundDetector.SetCollider(agentCollider);
-        wallDetector.SetCollider(agentCollider);
-        climbingDetector.SetCollider(agentCollider);
-        TopLadderDetector.SetCollider(agentCollider);
+        if (groundDetector != null) groundDetector.SetCollider(agentCollider);
+        if (wallDetector != null) wallDetector.SetCollider(agentCollider);
+        if (climbingDetector != null) climbingDetector.SetCollider(agentCollider);
+        if (TopLadderDetector != null) TopLadderDetector.SetCollider(agentCollider);
     }
 
     private void SetCollissionData()
     {
-        groundDetector.SetCollissionData(collissionData);
-        wallDetector.SetCollissionData(collissionData);
-        climbingDetector.SetCollissionData(collissionData);
-        TopLadderDetector.SetCollissionData(collissionData);
+        if (groundDetector != null) groundDetector.SetCollissionData(collissionData);
+        if (wallDetector != null) wallDetector.SetCollissionData(collissionData);
+        if (climbingDetector != null) climbingDetector.SetCollissionData(collissionData);
+        if (TopLadderDetector != null) TopLadderDetector.SetCollissionData(collissionData);
         if (groundAheadDetector != null) groundAheadDetector.SetCollissionData(collissionData);
         if (targetDetector != null) targetDetector.SetCollissionData(collissionData); 
-    }
-
-    public void DetectGround()
-    {
-        groundDetector.CheckIsGrounded();
-    }
-
-    public void DetectGroundWhileClimbing()
-    {
-        groundDetector.CheckIsGroundedWhileClimbing();
-    }
-
-    public void DetectWall()
-    {
-        wallDetector.CheckIsTouchingWall();
-    }
-
-    public void DetectLadder()
-    {
-        climbingDetector.CheckIfCanClimb();
-    }
-
-    public void DetectIfOnTopOfLadder()
-    {
-        topLadderDetector.CheckIfOnTop();
-    }
-
-    public void DetectIfOnBottomOfLadder()
-    {
-        topLadderDetector.CheckIfOnBottom();
-    }
-
-    public void DetectGroundAhead()
-    {
-        groundAheadDetector.CheckIfThereIsPathAhead();
     }
 }

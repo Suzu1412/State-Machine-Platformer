@@ -3,45 +3,52 @@ using UnityEngine;
 
 public class JumpState : MoveState
 {
-    protected override void EnterState()
+    private void OnValidate()
+    {
+        stateType = StateType.Jump;
+    }
+
+    internal override void EnterState()
     {
         fsm.Agent.MovementData.ActivateJump();
         fsm.Agent.AnimationManager.PlayAnimation(AnimationType.jump);
+        fsm.Agent.MovementData.SetCurrentSpeed(0f);
         fsm.Agent.MovementData.JumpDuration = fsm.Agent.Data.JumpDuration;
     }
 
-    public override void LogicUpdate()
+    internal override void LogicUpdate()
     {
-        fsm.Agent.MovementData.ReduceJumpDurationByTime(Time.deltaTime);
-        if (fsm.Agent.MovementData.JumpDuration <= 0f) HandleJumpReleased();
+        fsm.Agent.MovementData.ReduceJumpDurationBySeconds(Time.deltaTime);
+        if (!fsm.Agent.MovementData.IsJumping) HandleJumpReleased();
         CalculateVelocity();
     }
 
-    public override void PhysicsUpdate()
+    internal override void PhysicsUpdate()
     {
-        fsm.Agent.CollissionSenses.DetectGround();
-        fsm.Agent.CollissionSenses.DetectWall();
-        fsm.Agent.CollissionSenses.DetectLadder();
-
         SetPlayerVelocity();
 
         ClimbLadder();
+    }
+
+    internal override void ExitState()
+    {
+        fsm.Agent.MovementData.JumpDuration = 0f;
     }
 
     protected override void CalculateVelocity()
     {
         base.CalculateVelocity();
 
-        if (fsm.Agent.MovementData.JumpDuration <= 0f) return;
+        if (!fsm.Agent.MovementData.IsJumping) return;
 
         fsm.Agent.MovementData.SetCurrentVelocity(new Vector2(fsm.Agent.MovementData.CurrentVelocity.x, fsm.Agent.Data.JumpSpeed));
     }
 
     protected override void HandleJumpReleased()
     {
-        fsm.Agent.MovementData.SetCurrentVelocity(new Vector2(fsm.Agent.MovementData.CurrentVelocity.x, 0f));
+        //fsm.Agent.MovementData.SetCurrentVelocity(new Vector2(fsm.Agent.MovementData.CurrentVelocity.x, 0f));
 
-        fsm.TransitionToState(StateType.Fall);
+        //fsm.TransitionToState(StateType.Fall);
     }
 
     protected override void HandleAttackPressed()
@@ -52,9 +59,7 @@ public class JumpState : MoveState
         }
     }
 
-    protected override void ExitState()
-    {
-    }
+    
 
     protected override void HandleRollPressed()
     {

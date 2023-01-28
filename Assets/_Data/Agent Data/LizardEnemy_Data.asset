@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c64dba671d243b94e861ac7894b4cf53, type: 3}
   m_Name: LizardEnemy_Data
   m_EditorClassIdentifier: 
-  health: 2
+  health: 5
   knockbackForce: {x: 3, y: 1}
   invulnerabilityDuration: 0.3
   hitStunDuration: 0.25

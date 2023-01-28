@@ -6,46 +6,36 @@ public class RollState : MoveState
 {
     float duration;
 
-    protected override void EnterState()
+    private void OnValidate()
+    {
+        stateType = StateType.Roll;
+    }
+
+    internal override void EnterState()
     {
         fsm.Agent.CollissionSenses.SetAgentCollider(true);
         fsm.Agent.AnimationManager.PlayAnimation(AnimationType.roll);
         duration = fsm.Agent.Data.RollDuration;
+        fsm.Agent.MovementData.RollDuration = fsm.Agent.Data.RollDuration;
+        fsm.Agent.MovementData.ActivateRoll();
     }
 
-    public override void LogicUpdate()
+    internal override void LogicUpdate()
     {
-        duration -= Time.deltaTime;
-
-        if (duration <= 0f)
-        {
-            fsm.TransitionToState(StateType.Idle);
-        }
-
-        if (!fsm.Agent.CollissionSenses.IsGrounded)
-        {
-            fsm.TransitionToState(StateType.Fall);
-        }
-
-        if (fsm.Agent.CollissionSenses.IsTouchingWall)
-        {
-            fsm.TransitionToState(StateType.Idle);
-        }
+        fsm.Agent.MovementData.ReduceRollDurationBySeconds(Time.deltaTime);
 
         CalculateVelocity();
     }
 
-    public override void PhysicsUpdate()
+    internal override void PhysicsUpdate()
     {
-        fsm.Agent.CollissionSenses.DetectGround();
-        fsm.Agent.CollissionSenses.DetectWall();
-
         SetPlayerVelocity();
     }
 
-    protected override void ExitState()
+    internal override void ExitState()
     {
         fsm.Agent.CollissionSenses.SetAgentCollider(false);
+        fsm.Agent.MovementData.RollDuration = 0f;
     }
 
     protected override void HandleRollReleased()

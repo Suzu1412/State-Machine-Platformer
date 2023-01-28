@@ -21,19 +21,7 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: -1173275547, guid: b959d044296516549990e78639777284, type: 3}
-    - time: 0.0625
-      value: {fileID: 877752123, guid: b959d044296516549990e78639777284, type: 3}
-    - time: 0.125
-      value: {fileID: 379121052, guid: b959d044296516549990e78639777284, type: 3}
-    - time: 0.1875
-      value: {fileID: -248805659, guid: b959d044296516549990e78639777284, type: 3}
-    - time: 0.25
-      value: {fileID: -52175347, guid: b959d044296516549990e78639777284, type: 3}
-    - time: 0.3125
-      value: {fileID: 379121052, guid: b959d044296516549990e78639777284, type: 3}
-    - time: 0.375
-      value: {fileID: 379121052, guid: b959d044296516549990e78639777284, type: 3}
+      value: {fileID: 2057054505, guid: e6c9e48731bcc244198f419213897695, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -56,19 +44,13 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: -1173275547, guid: b959d044296516549990e78639777284, type: 3}
-    - {fileID: 877752123, guid: b959d044296516549990e78639777284, type: 3}
-    - {fileID: 379121052, guid: b959d044296516549990e78639777284, type: 3}
-    - {fileID: -248805659, guid: b959d044296516549990e78639777284, type: 3}
-    - {fileID: -52175347, guid: b959d044296516549990e78639777284, type: 3}
-    - {fileID: 379121052, guid: b959d044296516549990e78639777284, type: 3}
-    - {fileID: 379121052, guid: b959d044296516549990e78639777284, type: 3}
+    - {fileID: 2057054505, guid: e6c9e48731bcc244198f419213897695, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.4375
+    m_StopTime: 0.0625
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -88,21 +70,7 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.125
-    functionName: InvokeAnimationAction
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.3125
-    functionName: InvokeAnimationAction
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.375
+  - time: 0
     functionName: InvokeAnimationEnd
     data: 
     objectReferenceParameter: {fileID: 0}

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5e6880bbe2c3164c9e57fa7aaa957fc, type: 3}
+  m_Name: StateTransition_RollPlayer
+  m_EditorClassIdentifier: 
+  transitions:
+  - {fileID: 11400000, guid: 72d820e912044dc49a83607fd3fae0c2, type: 2}
+  - {fileID: 11400000, guid: 2d272a8595c2966409cdfd801c91faa1, type: 2}
+  - {fileID: 11400000, guid: 426589d3d7ff7df41af2853ae589ba85, type: 2}
+  - {fileID: 11400000, guid: bd8bbfbe1ef31d947bd2f44c9a7fc567, type: 2}
+  - {fileID: 11400000, guid: f3014be65e764724a9fe6a0cb7c174a3, type: 2}
+  - {fileID: 11400000, guid: f97c1c8537181dc459bced81f69231a0, type: 2}
+  - {fileID: 11400000, guid: 6ea6dedc24984bf41ae3f9d2e51731ca, type: 2}

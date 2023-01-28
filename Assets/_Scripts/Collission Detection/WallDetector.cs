@@ -9,25 +9,54 @@ public class WallDetector : MonoBehaviour
 
     [SerializeField] private bool isTouchingWall = false;
     public bool IsTouchingWall => isTouchingWall;
+    private Coroutine detectionCoroutine;
+    private WaitForSeconds waitForSeconds = new(0.2f);
 
-    public void SetCollider(Collider2D agentCollider)
+    private void OnEnable()
+    {
+        detectionCoroutine = StartCoroutine(DetectionCoroutine());
+    }
+
+    private void OnDisable()
+    {
+        StopCoroutine(detectionCoroutine);
+    }
+
+    internal void SetCollider(Collider2D agentCollider)
     {
         this.agentCollider = agentCollider;
     }
 
-    public void SetCollissionData(CollissionSensesDataSO data)
+    internal void SetCollissionData(CollissionSensesDataSO data)
     {
         collissionData = data;
+
+        waitForSeconds = new(collissionData.GroundDetectionDelay);
+    }
+
+    private IEnumerator DetectionCoroutine()
+    {
+        while (true)
+        {
+            if (collissionData == null)
+            {
+                yield return null;
+            }
+
+            yield return waitForSeconds;
+
+            CheckIsTouchingWall();
+        }
     }
 
     /// <summary>
     /// Used to Prevent Agent to Keep moving when colliding against Wall
     /// </summary>
-    public void CheckIsTouchingWall()
+    private void CheckIsTouchingWall()
     {
         RaycastHit2D raycastHit = Physics2D.Raycast(agentCollider.bounds.center, transform.TransformDirection(Vector2.right), agentCollider.bounds.extents.x + collissionData.BoxCastXOffset, collissionData.WallMask);
 
-        isTouchingWall = raycastHit.collider != null ? true : false;
+        isTouchingWall = raycastHit.collider != null;
     }
 
     #region Gizmos

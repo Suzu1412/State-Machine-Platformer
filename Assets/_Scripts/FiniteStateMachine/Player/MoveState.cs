@@ -6,7 +6,12 @@ public class MoveState : State
 {
     public UnityEvent OnStep;
 
-    protected override void EnterState()
+    private void OnValidate()
+    {
+        stateType= StateType.Move;
+    }
+
+    internal override void EnterState()
     {
         fsm.Agent.AnimationManager.PlayAnimation(AnimationType.run);
         fsm.Agent.AnimationManager.OnAnimationAction.AddListener(() => OnStep.Invoke());
@@ -16,8 +21,10 @@ public class MoveState : State
         fsm.Agent.MovementData.SetCurrentVelocity(Vector2.zero);
     }
 
-    public override void LogicUpdate()
+    internal override void LogicUpdate()
     {
+        base.LogicUpdate();
+
         CalculateVelocity();
 
         if (!fsm.Agent.CollissionSenses.IsGrounded && fsm.Agent.Rb2d.velocity.y < 0f)
@@ -26,21 +33,24 @@ public class MoveState : State
         }
     }
 
-    public override void PhysicsUpdate()
+    internal override void PhysicsUpdate()
     {
-        fsm.Agent.CollissionSenses.DetectGround();
-        fsm.Agent.CollissionSenses.DetectWall();
-        fsm.Agent.CollissionSenses.DetectLadder();
-        fsm.Agent.CollissionSenses.DetectIfOnTopOfLadder();
-
         SetPlayerVelocity();
 
+        /*
         if (Mathf.Abs(fsm.Agent.Rb2d.velocity.x) < 0.01f || fsm.Agent.CollissionSenses.IsTouchingWall)
         {
             fsm.TransitionToState(StateType.Idle);
         }
+        */
 
         ClimbLadder();
+    }
+
+    internal override void ExitState()
+    {
+        fsm.Agent.AnimationManager.ResetEvents();
+        fsm.Agent.MovementData.SetCurrentSpeed(0f);
     }
 
     protected virtual void CalculateVelocity()
@@ -106,13 +116,8 @@ public class MoveState : State
 
     protected override void HandleRollPressed()
     {
-        if (fsm.Agent.CollissionSenses.IsTouchingWall) return;
+        //if (fsm.Agent.CollissionSenses.IsTouchingWall) return;
 
-        fsm.TransitionToState(StateType.Roll);
-    }
-
-    protected override void ExitState()
-    {
-        fsm.Agent.AnimationManager.ResetEvents();
+        //fsm.TransitionToState(StateType.Roll);
     }
 }

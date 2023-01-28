@@ -6,36 +6,87 @@ public class GroundDetector : MonoBehaviour
 {
     private Collider2D agentCollider;
     private CollissionSensesDataSO collissionData;
-
+    private Vector2 originWhileClimbing;
+    [SerializeField] private bool isClimbing;
     [SerializeField] private bool isGrounded = false;
-    public bool IsGrounded => isGrounded;
+    private Coroutine detectionCoroutine;
+    private WaitForSeconds waitForSeconds = new(0.2f);
 
-    public void SetCollider(Collider2D agentCollider)
+    public bool IsGrounded => isGrounded;
+    public bool IsClimbing { 
+        get => isClimbing; 
+        set { 
+            isClimbing = value;
+
+            if (IsClimbing)
+            {
+                isGrounded = false;
+            }
+        } 
+    }
+
+    private void OnEnable()
+    {
+        detectionCoroutine = StartCoroutine(DetectionCoroutine());
+    }
+
+    private void OnDisable()
+    {
+        StopCoroutine(detectionCoroutine);
+    }
+
+    internal void SetCollider(Collider2D agentCollider)
     {
         this.agentCollider = agentCollider;
     }
 
-    public void SetCollissionData(CollissionSensesDataSO data)
+    internal void SetCollissionData(CollissionSensesDataSO data)
     {
         collissionData = data;
+
+        waitForSeconds = new(collissionData.GroundDetectionDelay);
     }
 
-    public void CheckIsGrounded()
+    private IEnumerator DetectionCoroutine()
+    {
+        while (true)
+        {
+            if (collissionData == null)
+            {
+                yield return null;
+            }
+
+            yield return waitForSeconds;
+
+            if (!isClimbing)
+            {
+                CheckIsGrounded();
+            }
+            else
+            {
+                CheckIsGroundedWhileClimbing();
+            }
+        }
+    }
+
+    private void CheckIsGrounded()
     {
         RaycastHit2D raycastHit = Physics2D.BoxCast(agentCollider.bounds.center, agentCollider.bounds.size, 0f, Vector2.down, collissionData.BoxCastYOffset, collissionData.GroundMask);
 
-        isGrounded = raycastHit.collider != null ? true : false;
+        isGrounded = raycastHit.collider != null;
     }
 
-    public void CheckIsGroundedWhileClimbing()
+    private void CheckIsGroundedWhileClimbing()
     {
-        RaycastHit2D raycastHit = Physics2D.Raycast(agentCollider.bounds.center, transform.TransformDirection(Vector2.down), agentCollider.bounds.extents.y + collissionData.BoxCastYOffset, collissionData.GroundMask);
+        originWhileClimbing.Set(agentCollider.bounds.center.x, agentCollider.bounds.min.y);
 
-        isGrounded = raycastHit.collider != null ? true : false;
+        RaycastHit2D raycastHit = Physics2D.Raycast(originWhileClimbing, transform.TransformDirection(Vector2.down), collissionData.BoxCastYOffset * 2, collissionData.GroundMask);
+
+        isGrounded = raycastHit.collider != null;
     }
 
     #region Gizmos
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
         if (agentCollider == null) return;
 
@@ -43,9 +94,17 @@ public class GroundDetector : MonoBehaviour
 
         if (isGrounded) Gizmos.color = collissionData.IsCollidingColor;
 
-        DrawBottomRightRay(agentCollider);
-        DrawBottomLeftRay(agentCollider);
-        DrawBottomRay(agentCollider);
+        if (!IsClimbing)
+        {
+            DrawBottomRightRay(agentCollider);
+            DrawBottomLeftRay(agentCollider);
+            DrawBottomRay(agentCollider);
+        }
+        else
+        {
+            DrawBottomRayWhileClimbing(agentCollider);
+        }
+        
     }
 
     /// <summary>
@@ -70,6 +129,11 @@ public class GroundDetector : MonoBehaviour
     private void DrawBottomRay(Collider2D agentCollider)
     {
         Gizmos.DrawRay(agentCollider.bounds.center - new Vector3(agentCollider.bounds.extents.x, agentCollider.bounds.extents.y + collissionData.BoxCastYOffset), Vector2.right * (agentCollider.bounds.extents.x * 2));
+    }
+
+    private void DrawBottomRayWhileClimbing(Collider2D agentCollider)
+    {
+        Gizmos.DrawRay(originWhileClimbing, transform.TransformDirection(Vector2.down) * (collissionData.BoxCastYOffset * 2));
     }
     #endregion
 }

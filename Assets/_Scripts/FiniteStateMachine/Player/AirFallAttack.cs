@@ -6,9 +6,13 @@ using UnityEngine.Events;
 public class AirFallAttack : FallState
 {
     public UnityEvent<AudioClip> OnWeaponSound;
-    private bool showGizmos;
 
-    protected override void EnterState()
+    private void OnValidate()
+    {
+        stateType= StateType.AirFallAttack;
+    }
+
+    internal override void EnterState()
     {
         fsm.Agent.AnimationManager.ResetEvents();
         fsm.Agent.AnimationManager.PlayAnimation(AnimationType.attack);
@@ -16,24 +20,22 @@ public class AirFallAttack : FallState
         fsm.Agent.AnimationManager.OnAnimationEnd.AddListener(() => OnAttackEnd());
 
         fsm.Agent.AgentWeapon.ToggleWeaponVisibility(true);
-        showGizmos = true;
     }
 
-    public override void LogicUpdate()
+    internal override void LogicUpdate()
     {
         CalculateVelocity();
     }
 
-    public override void PhysicsUpdate()
+    internal override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
     }
 
-    protected override void ExitState()
+    internal override void ExitState()
     {
         base.ExitState();
         fsm.Agent.AnimationManager.ResetEvents();
-        showGizmos = false;
         fsm.Agent.AgentWeapon.ToggleWeaponVisibility(false);
     }
 

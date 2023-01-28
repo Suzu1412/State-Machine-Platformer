@@ -4,6 +4,12 @@ using UnityEngine;
 public interface IAgentInput
 {
     Vector2 MovementVector { get; }
+    bool JumpPressed { get; }
+    bool JumpHold { get; }
+    bool JumpReleased { get; }
+    bool RollPressed { get; }
+    bool RollReleased { get; }
+
     event Action OnAttackPressed;
     event Action OnJumpPressed;
     event Action OnJumpReleased;

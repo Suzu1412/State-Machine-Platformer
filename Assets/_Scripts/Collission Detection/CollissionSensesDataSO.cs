@@ -12,6 +12,15 @@ public class CollissionSensesDataSO : ScriptableObject
     [SerializeField] private LayerMask climbingMask;
     [SerializeField] private LayerMask targetMask;
 
+    [Header("Detection Delay Parameters:")]
+    [Space]
+    [SerializeField] [Range(0.05f, 0.3f)] private float groundDetectionDelay = 0.05f;
+    [SerializeField] [Range(0.05f, 0.3f)] private float groundAheadDetectionDelay = 0.3f;
+    [SerializeField] [Range(0.05f, 0.3f)] private float wallDetectionDelay = 0.2f;
+    [SerializeField] [Range(0.05f, 0.3f)] private float ladderDetectionDelay = 0.3f;
+    [SerializeField] [Range(0.05f, 0.3f)] private float topLadderDetectionDelay = 0.3f;
+    [SerializeField] [Range(0.05f, 0.3f)] private float targetDetectionDelay = 0.3f;
+
 
     [Header("Gizmo Parameters:")]
     [Space]
@@ -42,6 +51,13 @@ public class CollissionSensesDataSO : ScriptableObject
     public LayerMask WallMask => wallMask;
     public LayerMask ClimbingMask => climbingMask;
     public LayerMask TargetMask => targetMask;
+
+    public float GroundDetectionDelay => groundDetectionDelay;
+    public float GroundAheadDetectionDelay => groundAheadDetectionDelay;
+    public float WallDetectionDelay => wallDetectionDelay;
+    public float LadderDetectionDelay => ladderDetectionDelay;
+    public float TopLadderDetectionDelay => topLadderDetectionDelay;
+    public float TargetDetectionDelay => targetDetectionDelay;
 
     public float RadiusForGroundAheadDetection => radiusForGroundAheadDetection;
     public float BoxCastXOffset => boxCastXOffset;

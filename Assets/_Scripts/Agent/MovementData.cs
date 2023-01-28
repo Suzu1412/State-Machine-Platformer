@@ -15,16 +15,21 @@ public class MovementData : MonoBehaviour
     private bool isInCoyoteTime;
     private float coyoteTimeDuration;
 
+    [SerializeField] private bool isRolling;
+    private float rollDuration;
+
     public int HorizontalMovementDirection => horizontalMovementDirection;
     public float CurrentSpeed => currentSpeed;
     public Vector2 CurrentVelocity => currentVelocity;
 
     public int AmountOfJumps => amountOfJumps;
     public bool IsJumping => isJumping;
+    public bool IsRolling => isRolling;
     public bool CanEnterCoyoteTime { get => canEnterCoyoteTime; set => canEnterCoyoteTime = value; }
     public bool IsInCoyoteTime { get => isInCoyoteTime; set => isInCoyoteTime = value; }
     public float JumpDuration { get => jumpDuration; set => jumpDuration = value; }
     public float CoyoteTimeDuration { get => coyoteTimeDuration; set => coyoteTimeDuration = value; }
+    public float RollDuration { get => rollDuration; set => rollDuration = value; }
 
     public void SetHorizontalMovementDirection(int horizontalMovementDirection)
     {
@@ -48,6 +53,11 @@ public class MovementData : MonoBehaviour
         ConsumeJump();
     }
 
+    public void ActivateRoll()
+    {
+        isRolling = true;
+    }
+
     public void ResetJump(Agent agent)
     {
         isJumping = false;
@@ -62,13 +72,28 @@ public class MovementData : MonoBehaviour
         }
     }
 
-    public void ReduceJumpDurationByTime(float time)
+    public void ReduceJumpDurationBySeconds(float seconds)
     {
-        jumpDuration -= time;
+        jumpDuration -= seconds;
+
+        if (jumpDuration <= 0f)
+        {
+            isJumping = false;
+        }
     }
 
-    public void ReduceCoyoteTimeDurationByTime(float time)
+    public void ReduceCoyoteTimeDurationBySeconds(float seconds)
     {
-        coyoteTimeDuration -= time;
+        coyoteTimeDuration -= seconds;
+    }
+
+    public void ReduceRollDurationBySeconds(float seconds)
+    {
+        rollDuration -= seconds;
+
+        if (rollDuration <= 0f)
+        {
+            isRolling = false;
+        }
     }
 }
