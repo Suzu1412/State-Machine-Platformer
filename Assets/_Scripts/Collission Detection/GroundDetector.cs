@@ -78,9 +78,9 @@ public class GroundDetector : MonoBehaviour
 
     private void CheckIsGroundedWhileClimbing()
     {
-        originWhileClimbing.Set(agentCollider.bounds.center.x, agentCollider.bounds.min.y);
+        originWhileClimbing.Set(agentCollider.bounds.center.x, agentCollider.bounds.center.y);
 
-        RaycastHit2D raycastHit = Physics2D.Raycast(originWhileClimbing, transform.TransformDirection(Vector2.down), collissionData.BoxCastYOffset * 2, collissionData.GroundMask);
+        RaycastHit2D raycastHit = Physics2D.Raycast(originWhileClimbing, transform.TransformDirection(Vector2.down), agentCollider.bounds.extents.y + collissionData.BoxCastYOffset, collissionData.GroundMask);
 
         isGrounded = raycastHit.collider != null;
     }

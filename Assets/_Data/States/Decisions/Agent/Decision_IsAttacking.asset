@@ -9,12 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbeede435d041944fb8aa9ff83250640, type: 3}
-  m_Name: Transition_IdleWhenHit
+  m_Script: {fileID: 11500000, guid: 8f63f4f75604d5e49a5758c8e089219f, type: 3}
+  m_Name: Decision_IsAttacking
   m_EditorClassIdentifier: 
-  conditions:
-  - name: Is Not Hit
-    decision: {fileID: 11400000, guid: 6841fb62e64d6dd4ab5e6889ac12c32c, type: 2}
-    expectedResult: 1
-  newStateType: 0
-  debug: 0

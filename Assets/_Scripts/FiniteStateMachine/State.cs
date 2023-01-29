@@ -6,6 +6,7 @@ public abstract class State : MonoBehaviour
     [SerializeField] private StateTransitionSO stateTransition;
     [SerializeField] protected StateType stateType;
     protected FiniteStateMachine fsm;
+    public UnityEvent<AudioClip> OnWeaponSound;
     public UnityEvent OnEnter, OnExit;
     protected Vector2 movement;
 
@@ -109,10 +110,10 @@ public abstract class State : MonoBehaviour
 
     protected virtual void HandleAttackPressed()
     {
-        if (fsm.Agent.AgentWeapon.CanIUseWeapon())
-        {
-            fsm.TransitionToState(StateType.Attack);
-        }
+        //if (fsm.Agent.AgentWeapon.CanIUseWeapon())
+        //{
+        //    fsm.TransitionToState(StateType.Attack);
+        //}
     }
 
     protected virtual void Hit()
@@ -128,6 +129,32 @@ public abstract class State : MonoBehaviour
     protected virtual void HitKnockback()
     {
 
+    }
+
+    protected virtual void HandleAttackTransition()
+    {
+        if (!fsm.Agent.AgentWeapon.IsAttacking && fsm.Agent.Input.AttackPressed)
+        {
+            fsm.Agent.AgentWeapon.TryPerformAttack(fsm.Agent.CollissionSenses.IsGrounded);
+        }
+
+        if (fsm.Agent.AgentWeapon.IsAttacking)
+        {
+            fsm.Agent.AnimationManager.PlayAnimation(AnimationType.attack);
+        }
+    }
+
+    protected virtual void PerformAttack()
+    {
+        OnWeaponSound?.Invoke(fsm.Agent.AgentWeapon.GetCurrentWeapon().WeaponSwingSound);
+
+        fsm.Agent.AgentWeapon.PerformAttack(fsm.Agent.Data.HittableLayerMask);
+    }
+
+    protected virtual void OnAttackEnd()
+    {
+        fsm.Agent.AgentWeapon.ToggleWeaponVisibility(false);
+        fsm.Agent.AgentWeapon.ResetAttack();
     }
     #endregion
 }

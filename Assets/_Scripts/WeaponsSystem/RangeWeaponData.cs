@@ -32,8 +32,6 @@ public class RangeWeaponData : BaseWeaponDataSO
 
     public override GameObject PerformAttack(Transform origin, LayerMask hittableMask, Vector3 direction)
     {
-        if (!TryAttack()) return null;
-
         GameObject rangeWeapon = Instantiate(rangeWeaponPrefab, origin.position, Quaternion.identity);
 
         if (rangeWeapon.TryGetComponent(out ThrowableWeapon throwable))
@@ -44,8 +42,19 @@ public class RangeWeaponData : BaseWeaponDataSO
         return rangeWeaponPrefab;
     }
 
-    protected override bool TryAttack()
+    public override bool TryAttack(bool isGrounded, bool isClimbing)
     {
+        if (!isGrounded && !CanUseWhileJumping)
+        {
+            return false;
+        }
+
+        
+        //if (isClimbing && canUseWhileClimbing)
+        //{
+        //    return true;
+        //}
+
         return true;
     }
 }

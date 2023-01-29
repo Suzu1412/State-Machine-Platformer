@@ -16,5 +16,8 @@ MonoBehaviour:
   - name: Is Touching Wall
     decision: {fileID: 11400000, guid: b35ef2407ddc2764da432d54b95b9e95, type: 2}
     expectedResult: 0
-  newState: 0
+  - name: Is Grounded
+    decision: {fileID: 11400000, guid: e24b42179bb56e2458aa03de8e26e76c, type: 2}
+    expectedResult: 0
+  newStateType: 0
   debug: 0

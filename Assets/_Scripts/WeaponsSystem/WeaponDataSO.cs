@@ -9,11 +9,15 @@ public abstract class WeaponDataSO : ScriptableObject, IEquatable<WeaponDataSO>
     [SerializeField] protected Sprite weaponSprite;
     [SerializeField] protected int weaponDamage = 1;
     [SerializeField] protected AudioClip weaponSwingSound;
+    [SerializeField] protected bool canUseWhileMoving;
+    [SerializeField] protected bool canUseWhileJumping;
 
     public string WeaponName => weaponName;
     public Sprite WeaponSprite => weaponSprite;
     public int WeaponDamage => weaponDamage;
     public AudioClip WeaponSwingSound => WeaponSwingSound;
+    public bool CanUseWhileMoving => canUseWhileMoving;
+    public bool CanUseWhileJumping => canUseWhileJumping;
 
 
     public bool Equals(WeaponDataSO other)

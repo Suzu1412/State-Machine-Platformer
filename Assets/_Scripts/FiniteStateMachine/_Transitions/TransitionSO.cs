@@ -31,13 +31,13 @@ public class TransitionSO : ScriptableObject
 
         if (fsm.CurrentState != null && fsm.CurrentStateType == newStateType)
         {
-            Debug.Log(fsm.transform.root.name + " Trying to Transition to Same State. Fix Transition From: " + this.name);
+            Debug.LogWarning(fsm.transform.root.name + " Trying to Transition to Same State. Fix Transition From: " + this.name);
             return;
         }
 
         if (debug)
         {
-            Debug.Log("Transition From: " + fsm.PreviousStateType + " To: " + newStateType + " Using: " + this.name);
+            Debug.Log("Transition From: " + fsm.CurrentStateType + " To: " + newStateType + " Using: " + this.name);
         }
 
         fsm.TransitionToState(newStateType);

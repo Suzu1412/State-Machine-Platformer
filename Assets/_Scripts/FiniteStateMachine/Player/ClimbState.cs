@@ -3,6 +3,7 @@ using UnityEngine;
 public class ClimbState : State
 {
     private bool isGettingOnTopLadder;
+    private bool isAttacking;
 
     internal override void EnterState()
     {
@@ -12,14 +13,28 @@ public class ClimbState : State
         fsm.Agent.Rb2d.velocity = Vector2.zero;
         fsm.Agent.CollissionSenses.GroundDetector.IsClimbing = true;
         
-        fsm.Agent.AnimationManager.PlayAnimation(AnimationType.climb);
+        if (!fsm.Agent.AgentWeapon.IsAttacking)
+        {
+            fsm.Agent.AnimationManager.PlayAnimation(AnimationType.climb);
+        }
 
         PlacePlayerInCenterLadder();
         fsm.Agent.MovementData.ResetJump(fsm.Agent);
+
+        fsm.Agent.AnimationManager.OnAnimationAttackPerformed.AddListener(() => PerformAttack());
+        fsm.Agent.AnimationManager.OnAnimationEnd.AddListener(() => OnAttackEnd());
     }
 
     internal override void LogicUpdate()
     {
+        HandleAttackTransition();
+
+        if (fsm.Agent.AgentWeapon.IsAttacking)
+        {
+            fsm.Agent.AnimationManager.Resume();
+            return;
+        }
+
         if (Mathf.Abs(fsm.Agent.Input.MovementVector.y) > 0f)
         {
             fsm.Agent.AnimationManager.Resume();
@@ -60,6 +75,8 @@ public class ClimbState : State
 
         if (fsm.Agent.CollissionSenses.TopLadder == null) return;
 
+        if (fsm.Agent.Input.MovementVector.y < 0f) return;
+
         fsm.Agent.Rb2d.position = new Vector2(fsm.Agent.CollissionSenses.Ladder.bounds.center.x, fsm.Agent.CollissionSenses.TopLadder.transform.parent.position.y + (fsm.Agent.CollissionSenses.AgentCollider.bounds.size.y + 0.1f / 2));
 
         fsm.Agent.Rb2d.velocity = Vector2.zero;
@@ -72,13 +89,14 @@ public class ClimbState : State
 
     private void MoveInLadder()
     {
-        if (isGettingOnTopLadder) return;
+        if (isGettingOnTopLadder || isAttacking) return;
 
         fsm.Agent.Rb2d.velocity = fsm.Agent.Input.MovementVector.y * fsm.Agent.Data.ClimbSpeed * Vector2.up;
     }
 
     private void MoveToTopLadder()
     {
+        /*
         if (fsm.Agent.CollissionSenses.IsAboveOfTopLadder) return;
 
         if (fsm.Agent.CollissionSenses.TopLadder == null) return;
@@ -90,6 +108,7 @@ public class ClimbState : State
         isGettingOnTopLadder = true;
 
         fsm.TransitionToState(StateType.Idle);
+        */
     }
 
     private void MoveToGround()
@@ -99,5 +118,20 @@ public class ClimbState : State
         //if (fsm.Agent.CollissionSenses.TopLadder != null) return;
 
         //fsm.TransitionToState(StateType.Idle);
+    }
+    protected override void PerformAttack()
+    {
+        base.PerformAttack();
+
+        isAttacking = true;
+        fsm.Agent.Rb2d.velocity = Vector2.zero;
+    }
+
+    protected override void OnAttackEnd()
+    {
+        base.OnAttackEnd();
+
+        isAttacking = false;
+        fsm.Agent.AnimationManager.PlayAnimation(AnimationType.climb);
     }
 }

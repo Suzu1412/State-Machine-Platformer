@@ -9,6 +9,7 @@ public interface IAgentInput
     bool JumpReleased { get; }
     bool RollPressed { get; }
     bool RollReleased { get; }
+    bool AttackPressed { get; }
 
     event Action OnAttackPressed;
     event Action OnJumpPressed;

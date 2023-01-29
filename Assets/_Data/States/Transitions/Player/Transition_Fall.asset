@@ -19,5 +19,8 @@ MonoBehaviour:
   - name: Is Not Hit
     decision: {fileID: 11400000, guid: 6841fb62e64d6dd4ab5e6889ac12c32c, type: 2}
     expectedResult: 1
+  - name: Is Not Climbing
+    decision: {fileID: 11400000, guid: c3ba12f41d0cc4c4bb3674fb5f19d980, type: 2}
+    expectedResult: 1
   newStateType: 3
   debug: 0

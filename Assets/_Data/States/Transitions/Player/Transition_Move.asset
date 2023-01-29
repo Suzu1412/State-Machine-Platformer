@@ -28,5 +28,8 @@ MonoBehaviour:
   - name: Is Not Hit
     decision: {fileID: 11400000, guid: 6841fb62e64d6dd4ab5e6889ac12c32c, type: 2}
     expectedResult: 1
+  - name: Is Not Attacking Idle
+    decision: {fileID: 11400000, guid: 41960d6eb3738eb43b647f2d93683b6f, type: 2}
+    expectedResult: 1
   newStateType: 1
   debug: 0

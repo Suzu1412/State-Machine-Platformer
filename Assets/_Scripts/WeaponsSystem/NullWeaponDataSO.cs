@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Data/Weapon Data/Null", fileName = "WeaponData_Null")]
 public class NullWeaponDataSO : BaseWeaponDataSO
 {
-    protected override bool TryAttack()
+    public override bool TryAttack(bool isGrounded, bool isClimbing)
     {
         return false;
     }

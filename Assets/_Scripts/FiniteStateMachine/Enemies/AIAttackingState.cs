@@ -5,14 +5,13 @@ using UnityEngine.Events;
 
 public class AIAttackingState : State
 {
-    public UnityEvent<AudioClip> OnWeaponSound;
     private Vector2 direction;
 
     internal override void EnterState()
     {
         fsm.Agent.AnimationManager.ResetEvents();
         fsm.Agent.AnimationManager.PlayAnimation(AnimationType.attack);
-        fsm.Agent.AnimationManager.OnAnimationAction.AddListener(() => PerformAttack());
+        fsm.Agent.AnimationManager.OnAnimationAttackPerformed.AddListener(() => PerformAttack());
         fsm.Agent.AnimationManager.OnAnimationEnd.AddListener(() => OnAttackEnd());
 
         direction = fsm.Agent.transform.right * (fsm.Agent.transform.localScale.x > 0 ? 1 : -1);
@@ -29,14 +28,7 @@ public class AIAttackingState : State
         fsm.Agent.AnimationManager.ResetEvents();
     }
 
-    private void PerformAttack()
-    {
-        OnWeaponSound?.Invoke(fsm.Agent.AgentWeapon.GetCurrentWeapon().WeaponSwingSound);
-        fsm.Agent.AnimationManager.OnAnimationAction?.RemoveListener(PerformAttack);
-        fsm.Agent.AgentWeapon.PerformAttack(fsm.Agent.Data.HittableLayerMask);
-    }
-
-    private void OnAttackEnd()
+    protected override void OnAttackEnd()
     {
         if (fsm.PreviousStateType != StateType.Hit)
         {

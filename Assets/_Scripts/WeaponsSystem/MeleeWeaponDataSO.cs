@@ -14,8 +14,6 @@ public class MeleeWeaponDataSO : BaseWeaponDataSO
 
     public override GameObject PerformAttack(Transform origin, LayerMask hittableMask, Vector3 direction)
     {
-        if (!TryAttack()) return null;
-
         RaycastHit2D[] hits = Physics2D.RaycastAll(origin.position, direction, attackRange, hittableMask);
         if (hits != null)
         {
@@ -27,30 +25,28 @@ public class MeleeWeaponDataSO : BaseWeaponDataSO
                 }
             }
 
-            /*
-            foreach (var hittable in hit.collider.GetComponents<IHittable>())
-            {
-                hittable.GetHit(origin.gameObject, weaponDamage);
-            }
-            */
+            //foreach (var hittable in hit.collider.GetComponents<IHittable>())
+            //{
+            //    hittable.GetHit(origin.gameObject, weaponDamage);
+            //}
         }
 
         return null;
 
-        /*
-        RaycastHit2D hit = Physics2D.Raycast(origin.position, direction, attackRange, hittableMask);
-        if (hit.collider != null)
-        {
-            foreach (var hittable in hit.collider.GetComponents<IHittable>())
-            {
-                hittable.GetHit(origin.gameObject, weaponDamage);
-            }
-        }
-        */
+        //RaycastHit2D hit = Physics2D.Raycast(origin.position, direction, attackRange, hittableMask);
+        //if (hit.collider != null)
+        //{
+        //    foreach (var hittable in hit.collider.GetComponents<IHittable>())
+        //    {
+        //        hittable.GetHit(origin.gameObject, weaponDamage);
+        //    }
+        //}
     }
 
-    protected override bool TryAttack()
+    public override bool TryAttack(bool isGrounded, bool isClimbing)
     {
+        if (!isGrounded) return canUseWhileJumping;
+
         return true;
     }
 

@@ -13,44 +13,42 @@ public class MoveState : State
 
     internal override void EnterState()
     {
-        fsm.Agent.AnimationManager.PlayAnimation(AnimationType.run);
+        fsm.Agent.AnimationManager.ResetEvents();
+
+        if (!fsm.Agent.AgentWeapon.IsAttacking)
+        {
+            fsm.Agent.AnimationManager.PlayAnimation(AnimationType.run);
+
+            fsm.Agent.MovementData.SetHorizontalMovementDirection(0);
+            fsm.Agent.MovementData.SetCurrentSpeed(0f);
+            fsm.Agent.MovementData.SetCurrentVelocity(Vector2.zero);
+        }
+        
         fsm.Agent.AnimationManager.OnAnimationAction.AddListener(() => OnStep.Invoke());
 
-        fsm.Agent.MovementData.SetHorizontalMovementDirection(0);
-        fsm.Agent.MovementData.SetCurrentSpeed(0f);
-        fsm.Agent.MovementData.SetCurrentVelocity(Vector2.zero);
+        fsm.Agent.AnimationManager.OnAnimationAttackPerformed.AddListener(() => PerformAttack());
+        fsm.Agent.AnimationManager.OnAnimationEnd.AddListener(() => OnAttackEnd());
     }
 
     internal override void LogicUpdate()
-    {
-        base.LogicUpdate();
+    { 
+        HandleAttackTransition();
 
         CalculateVelocity();
-
-        if (!fsm.Agent.CollissionSenses.IsGrounded && fsm.Agent.Rb2d.velocity.y < 0f)
-        {
-            fsm.TransitionToState(StateType.Fall);
-        }
     }
 
     internal override void PhysicsUpdate()
     {
         SetPlayerVelocity();
 
-        /*
-        if (Mathf.Abs(fsm.Agent.Rb2d.velocity.x) < 0.01f || fsm.Agent.CollissionSenses.IsTouchingWall)
-        {
-            fsm.TransitionToState(StateType.Idle);
-        }
-        */
-
         ClimbLadder();
     }
 
     internal override void ExitState()
     {
+        fsm.Agent.AnimationManager.OnAnimationAction?.RemoveListener(PerformAttack);
+        fsm.Agent.AnimationManager.OnAnimationEnd.AddListener(() => OnAttackEnd());
         fsm.Agent.AnimationManager.ResetEvents();
-        fsm.Agent.MovementData.SetCurrentSpeed(0f);
     }
 
     protected virtual void CalculateVelocity()
@@ -94,24 +92,24 @@ public class MoveState : State
 
     protected void ClimbLadder()
     {
-        if (fsm.Agent.Input.MovementVector.y > 0.33f)
-        {
-            if (fsm.Agent.CollissionSenses.IsTouchingLadder && 
-                fsm.Agent.CollissionSenses.TopLadder == null)
-            {
-                fsm.TransitionToState(StateType.Climb);
-            }
-        }
+        //if (fsm.Agent.Input.MovementVector.y > 0.33f)
+        //{
+        //    if (fsm.Agent.CollissionSenses.IsTouchingLadder && 
+        //        fsm.Agent.CollissionSenses.TopLadder == null)
+        //    {
+        //        fsm.TransitionToState(StateType.Climb);
+        //    }
+        //}
 
-        if (fsm.Agent.Input.MovementVector.y < -0.33f)
-        {
-            if (fsm.Agent.CollissionSenses.IsTouchingLadder && 
-                (fsm.Agent.CollissionSenses.TopLadder != null || 
-                !fsm.Agent.CollissionSenses.IsGrounded))
-            {
-                fsm.TransitionToState(StateType.Climb);
-            }
-        }
+        //if (fsm.Agent.Input.MovementVector.y < -0.33f)
+        //{
+        //    if (fsm.Agent.CollissionSenses.IsTouchingLadder && 
+        //        (fsm.Agent.CollissionSenses.TopLadder != null || 
+        //        !fsm.Agent.CollissionSenses.IsGrounded))
+        //    {
+        //        fsm.TransitionToState(StateType.Climb);
+        //    }
+        //}
     }
 
     protected override void HandleRollPressed()
@@ -119,5 +117,12 @@ public class MoveState : State
         //if (fsm.Agent.CollissionSenses.IsTouchingWall) return;
 
         //fsm.TransitionToState(StateType.Roll);
+    }
+
+    protected override void OnAttackEnd()
+    {
+        base.OnAttackEnd();
+
+        fsm.Agent.AnimationManager.PlayAnimation(AnimationType.run);
     }
 }

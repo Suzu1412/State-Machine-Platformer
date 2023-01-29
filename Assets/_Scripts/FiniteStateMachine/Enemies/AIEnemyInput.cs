@@ -14,6 +14,7 @@ public class AIEnemyInput : MonoBehaviour, IAgentInput
     public bool RollPressed { get; private set; }
     public bool RollReleased { get; private set; }
 
+    public bool AttackPressed { get; private set; }
 
     public event Action OnAttackPressed;
     public event Action OnJumpPressed;

@@ -7,8 +7,9 @@ using UnityEngine.Events;
 public class PlayerInputHelper : MonoBehaviour, IAgentInput
 {
     [SerializeField] private PlayerInputSO input;
-    private IEnumerator resetJumpCoroutine;
-    private IEnumerator resetRollCoroutine;
+    private Coroutine resetJumpCoroutine;
+    private Coroutine resetRollCoroutine;
+    private Coroutine resetAttackCoroutine;
     private WaitForSeconds waitForSeconds = new(0.05f);
 
 
@@ -29,10 +30,10 @@ public class PlayerInputHelper : MonoBehaviour, IAgentInput
     public bool JumpPressed { get; private set; }
     public bool JumpHold { get; private set; }
     public bool JumpReleased { get; private set; }
-
     public bool RollPressed { get; private set; }
-
     public bool RollReleased { get; private set; }
+
+    public bool AttackPressed { get; private set; }
 
     private void Awake()
     {
@@ -45,9 +46,6 @@ public class PlayerInputHelper : MonoBehaviour, IAgentInput
         input.OnWeaponChange += CallOnWeaponChange;
         input.OnMovement += CallOnMovementVector;
         input.OnMenu += () => OnMenuPressed?.Invoke();
-
-        resetJumpCoroutine = ResetJumpCoroutine();
-        resetRollCoroutine = ResetRollCoroutine();
     }
 
     private void Update()
@@ -78,12 +76,13 @@ public class PlayerInputHelper : MonoBehaviour, IAgentInput
 
     public void CallOnAttackPressed()
     {
+        resetAttackCoroutine = StartCoroutine(ResetAttackCoroutine());
         OnAttackPressed?.Invoke();
     }
 
     public void CallOnJumpPressed()
     {
-        StartCoroutine(ResetJumpCoroutine());
+        resetJumpCoroutine = StartCoroutine(ResetJumpCoroutine());
         JumpReleased = false;
         OnJumpPressed?.Invoke();
     }
@@ -104,7 +103,7 @@ public class PlayerInputHelper : MonoBehaviour, IAgentInput
 
     public void CallOnRollPressed()
     {
-        StartCoroutine(ResetRollCoroutine());
+        resetRollCoroutine = StartCoroutine(ResetRollCoroutine());
         RollReleased = false;
         OnRollPressed?.Invoke();
     }
@@ -132,6 +131,12 @@ public class PlayerInputHelper : MonoBehaviour, IAgentInput
         RollPressed = false;
     }
 
+    private IEnumerator ResetAttackCoroutine()
+    {
+        AttackPressed = true;
+        yield return waitForSeconds;
+        AttackPressed = false;
+    }
 
     #endregion
 }

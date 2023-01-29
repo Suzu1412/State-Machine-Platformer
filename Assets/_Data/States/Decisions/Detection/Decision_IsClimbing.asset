@@ -9,12 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbeede435d041944fb8aa9ff83250640, type: 3}
-  m_Name: Transition_IdleWhenHit
+  m_Script: {fileID: 11500000, guid: 5678134379647fa449bf2976483ef49a, type: 3}
+  m_Name: Decision_IsClimbing
   m_EditorClassIdentifier: 
-  conditions:
-  - name: Is Not Hit
-    decision: {fileID: 11400000, guid: 6841fb62e64d6dd4ab5e6889ac12c32c, type: 2}
-    expectedResult: 1
-  newStateType: 0
-  debug: 0

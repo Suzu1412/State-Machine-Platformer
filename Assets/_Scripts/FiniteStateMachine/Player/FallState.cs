@@ -12,17 +12,26 @@ public class FallState : MoveState
 
     internal override void EnterState()
     {
-        fsm.Agent.AnimationManager.PlayAnimation(AnimationType.fall);
+        if (!fsm.Agent.AgentWeapon.IsAttacking)
+        {
+            fsm.Agent.AnimationManager.PlayAnimation(AnimationType.fall);
+        }
+
 
         if (fsm.Agent.MovementData.CanEnterCoyoteTime)
         {
             fsm.Agent.MovementData.IsInCoyoteTime = true;
             fsm.Agent.MovementData.CoyoteTimeDuration = fsm.Agent.Data.CoyoteDuration;
         }
+
+        fsm.Agent.AnimationManager.OnAnimationAttackPerformed.AddListener(() => PerformAttack());
+        fsm.Agent.AnimationManager.OnAnimationEnd.AddListener(() => OnAttackEnd());
     }
 
     internal override void LogicUpdate()
     {
+        HandleAttackTransition();
+
         CalculateVelocity();
 
         if (fsm.Agent.MovementData.IsInCoyoteTime)
@@ -40,8 +49,6 @@ public class FallState : MoveState
     internal override void PhysicsUpdate()
     {
         SetPlayerVelocity();
-
-        HandleTransitionToStates();
 
         ClimbLadder();
     }
@@ -61,26 +68,16 @@ public class FallState : MoveState
 
     protected override void HandleAttackPressed()
     {
-        if (fsm.Agent.AgentWeapon.CanIUseWeapon())
-        {
-            fsm.TransitionToState(StateType.AirFallAttack);
-        }
+        //if (fsm.Agent.AgentWeapon.CanIUseWeapon())
+        //{
+        //    fsm.TransitionToState(StateType.AirFallAttack);
+        //}
     }
 
-    protected virtual void HandleTransitionToStates()
+    protected override void OnAttackEnd()
     {
-        /*
-        if (fsm.Agent.CollissionSenses.IsGrounded && fsm.Agent.Rb2d.velocity.y == 0f)
-        {
-            if (Mathf.Abs(fsm.Agent.Rb2d.velocity.x) > 0f)
-            {
-                fsm.TransitionToState(StateType.Move);
-            }
-            else
-            {
-                fsm.TransitionToState(StateType.Idle);
-            }
-        }
-        */
+        base.OnAttackEnd();
+
+        fsm.Agent.AnimationManager.PlayAnimation(AnimationType.fall);
     }
 }

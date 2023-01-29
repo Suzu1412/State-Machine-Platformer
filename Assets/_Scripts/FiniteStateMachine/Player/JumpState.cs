@@ -11,13 +11,23 @@ public class JumpState : MoveState
     internal override void EnterState()
     {
         fsm.Agent.MovementData.ActivateJump();
-        fsm.Agent.AnimationManager.PlayAnimation(AnimationType.jump);
-        fsm.Agent.MovementData.SetCurrentSpeed(0f);
+
+        if (!fsm.Agent.AgentWeapon.IsAttacking)
+        {
+            fsm.Agent.AnimationManager.PlayAnimation(AnimationType.jump);
+            fsm.Agent.MovementData.SetCurrentSpeed(0f);
+        }
+        
         fsm.Agent.MovementData.JumpDuration = fsm.Agent.Data.JumpDuration;
+
+        fsm.Agent.AnimationManager.OnAnimationAttackPerformed.AddListener(() => PerformAttack());
+        fsm.Agent.AnimationManager.OnAnimationEnd.AddListener(() => OnAttackEnd());
     }
 
     internal override void LogicUpdate()
     {
+        HandleAttackTransition();
+
         fsm.Agent.MovementData.ReduceJumpDurationBySeconds(Time.deltaTime);
         if (!fsm.Agent.MovementData.IsJumping) HandleJumpReleased();
         CalculateVelocity();
@@ -53,16 +63,21 @@ public class JumpState : MoveState
 
     protected override void HandleAttackPressed()
     {
-        if (fsm.Agent.AgentWeapon.CanIUseWeapon())
-        {
-            fsm.TransitionToState(StateType.AirJumpAttack);
-        }
+        //if (fsm.Agent.AgentWeapon.CanIUseWeapon())
+        //{
+        //    fsm.TransitionToState(StateType.AirJumpAttack);
+        //}
     }
-
-    
 
     protected override void HandleRollPressed()
     {
         
+    }
+
+    protected override void OnAttackEnd()
+    {
+        base.OnAttackEnd();
+
+        fsm.Agent.AnimationManager.PlayAnimation(AnimationType.jump);
     }
 }

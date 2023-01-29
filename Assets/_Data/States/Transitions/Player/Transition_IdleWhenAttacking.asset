@@ -10,26 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fbeede435d041944fb8aa9ff83250640, type: 3}
-  m_Name: Transition_Idle
+  m_Name: Transition_IdleWhenAttacking
   m_EditorClassIdentifier: 
   conditions:
-  - name: Input X <= 0
-    decision: {fileID: 11400000, guid: 916ed4c56ae6d4a46b6b0492527177b8, type: 2}
-    expectedResult: 1
   - name: Is Grounded
     decision: {fileID: 11400000, guid: e24b42179bb56e2458aa03de8e26e76c, type: 2}
     expectedResult: 0
-  - name: RB Velocity Y == 0
-    decision: {fileID: 11400000, guid: b0053489129d57341ace8769687a1c90, type: 2}
-    expectedResult: 0
-  - name: Is Not Hit
-    decision: {fileID: 11400000, guid: 6841fb62e64d6dd4ab5e6889ac12c32c, type: 2}
-    expectedResult: 1
-  - name: Is Not Attacking
-    decision: {fileID: 11400000, guid: 17f991385e5caf04eb18e121fe6de360, type: 2}
-    expectedResult: 1
-  - name: Is Not Attacking
+  - name: Is Attacking Idle
     decision: {fileID: 11400000, guid: 41960d6eb3738eb43b647f2d93683b6f, type: 2}
-    expectedResult: 1
+    expectedResult: 0
+  - name: Is Moving
+    decision: {fileID: 11400000, guid: 916ed4c56ae6d4a46b6b0492527177b8, type: 2}
+    expectedResult: 0
   newStateType: 0
   debug: 0

@@ -22,5 +22,5 @@ MonoBehaviour:
   - name: Is Not Touching Top Ladder
     decision: {fileID: 11400000, guid: 130dad7f1a7bb9a429e36474cd337428, type: 2}
     expectedResult: 1
-  newState: 0
+  newStateType: 0
   debug: 0

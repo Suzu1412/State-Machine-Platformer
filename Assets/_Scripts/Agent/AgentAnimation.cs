@@ -10,8 +10,8 @@ public class AgentAnimation : MonoBehaviour
     private Animator animator;
 
     public UnityEvent OnAnimationAction;
+    public UnityEvent OnAnimationAttackPerformed;
     public UnityEvent OnAnimationEnd;
-
 
     private void Awake()
     {
@@ -85,12 +85,18 @@ public class AgentAnimation : MonoBehaviour
     public void ResetEvents()
     {
         OnAnimationAction.RemoveAllListeners();
+        OnAnimationAttackPerformed.RemoveAllListeners();
         OnAnimationEnd.RemoveAllListeners();
     }
 
     public void InvokeAnimationAction()
     {
         OnAnimationAction?.Invoke();
+    }
+
+    public void InvokeAnimationAttackPerformed()
+    {
+        OnAnimationAttackPerformed?.Invoke();
     }
 
     public void InvokeAnimationEnd()
