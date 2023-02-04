@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: PlantEnemy_Data
   m_EditorClassIdentifier: 
   health: 3
-  knockbackForce: {x: 3, y: 1}
-  invulnerabilityDuration: 0.3
+  knockbackForce: {x: 0, y: 0}
+  invulnerabilityDuration: 1.5
   hitStunDuration: 0.25
   maxSpeed: 2.5
   acceleration: 50
   deacceleration: 50
+  moveDuration: 10
   rollDuration: 0.6
   maxRollingSpeed: 20
   rollAcceleration: 150

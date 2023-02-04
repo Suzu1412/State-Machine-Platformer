@@ -16,7 +16,7 @@ public class RollState : MoveState
         fsm.Agent.CollissionSenses.SetAgentCollider(true);
         fsm.Agent.AnimationManager.PlayAnimation(AnimationType.roll);
         duration = fsm.Agent.Data.RollDuration;
-        fsm.Agent.MovementData.RollDuration = fsm.Agent.Data.RollDuration;
+        fsm.Agent.MovementData.SetRollDuration(fsm.Agent.Data.RollDuration);
         fsm.Agent.MovementData.ActivateRoll();
     }
 
@@ -35,7 +35,7 @@ public class RollState : MoveState
     internal override void ExitState()
     {
         fsm.Agent.CollissionSenses.SetAgentCollider(false);
-        fsm.Agent.MovementData.RollDuration = 0f;
+        fsm.Agent.MovementData.SetRollDuration(0f);
     }
 
     protected override void HandleRollReleased()

@@ -49,21 +49,6 @@ public class ClimbState : State
     internal override void PhysicsUpdate()
     {
         MoveInLadder();
-
-        //if (fsm.Agent.Input.MovementVector.y > 0)
-        //{
-        //    MoveToTopLadder();
-        //}
-
-        //if (fsm.Agent.Input.MovementVector.y < 0)
-        //{
-        //    MoveToGround();
-        //}
-
-        //if (!fsm.Agent.CollissionSenses.IsTouchingLadder)
-        //{
-        //    fsm.TransitionToState(StateType.Idle);
-        //}
     }
 
     internal override void ExitState()
@@ -94,31 +79,6 @@ public class ClimbState : State
         fsm.Agent.Rb2d.velocity = fsm.Agent.Input.MovementVector.y * fsm.Agent.Data.ClimbSpeed * Vector2.up;
     }
 
-    private void MoveToTopLadder()
-    {
-        /*
-        if (fsm.Agent.CollissionSenses.IsAboveOfTopLadder) return;
-
-        if (fsm.Agent.CollissionSenses.TopLadder == null) return;
-
-        fsm.Agent.Rb2d.position = new Vector2(fsm.Agent.CollissionSenses.Ladder.bounds.center.x, fsm.Agent.CollissionSenses.TopLadder.transform.parent.position.y + (fsm.Agent.CollissionSenses.AgentCollider.bounds.size.y + 0.1f / 2));
-
-        fsm.Agent.Rb2d.velocity = Vector2.zero;
-
-        isGettingOnTopLadder = true;
-
-        fsm.TransitionToState(StateType.Idle);
-        */
-    }
-
-    private void MoveToGround()
-    {
-        //if (!fsm.Agent.CollissionSenses.IsGrounded) return;
-
-        //if (fsm.Agent.CollissionSenses.TopLadder != null) return;
-
-        //fsm.TransitionToState(StateType.Idle);
-    }
     protected override void PerformAttack()
     {
         base.PerformAttack();

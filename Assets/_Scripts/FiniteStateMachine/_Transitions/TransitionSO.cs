@@ -8,6 +8,7 @@ public class TransitionSO : ScriptableObject
     [SerializeField] private Condition[] conditions;
     [SerializeField] private StateType newStateType;
     [SerializeField] private bool debug;
+    [SerializeField] private bool isActive = true;
     private bool conditionsMet;
 
     internal void TransitionToNewState(FiniteStateMachine fsm)
@@ -16,7 +17,7 @@ public class TransitionSO : ScriptableObject
 
         for (int i = 0; i < conditions.Length; i++)
         {
-            if (conditions[i].IsMet(fsm.Agent))
+            if (conditions[i].IsMet(fsm.Agent) && isActive)
             {
                 conditionsMet = true;
             }

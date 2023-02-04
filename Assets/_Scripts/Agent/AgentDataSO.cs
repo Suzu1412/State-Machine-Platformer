@@ -10,7 +10,7 @@ public class AgentDataSO : ScriptableObject
     [Space]
     [SerializeField] private int health = 2;
     [SerializeField] private Vector2 knockbackForce = new Vector2(2f, 1f);
-    [SerializeField] private float invulnerabilityDuration = 1f;
+    [SerializeField] [Range(1f, 2f)] private float invulnerabilityDuration = 1.5f;
     [SerializeField] private float hitStunDuration = 0.25f;
 
     public int Health => health;
@@ -26,10 +26,12 @@ public class AgentDataSO : ScriptableObject
     [SerializeField] private float maxSpeed = 6f;
     [SerializeField] private float acceleration = 50f;
     [SerializeField] private float deacceleration = 50f;
+    [SerializeField] private float moveDuration = 10f;
 
     public float MaxSpeed => maxSpeed;
     public float Acceleration => acceleration;
     public float Deacceleration => deacceleration;
+    public float MoveDuration => moveDuration;
     #endregion
 
     #region Roll Data

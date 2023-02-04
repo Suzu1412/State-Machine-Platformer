@@ -5,16 +5,35 @@ using UnityEngine;
 public class FlashTransparentFeedback : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer;
-    [SerializeField] private float feedbackTime = 0.1f;
+    [SerializeField] private float feedbackTimeSlow = 0.15f;
+    [SerializeField] private float feedbackTimeFast = 0.05f;
 
-    private Coroutine flashAvatarCoroutine;
+    private Coroutine flashAvatarSlowCoroutine;
+    private Coroutine flashAvatarFastCoroutine;
+    private float invulnerabilityDuration;
+
+    private WaitForSeconds waitForSecondsSlow;
+    private WaitForSeconds waitForSecondsFast;
+
+    private WaitForSeconds timeToStartFastCoroutine;
+    private WaitForSeconds timeToEndFastCoroutine;
 
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        waitForSecondsSlow = new(feedbackTimeSlow);
+        waitForSecondsFast = new(feedbackTimeFast);
     }
 
-    public void Feedback()
+    public void Initialize(float invulnerabilityDuration)
+    {
+        this.invulnerabilityDuration = invulnerabilityDuration;
+
+        timeToStartFastCoroutine = new(this.invulnerabilityDuration - 0.3f);
+        timeToEndFastCoroutine = new(this.invulnerabilityDuration);
+    }
+
+    public void FeedbackSlowTransparency()
     {
         if (spriteRenderer == null)
         {
@@ -23,7 +42,21 @@ public class FlashTransparentFeedback : MonoBehaviour
 
         StopAllCoroutines();
 
-        flashAvatarCoroutine = StartCoroutine(FlashAvatar());
+        //flashAvatarSlowCoroutine = StartCoroutine(FlashAvatarSlowCoroutine());
+        flashAvatarSlowCoroutine = StartCoroutine(FlashAvatarSlowCoroutine());
+    }
+
+    public void FeedbackFastTransparency()
+    {
+        if (spriteRenderer == null)
+        {
+            return;
+        }
+
+        StopAllCoroutines();
+
+        //flashAvatarSlowCoroutine = StartCoroutine(FlashAvatarSlowCoroutine());
+        flashAvatarFastCoroutine = StartCoroutine(FlashAvatarFastCoroutine());
     }
 
     private void EnableSpriteRenderer(bool value)
@@ -31,14 +64,35 @@ public class FlashTransparentFeedback : MonoBehaviour
         spriteRenderer.enabled = value;
     }
 
-    IEnumerator FlashAvatar()
+    IEnumerator FlashAvatarSlowCoroutine()
     {
-        for (int i=0; i < 3; i++)
+        while (true)
         {
             EnableSpriteRenderer(false);
-            yield return new WaitForSeconds(feedbackTime);
+            yield return waitForSecondsFast;
             EnableSpriteRenderer(true);
-            yield return new WaitForSeconds(feedbackTime);
+            yield return waitForSecondsSlow;
+
+            yield return null;
         }
+    }
+
+    IEnumerator FlashAvatarFastCoroutine()
+    {
+        while (true)
+        {
+            EnableSpriteRenderer(false);
+            yield return waitForSecondsFast;
+            EnableSpriteRenderer(true);
+            yield return waitForSecondsFast;
+
+            yield return null;
+        }
+    }
+
+    public void StopFeedback()
+    {
+        StopAllCoroutines();
+        EnableSpriteRenderer(true);
     }
 }

@@ -32,32 +32,4 @@ public class AIDeathState : State
         }
 
     }
-
-    protected override void HandleMovement(Vector2 input)
-    {
-    }
-
-    protected override void HandleFaceDirection(Vector2 input)
-    {
-    }
-
-    protected override void HandleJumpPressed()
-    {
-    }
-
-    protected override void HandleJumpReleased()
-    {
-    }
-
-    protected override void HandleAttackPressed()
-    {
-    }
-
-    protected override void HandleRollPressed()
-    {
-    }
-
-    protected override void HandleRollReleased()
-    {
-    }
 }

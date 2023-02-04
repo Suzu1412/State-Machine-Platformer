@@ -173,7 +173,7 @@ Transform:
   m_Children:
   - {fileID: 6547167559206908131}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5225746396520922565
 MonoBehaviour:
@@ -218,6 +218,14 @@ PrefabInstance:
     - target: {fileID: 1103292554866528356, guid: d51bde94ac25d604fac34f768c2abc35, type: 3}
       propertyPath: m_Layer
       value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1226736419839021084, guid: d51bde94ac25d604fac34f768c2abc35, type: 3}
+      propertyPath: collissionData
+      value: 
+      objectReference: {fileID: 11400000, guid: 1dacacfa139f142498082c6fc2e1edf6, type: 2}
+    - target: {fileID: 1226736419839021084, guid: d51bde94ac25d604fac34f768c2abc35, type: 3}
+      propertyPath: agentColliderCrouching
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2392887806286476506, guid: d51bde94ac25d604fac34f768c2abc35, type: 3}
       propertyPath: m_Layer
@@ -326,19 +334,19 @@ PrefabInstance:
     - target: {fileID: 2455216108970153031, guid: d51bde94ac25d604fac34f768c2abc35, type: 3}
       propertyPath: states.Array.data[1]
       value: 
-      objectReference: {fileID: 7341746021943605624}
+      objectReference: {fileID: 8147265467227265205}
     - target: {fileID: 2455216108970153031, guid: d51bde94ac25d604fac34f768c2abc35, type: 3}
       propertyPath: states.Array.data[2]
       value: 
-      objectReference: {fileID: 824836960478214887}
+      objectReference: {fileID: 6939699538821311647}
     - target: {fileID: 2455216108970153031, guid: d51bde94ac25d604fac34f768c2abc35, type: 3}
       propertyPath: states.Array.data[3]
       value: 
-      objectReference: {fileID: 2006451806336505142}
+      objectReference: {fileID: 1384254739423169203}
     - target: {fileID: 2455216108970153031, guid: d51bde94ac25d604fac34f768c2abc35, type: 3}
       propertyPath: states.Array.data[4]
       value: 
-      objectReference: {fileID: 530245023952395565}
+      objectReference: {fileID: 288269397644192529}
     - target: {fileID: 2455216108970153031, guid: d51bde94ac25d604fac34f768c2abc35, type: 3}
       propertyPath: states.Array.data[5]
       value: 
@@ -487,10 +495,11 @@ PrefabInstance:
     - {fileID: 2455216108970153084, guid: d51bde94ac25d604fac34f768c2abc35, type: 3}
     - {fileID: 2455216108970153024, guid: d51bde94ac25d604fac34f768c2abc35, type: 3}
     - {fileID: 2455216108970153025, guid: d51bde94ac25d604fac34f768c2abc35, type: 3}
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 1103292554866528356, guid: d51bde94ac25d604fac34f768c2abc35, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 2455216108972156760, guid: d51bde94ac25d604fac34f768c2abc35, type: 3}
-      insertIndex: 3
+      insertIndex: 2
       addedObject: {fileID: 1092905891}
     - targetCorrespondingSourceObject: {fileID: 2455216108724524140, guid: d51bde94ac25d604fac34f768c2abc35, type: 3}
       insertIndex: -1
@@ -522,19 +531,19 @@ PrefabInstance:
       addedObject: {fileID: 1112389989707825670}
     - targetCorrespondingSourceObject: {fileID: 2455216108970153029, guid: d51bde94ac25d604fac34f768c2abc35, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7341746021943605624}
-    - targetCorrespondingSourceObject: {fileID: 2455216108970153029, guid: d51bde94ac25d604fac34f768c2abc35, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 824836960478214887}
-    - targetCorrespondingSourceObject: {fileID: 2455216108970153029, guid: d51bde94ac25d604fac34f768c2abc35, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2006451806336505142}
-    - targetCorrespondingSourceObject: {fileID: 2455216108970153029, guid: d51bde94ac25d604fac34f768c2abc35, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 530245023952395565}
-    - targetCorrespondingSourceObject: {fileID: 2455216108970153029, guid: d51bde94ac25d604fac34f768c2abc35, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 7418301401552558336}
+    - targetCorrespondingSourceObject: {fileID: 2455216108970153029, guid: d51bde94ac25d604fac34f768c2abc35, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6939699538821311647}
+    - targetCorrespondingSourceObject: {fileID: 2455216108970153029, guid: d51bde94ac25d604fac34f768c2abc35, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8147265467227265205}
+    - targetCorrespondingSourceObject: {fileID: 2455216108970153029, guid: d51bde94ac25d604fac34f768c2abc35, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1384254739423169203}
+    - targetCorrespondingSourceObject: {fileID: 2455216108970153029, guid: d51bde94ac25d604fac34f768c2abc35, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 288269397644192529}
   m_SourcePrefab: {fileID: 100100000, guid: d51bde94ac25d604fac34f768c2abc35, type: 3}
 --- !u!70 &3129239841264913211 stripped
 CapsuleCollider2D:
@@ -590,16 +599,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8624697babebde849b25eb774bacd30d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stateTransition: {fileID: 0}
+  stateTransition: {fileID: 11400000, guid: b38b8b0f326f93b4db7d3a4b7d5c60bf, type: 2}
   stateType: 0
+  OnWeaponSound:
+    m_PersistentCalls:
+      m_Calls: []
   OnEnter:
     m_PersistentCalls:
       m_Calls: []
   OnExit:
     m_PersistentCalls:
       m_Calls: []
-  idleTime: 1.5
---- !u!114 &7341746021943605624
+--- !u!114 &7418301401552558336
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -608,11 +619,37 @@ MonoBehaviour:
   m_GameObject: {fileID: 6547167559158629374}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df98f893caaa80a4e92087627bfea6bd, type: 3}
+  m_Script: {fileID: 11500000, guid: 14b5cacd8d62bc843bf270b6a9df28fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   stateTransition: {fileID: 0}
-  stateType: 12
+  stateType: 3
+  OnWeaponSound:
+    m_PersistentCalls:
+      m_Calls: []
+  OnEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  OnExit:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &6939699538821311647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6547167559158629374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60e6bc87bc7725248ac753f3e6fb212a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateTransition: {fileID: 11400000, guid: b7c5d0a203c91a84897707d9f9a94689, type: 2}
+  stateType: 1
+  OnWeaponSound:
+    m_PersistentCalls:
+      m_Calls: []
   OnEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -622,7 +659,7 @@ MonoBehaviour:
   OnStep:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &824836960478214887
+--- !u!114 &8147265467227265205
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -631,21 +668,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 6547167559158629374}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c5c104b116f7014186b30d8614abcc5, type: 3}
+  m_Script: {fileID: 11500000, guid: a894c4d4750867548aa1cba430177da8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stateTransition: {fileID: 0}
-  stateType: 6
+  stateTransition: {fileID: 11400000, guid: 5c90ac4825cce764aaf5254e4f3760eb, type: 2}
+  stateType: 8
+  OnWeaponSound:
+    m_PersistentCalls:
+      m_Calls: []
   OnEnter:
     m_PersistentCalls:
       m_Calls: []
   OnExit:
     m_PersistentCalls:
       m_Calls: []
-  OnWeaponSound:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &2006451806336505142
+--- !u!114 &1384254739423169203
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -654,11 +691,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 6547167559158629374}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fe3684492a9fb84e827e3906aacfebc, type: 3}
+  m_Script: {fileID: 11500000, guid: 2d16d5be1828c44c79ad8bc1ef846b19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stateTransition: {fileID: 0}
-  stateType: 10
+  stateTransition: {fileID: 11400000, guid: 5cf40b944bb9fcc42a351583f3b0e462, type: 2}
+  stateType: 6
+  OnWeaponSound:
+    m_PersistentCalls:
+      m_Calls: []
   OnEnter:
     m_PersistentCalls:
       m_Calls:
@@ -689,7 +729,13 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &530245023952395565
+  OnStep:
+    m_PersistentCalls:
+      m_Calls: []
+  OnGrounded:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &288269397644192529
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -698,15 +744,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 6547167559158629374}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e73fb89c008171440876cdb108996ec8, type: 3}
+  m_Script: {fileID: 11500000, guid: 625ccc09e2bf04f49a7a71eeb284ea3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   stateTransition: {fileID: 0}
-  stateType: 11
+  stateType: 7
+  OnWeaponSound:
+    m_PersistentCalls:
+      m_Calls: []
   OnEnter:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3129239841264913211}
+      - m_Target: {fileID: 2456523512088444461}
         m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
         m_MethodName: set_enabled
         m_Mode: 6
@@ -718,7 +767,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 4289824144076306512}
+      - m_Target: {fileID: 3129239841264913211}
         m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
         m_MethodName: set_enabled
         m_Mode: 6
@@ -732,71 +781,11 @@ MonoBehaviour:
         m_CallState: 2
   OnExit:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4289824144076306512}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 3129239841264913211}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 6547167559206908133}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-  OnDeath:
+      m_Calls: []
+  OnDeathAnimation:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6551017841399285789}
-        m_TargetAssemblyTypeName: AudioFeedback, Suzu.Audio
-        m_MethodName: PlayClip
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 817406045985595891}
-        m_TargetAssemblyTypeName: SpawnItem, Suzu.Pickables
-        m_MethodName: SpawnItemPickUp
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 6547167559206908133}
+      - m_Target: {fileID: 5650571197571072686}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -808,26 +797,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &7418301401552558336
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6547167559158629374}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14b5cacd8d62bc843bf270b6a9df28fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stateTransition: {fileID: 0}
-  stateType: 3
-  OnEnter:
-    m_PersistentCalls:
-      m_Calls: []
-  OnExit:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!4 &6547167559206908131 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2455216108972156760, guid: d51bde94ac25d604fac34f768c2abc35, type: 3}
@@ -880,7 +849,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8adb10a587b18184399dd725af5708c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  feedbackTime: 0.1
+  feedbackTimeSlow: 0.15
+  feedbackTimeFast: 0.05
 --- !u!114 &517352968641274452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -899,14 +869,3 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2455216108724524140, guid: d51bde94ac25d604fac34f768c2abc35, type: 3}
   m_PrefabInstance: {fileID: 8705062522302437307}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6551017841399285789 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2461072312158314406, guid: d51bde94ac25d604fac34f768c2abc35, type: 3}
-  m_PrefabInstance: {fileID: 8705062522302437307}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87d2176d3d9314d4ebb4d72518e5680e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

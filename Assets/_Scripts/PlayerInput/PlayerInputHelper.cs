@@ -48,26 +48,6 @@ public class PlayerInputHelper : MonoBehaviour, IAgentInput
         input.OnMenu += () => OnMenuPressed?.Invoke();
     }
 
-    private void Update()
-    {
-        CleanInput();
-    }
-
-    private void FixedUpdate()
-    {
-        canCleanInput = true;
-    }
-
-    private void CleanInput()
-    {
-        if (!canCleanInput) return;
-
-        //JumpPressed = false || JumpPressed;
-        //JumpReleased = false || JumpReleased;
-
-        canCleanInput = false;
-    }
-
     public void CallOnMovementVector(Vector2 input)
     {
         MovementVector = input;

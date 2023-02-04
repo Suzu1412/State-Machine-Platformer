@@ -21,6 +21,7 @@ public class AgentWeaponManager : MonoBehaviour
     private bool isAttackingMoving;
     private bool isAttackingJumping;
     private bool isAttackingClimbing;
+    private bool isTargetInRange;
 
     [SerializeField] private Color weaponRangeColor = Color.blue;
     public Transform WeaponPosition => weaponPosition;
@@ -29,6 +30,7 @@ public class AgentWeaponManager : MonoBehaviour
     public bool IsAttackingMoving => isAttackingMoving;
     public bool IsAttackingJumping => isAttackingJumping;
     public bool IsAttackingClimbing => isAttackingClimbing;
+    public bool IsTargetInRange => isTargetInRange;
     
 
     private void Awake()
@@ -147,6 +149,13 @@ public class AgentWeaponManager : MonoBehaviour
         direction = transform.parent.parent.transform.right * (transform.parent.parent.transform.localScale.x > 0 ? 1 : -1);
 
         GetCurrentWeapon().PerformAttack(WeaponPosition, hittableTarget, direction);
+    }
+
+    public void CheckIfTargetInRange(LayerMask hittableTarget)
+    {
+        direction = transform.parent.parent.transform.right * (transform.parent.parent.transform.localScale.x > 0 ? 1 : -1);
+
+        isTargetInRange = GetCurrentWeapon().CheckIfTargetInRange(WeaponPosition, hittableTarget, direction);
     }
 
     private void OnDrawGizmos()

@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5e6880bbe2c3164c9e57fa7aaa957fc, type: 3}
+  m_Name: StateTransition_Move_LizardEnemy
+  m_EditorClassIdentifier: 
+  transitions:
+  - {fileID: 11400000, guid: c5f0a4b56279dec45a8f02b33d1e7cc6, type: 2}
+  - {fileID: 11400000, guid: 3868d72048710c24692b4083bed42077, type: 2}
+  - {fileID: 11400000, guid: dc8d75ad89606fa4aa71bf5bb8047001, type: 2}

@@ -9,7 +9,6 @@ public abstract class State : MonoBehaviour
     public UnityEvent<AudioClip> OnWeaponSound;
     public UnityEvent OnEnter, OnExit;
     protected Vector2 movement;
-
     public StateType StateType => stateType;
 
     public void InitializeState(FiniteStateMachine fsm)
@@ -155,6 +154,31 @@ public abstract class State : MonoBehaviour
     {
         fsm.Agent.AgentWeapon.ToggleWeaponVisibility(false);
         fsm.Agent.AgentWeapon.ResetAttack();
+    }
+
+    protected virtual Vector2 LookAtClosestTarget()
+    {
+        Vector2 direction = Vector2.zero;
+
+        if (direction.x == 0f)
+        {
+            direction.Set(-1f, 0f);
+        }
+
+        if (fsm.Agent.CollissionSenses.TargetDetector.Target == null) return Vector2.zero;
+
+        if (fsm.Agent.CollissionSenses.TargetDetector.DirectionToTarget.x > 1f)
+        {
+            direction.Set(1f, 0f);
+            fsm.Agent.Input.CallOnMovementVector(direction);
+        }
+        else if (fsm.Agent.CollissionSenses.TargetDetector.DirectionToTarget.x < 1f)
+        {
+            direction.Set(-1f, 0f);
+            fsm.Agent.Input.CallOnMovementVector(direction);
+        }
+
+        return direction;
     }
     #endregion
 }

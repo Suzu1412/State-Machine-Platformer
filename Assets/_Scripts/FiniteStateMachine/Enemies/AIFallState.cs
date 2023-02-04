@@ -11,9 +11,5 @@ public class AIFallState : State
 
     internal override void LogicUpdate()
     {
-        if (fsm.Agent.CollissionSenses.IsGrounded)
-        {
-            fsm.TransitionToState(StateType.Idle);
-        }
     }
 }

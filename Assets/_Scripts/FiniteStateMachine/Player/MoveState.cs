@@ -40,8 +40,6 @@ public class MoveState : State
     internal override void PhysicsUpdate()
     {
         SetPlayerVelocity();
-
-        ClimbLadder();
     }
 
     internal override void ExitState()
@@ -88,35 +86,6 @@ public class MoveState : State
     protected void SetPlayerVelocity()
     {
         fsm.Agent.Rb2d.velocity = fsm.Agent.MovementData.CurrentVelocity;
-    }
-
-    protected void ClimbLadder()
-    {
-        //if (fsm.Agent.Input.MovementVector.y > 0.33f)
-        //{
-        //    if (fsm.Agent.CollissionSenses.IsTouchingLadder && 
-        //        fsm.Agent.CollissionSenses.TopLadder == null)
-        //    {
-        //        fsm.TransitionToState(StateType.Climb);
-        //    }
-        //}
-
-        //if (fsm.Agent.Input.MovementVector.y < -0.33f)
-        //{
-        //    if (fsm.Agent.CollissionSenses.IsTouchingLadder && 
-        //        (fsm.Agent.CollissionSenses.TopLadder != null || 
-        //        !fsm.Agent.CollissionSenses.IsGrounded))
-        //    {
-        //        fsm.TransitionToState(StateType.Climb);
-        //    }
-        //}
-    }
-
-    protected override void HandleRollPressed()
-    {
-        //if (fsm.Agent.CollissionSenses.IsTouchingWall) return;
-
-        //fsm.TransitionToState(StateType.Roll);
     }
 
     protected override void OnAttackEnd()

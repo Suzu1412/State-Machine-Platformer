@@ -7,15 +7,16 @@ public class DeathState : State
 {
     public UnityEvent OnDeathAnimation;
 
+    private void OnValidate()
+    {
+        stateType = StateType.Death;
+    }
+
     internal override void EnterState()
     {
         fsm.Agent.AnimationManager.ResetEvents();
         fsm.Agent.AnimationManager.PlayAnimation(AnimationType.death);
         fsm.Agent.AnimationManager.OnAnimationEnd.AddListener(() => DeathBehaviour());
-    }
-
-    internal override void LogicUpdate()
-    {
     }
 
     internal override void PhysicsUpdate()
@@ -30,7 +31,6 @@ public class DeathState : State
             fsm.Agent.gameObject.SetActive(true);
             fsm.Agent.Respawn.RespawnFromCheckPoint();
         }
-          
     }
 
     private void DeathBehaviour()
@@ -38,33 +38,4 @@ public class DeathState : State
         OnDeathAnimation?.Invoke();
         //fsm.Agent.gameObject.SetActive(false);
     }
-
-    protected override void HandleMovement(Vector2 input)
-    {
-    }
-
-    protected override void HandleFaceDirection(Vector2 input)
-    {
-    }
-
-    protected override void HandleJumpPressed()
-    {
-    }
-
-    protected override void HandleJumpReleased()
-    {
-    }
-
-    protected override void HandleAttackPressed()
-    {
-    }
-
-    protected override void HandleRollPressed()
-    {
-    }
-
-    protected override void HandleRollReleased()
-    {
-    }
-
 }

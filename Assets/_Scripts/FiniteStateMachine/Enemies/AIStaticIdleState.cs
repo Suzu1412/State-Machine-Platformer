@@ -19,19 +19,7 @@ public class AIStaticIdleState : State
 
     internal override void LogicUpdate()
     {
-        if (fsm.Agent.CollissionSenses.TargetDetector.Target == null) return;
-
-
-        if (fsm.Agent.CollissionSenses.TargetDetector.DirectionToTarget.x > 1f)
-        {
-            direction.Set(1f, 0f);
-            fsm.Agent.Input.CallOnMovementVector(direction);
-        }
-        else if (fsm.Agent.CollissionSenses.TargetDetector.DirectionToTarget.x < 1f)
-        {
-            direction.Set(-1f, 0f);
-            fsm.Agent.Input.CallOnMovementVector(direction);
-        }
+        HandleAttackTransition();
     }
 
     internal override void PhysicsUpdate()

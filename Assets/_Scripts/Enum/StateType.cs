@@ -7,13 +7,10 @@ public enum StateType
     Fall,
     Climb,
     Roll,
-    Attack,
-    MovingAttack,
-    AirJumpAttack,
-    AirFallAttack,
     Hit,
     Death,
     // Enemy States Types
+    Attack,
     AIPatrolling, 
     AIChasing,
     AIAttacking,
@@ -21,5 +18,4 @@ public enum StateType
     AIAbility2,
     AIAbility3,
     AIDesperationAttack
-
 }

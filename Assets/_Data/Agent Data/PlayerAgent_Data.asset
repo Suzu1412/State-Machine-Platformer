@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 7
   knockbackForce: {x: 3, y: 5}
-  invulnerabilityDuration: 1
+  invulnerabilityDuration: 1.5
   hitStunDuration: 0.4
   maxSpeed: 8
   acceleration: 50
   deacceleration: 50
+  moveDuration: 10
   rollDuration: 0.6
   maxRollingSpeed: 20
   rollAcceleration: 150

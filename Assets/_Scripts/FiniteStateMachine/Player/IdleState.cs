@@ -40,32 +40,6 @@ public class IdleState : State
         fsm.Agent.AnimationManager.ResetEvents();
     }
 
-    protected override void HandleMovement(Vector2 input)
-    {
-        //if (input.y > 0.33f)
-        //{
-        //    if (fsm.Agent.CollissionSenses.IsTouchingLadder && fsm.Agent.CollissionSenses.TopLadder == null)
-        //    {
-        //        fsm.TransitionToState(StateType.Climb);
-        //    }
-        //}
-
-        //if (input.y < -0.33f)
-        //{
-        //    if (fsm.Agent.CollissionSenses.IsTouchingLadder && fsm.Agent.CollissionSenses.TopLadder != null)
-        //    {
-        //        fsm.TransitionToState(StateType.Climb);
-        //    }
-        //}
-    }
-
-    protected override void HandleRollPressed()
-    {
-        //if (fsm.Agent.CollissionSenses.IsTouchingWall) return;
-
-        //fsm.TransitionToState(StateType.Roll);
-    }
-
     protected override void OnAttackEnd()
     {
         base.OnAttackEnd();

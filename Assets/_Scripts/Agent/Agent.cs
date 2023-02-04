@@ -15,6 +15,7 @@ public class Agent : MonoBehaviour
     private AgentWeaponManager agentWeapon;
     private HealthSystem healthSystem;
     private HittableKnockback knockbackSystem;
+    private FlashTransparentFeedback transparentFeedback;
     
     [SerializeField] private AgentDataSO data;
 
@@ -42,22 +43,25 @@ public class Agent : MonoBehaviour
         agentWeapon = GetComponentInChildren<AgentWeaponManager>();
         healthSystem = GetComponent<HealthSystem>();
         knockbackSystem = GetComponent<HittableKnockback>();
+        transparentFeedback = GetComponentInChildren<FlashTransparentFeedback>();
 
-        if (rb2d == null) Debug.LogError("Agent RB missing in: " + this.name);
-        if (input == null) Debug.LogError("Agent Input missing in: " + this.name);
-        if (rendererManager == null) Debug.LogError("Agent Renderer Manager missing in: " + this.name);
-        if (animationManager == null) Debug.LogError("Agent Animation Manager missing in: " + this.name);
-        if (collissionSenses == null) Debug.LogError("Agent Collission Senses missing in: " + this.name);
-        if (movementData == null) Debug.LogError("Agent Movement Data missing in: " + this.name);
-        if (agentWeapon == null) Debug.LogError("Agent Weapon missing in: " + this.name);
-        if (healthSystem == null) Debug.LogError("Agent Health System missing in: " + this.name);
-        if (knockbackSystem == null) Debug.LogError("Agent Knockback System missing in: " + this.gameObject.name);
+        if (rb2d == null) Debug.LogError("Agent RB missing in: " + transform.root.name);
+        if (input == null) Debug.LogError("Agent Input missing in: " + transform.root.name);
+        if (rendererManager == null) Debug.LogError("Agent Renderer Manager missing in: " + transform.root.name);
+        if (animationManager == null) Debug.LogError("Agent Animation Manager missing in: " + transform.root.name);
+        if (collissionSenses == null) Debug.LogError("Agent Collission Senses missing in: " + transform.root.name);
+        if (movementData == null) Debug.LogError("Agent Movement Data missing in: " + transform.root.name);
+        if (agentWeapon == null) Debug.LogError("Agent Weapon missing in: " + transform.root.name);
+        if (healthSystem == null) Debug.LogError("Agent Health System missing in: " + transform.root.name);
+        if (knockbackSystem == null) Debug.LogError("Agent Knockback System missing in: " + transform.root.name);
+        if (transparentFeedback == null) Debug.LogError("Agent Transparent Feedback missing in: " + transform.root.name);
 
-        if (data == null) Debug.LogError("Agent Data is Empty in: " + this.name);
+        if (data == null) Debug.LogError("Agent Data is Empty in: " + transform.root.name);
     }
 
     private void OnEnable()
     {
-        healthSystem.Initialize(data.Health, data.InvulnerabilityDuration, data.HitStunDuration);
+        healthSystem.Initialize(data.Health, data.HitStunDuration);
+        transparentFeedback.Initialize(data.InvulnerabilityDuration);
     }     
 }

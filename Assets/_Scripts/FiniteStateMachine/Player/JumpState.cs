@@ -18,7 +18,7 @@ public class JumpState : MoveState
             fsm.Agent.MovementData.SetCurrentSpeed(0f);
         }
         
-        fsm.Agent.MovementData.JumpDuration = fsm.Agent.Data.JumpDuration;
+        fsm.Agent.MovementData.SetJumpDuration(fsm.Agent.Data.JumpDuration);
 
         fsm.Agent.AnimationManager.OnAnimationAttackPerformed.AddListener(() => PerformAttack());
         fsm.Agent.AnimationManager.OnAnimationEnd.AddListener(() => OnAttackEnd());
@@ -36,13 +36,11 @@ public class JumpState : MoveState
     internal override void PhysicsUpdate()
     {
         SetPlayerVelocity();
-
-        ClimbLadder();
     }
 
     internal override void ExitState()
     {
-        fsm.Agent.MovementData.JumpDuration = 0f;
+        fsm.Agent.MovementData.SetJumpDuration(0f);
     }
 
     protected override void CalculateVelocity()
@@ -52,26 +50,6 @@ public class JumpState : MoveState
         if (!fsm.Agent.MovementData.IsJumping) return;
 
         fsm.Agent.MovementData.SetCurrentVelocity(new Vector2(fsm.Agent.MovementData.CurrentVelocity.x, fsm.Agent.Data.JumpSpeed));
-    }
-
-    protected override void HandleJumpReleased()
-    {
-        //fsm.Agent.MovementData.SetCurrentVelocity(new Vector2(fsm.Agent.MovementData.CurrentVelocity.x, 0f));
-
-        //fsm.TransitionToState(StateType.Fall);
-    }
-
-    protected override void HandleAttackPressed()
-    {
-        //if (fsm.Agent.AgentWeapon.CanIUseWeapon())
-        //{
-        //    fsm.TransitionToState(StateType.AirJumpAttack);
-        //}
-    }
-
-    protected override void HandleRollPressed()
-    {
-        
     }
 
     protected override void OnAttackEnd()

@@ -5,6 +5,11 @@ using UnityEngine;
 
 public class AIEnemyInput : MonoBehaviour, IAgentInput
 {
+    private Coroutine resetJumpCoroutine;
+    private Coroutine resetRollCoroutine;
+    private Coroutine resetAttackCoroutine;
+    private WaitForSeconds waitForSeconds = new(0.05f);
+
     public Vector2 MovementVector { get; private set; }
 
     public bool JumpPressed { get; private set; }
@@ -32,16 +37,23 @@ public class AIEnemyInput : MonoBehaviour, IAgentInput
 
     public void CallOnAttackPressed()
     {
+        resetAttackCoroutine = StartCoroutine(ResetAttackCoroutine());
         OnAttackPressed?.Invoke();
     }
 
     public void CallOnJumpPressed()
     {
+        resetJumpCoroutine = StartCoroutine(ResetJumpCoroutine());
+        JumpReleased = false;
         OnJumpPressed?.Invoke();
     }
 
     public void CallOnJumpReleased()
     {
+        StopCoroutine(ResetJumpCoroutine());
+        JumpPressed = false;
+        JumpHold = false;
+        JumpReleased = true;
         OnJumpReleased?.Invoke();
     }
 
@@ -52,11 +64,40 @@ public class AIEnemyInput : MonoBehaviour, IAgentInput
 
     public void CallOnRollPressed()
     {
+        resetRollCoroutine = StartCoroutine(ResetRollCoroutine());
+        RollReleased = false;
         OnRollPressed?.Invoke();
     }
 
     public void CallOnRollReleased()
     {
+        StopCoroutine(ResetRollCoroutine());
+        RollPressed = false;
+        RollReleased = true;
         OnRollReleased?.Invoke();
     }
+
+    #region Coroutines
+    private IEnumerator ResetJumpCoroutine()
+    {
+        JumpPressed = true;
+        yield return waitForSeconds;
+        JumpPressed = false;
+    }
+
+    private IEnumerator ResetRollCoroutine()
+    {
+        RollPressed = true;
+        yield return waitForSeconds;
+        RollPressed = false;
+    }
+
+    private IEnumerator ResetAttackCoroutine()
+    {
+        AttackPressed = true;
+        yield return waitForSeconds;
+        AttackPressed = false;
+    }
+
+    #endregion
 }

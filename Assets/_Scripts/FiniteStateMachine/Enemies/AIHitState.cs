@@ -27,34 +27,6 @@ public class AIHitState : State
     {
     }
 
-    protected override void HandleMovement(Vector2 input)
-    {
-    }
-
-    protected override void HandleFaceDirection(Vector2 input)
-    {
-    }
-
-    protected override void HandleJumpPressed()
-    {
-    }
-
-    protected override void HandleJumpReleased()
-    {
-    }
-
-    protected override void HandleAttackPressed()
-    {
-    }
-
-    protected override void HandleRollPressed()
-    {
-    }
-
-    protected override void HandleRollReleased()
-    {
-    }
-
     protected override void HitKnockback()
     {
         Vector2 theForce = new Vector2(fsm.Agent.KnockbackSystem.KnockbackDirection * fsm.Agent.Data.KnockbackForce.x, fsm.Agent.Data.KnockbackForce.y);

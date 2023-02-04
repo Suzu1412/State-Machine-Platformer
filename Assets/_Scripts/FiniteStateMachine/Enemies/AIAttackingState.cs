@@ -38,6 +38,5 @@ public class AIAttackingState : State
         {
             fsm.TransitionToState(StateType.Idle);
         }
-        
     }
 }

@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53ccaa8a2c1756f4c8254cf0d95c193d, type: 3}
+  m_Name: Data_CollissionSenses_LizardEnemy
+  m_EditorClassIdentifier: 
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 67648
+  wallMask:
+    serializedVersion: 2
+    m_Bits: 65600
+  climbingMask:
+    serializedVersion: 2
+    m_Bits: 256
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 32768
+  groundDetectionDelay: 0.05
+  groundAheadDetectionDelay: 0.2
+  wallDetectionDelay: 0.1
+  ladderDetectionDelay: 0.05
+  topLadderDetectionDelay: 0.05
+  targetDetectionDelay: 0.3
+  radiusForGroundAheadDetection: 0.2
+  boxCastXOffset: 0.05
+  boxCastYOffset: 0.15
+  boxCastWidth: 1
+  boxCastHeight: 0.1
+  targetDetectorSize: {x: 25, y: 2}
+  detectorOriginOffset: {x: 0, y: 0}
+  isCollidingColor: {r: 0, g: 1, b: 0, a: 1}
+  isNotCollidingColor: {r: 1, g: 0, b: 0, a: 1}

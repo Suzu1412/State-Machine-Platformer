@@ -10,14 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fbeede435d041944fb8aa9ff83250640, type: 3}
-  m_Name: Transition_IdleWhenTouchingWall
+  m_Name: Transition_IdleAIWhenWeaponChosen
   m_EditorClassIdentifier: 
   conditions:
-  - name: Is Touching Wall
-    decision: {fileID: 11400000, guid: b35ef2407ddc2764da432d54b95b9e95, type: 2}
-    expectedResult: 0
-  - name: Is Grounded
-    decision: {fileID: 11400000, guid: e24b42179bb56e2458aa03de8e26e76c, type: 2}
+  - name: Weapon Assigned
+    decision: {fileID: 11400000, guid: 0a1362dcbf994bd4a8994e2e27d15dbe, type: 2}
     expectedResult: 0
   newStateType: 0
   debug: 0
+  isActive: 1

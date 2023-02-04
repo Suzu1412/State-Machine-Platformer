@@ -14,6 +14,10 @@ public class HealthSystem : MonoBehaviour, IHittable, IHealable
     public UnityEvent<int> OnHealthValueChanged;
     public UnityEvent<int> OnInitializeMaxHealth;
 
+    public UnityEvent OnInvulnerabilityStarted;
+    public UnityEvent OnInvulnerabilityAboutToFinish;
+    public UnityEvent OnInvulnerabilityFinished;
+
     public event Action OnHit;
     public event Action OnDeath;
 
@@ -26,7 +30,8 @@ public class HealthSystem : MonoBehaviour, IHittable, IHealable
 
     private WaitForSeconds waitForSeconds = new(0.15f);
     private WaitForSeconds HitStunDuration = new(0.15f);
-    private WaitForSeconds invulnerabilityPeriod = new(0.2f);
+    private WaitForSeconds invulnerabilityPeriod = new(1.5f);
+    private WaitForSeconds invulnerabilityPeriodEnding = new(0.5f);
 
 
     public int CurrentHealth
@@ -79,10 +84,11 @@ public class HealthSystem : MonoBehaviour, IHittable, IHealable
         return maxHealth * currentHealth / 100;
     }
 
-    public void Initialize(int health, float invulnerabilityDuration, float hitStunDuration)
+    public void Initialize(int health, float hitStunDuration)
     {
         maxHealth = health;
-        invulnerabilityPeriod = new(invulnerabilityDuration);
+        invulnerabilityPeriod = new(1.2f);
+        invulnerabilityPeriodEnding = new(0.3f);
         HitStunDuration = new(hitStunDuration);
         OnInitializeMaxHealth?.Invoke(maxHealth);
         CurrentHealth = maxHealth;
@@ -91,8 +97,12 @@ public class HealthSystem : MonoBehaviour, IHittable, IHealable
     private IEnumerator InvulnerabilityCoroutine()
     {
         isInvulnerable = true;
+        OnInvulnerabilityStarted?.Invoke();
         yield return invulnerabilityPeriod;
+        OnInvulnerabilityAboutToFinish?.Invoke();
+        yield return invulnerabilityPeriodEnding;
         isInvulnerable = false;
+        OnInvulnerabilityFinished?.Invoke();
     }
 
     private IEnumerator HitResetCoroutine()

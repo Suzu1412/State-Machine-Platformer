@@ -4,55 +4,60 @@ using UnityEngine;
 
 public class AIIdleState : State
 {
-    [SerializeField] private float idleTime = 3f;
-    private float idleTimeDuration;
-    private int idleCount;
+    private Vector2 direction = Vector2.zero;
 
-    private void OnEnable()
+    private void OnValidate()
     {
-        idleCount = 1;
+        stateType = StateType.Idle;
     }
 
     internal override void EnterState()
     {
-        if (idleTimeDuration > 0f)
+        if (direction == Vector2.zero)
         {
-            fsm.Agent.AnimationManager.PlayAnimation(AnimationType.idle);
+            direction.Set(-1f, 0f);
+            fsm.Agent.Input.CallOnMovementVector(direction);
         }
         else
         {
-            fsm.Agent.Rb2d.velocity = Vector2.zero;
+            direction = transform.parent.parent.transform.right * (transform.parent.parent.transform.localScale.x > 0 ? 1 : -1);
         }
 
-        idleCount++;
+        fsm.Agent.MovementData.SetIdleDuration(fsm.Agent.Data.IdleTime);
+
+        if (!fsm.Agent.AgentWeapon.IsAttacking)
+        {
+            fsm.Agent.AnimationManager.PlayAnimation(AnimationType.idle);
+        }
+
+        fsm.Agent.AnimationManager.ResetEvents();
+        fsm.Agent.AnimationManager.OnAnimationAttackPerformed.AddListener(() => PerformAttack());
+        fsm.Agent.AnimationManager.OnAnimationEnd.AddListener(() => OnAttackEnd());
     }
 
     internal override void LogicUpdate()
     {
-        idleTimeDuration -= Time.deltaTime;
+        fsm.Agent.MovementData.ReduceIdleTimeDurationBySeconds(Time.deltaTime);
 
-        if (idleTimeDuration <= 0f)
-        {
-            fsm.TransitionToState(StateType.AIPatrolling);
-        }
+        fsm.Agent.AgentWeapon.CheckIfTargetInRange(fsm.Agent.Data.HittableLayerMask);
 
-        if (!fsm.Agent.CollissionSenses.IsGrounded)
-        {
-            fsm.TransitionToState(StateType.Fall);
-        }
-    }
-
-    internal override void PhysicsUpdate()
-    {
-        fsm.Agent.Rb2d.velocity = Vector2.zero;
+        HandleAttackTransition();
     }
 
     internal override void ExitState()
     {
-        if (idleCount >= 4)
-        {
-            idleTimeDuration = idleTime;
-            idleCount = 0;
-        }
+        fsm.Agent.MovementData.SetIdleDuration(0f);
+
+        fsm.Agent.AnimationManager.OnAnimationAttackPerformed?.RemoveListener(PerformAttack);
+        fsm.Agent.AnimationManager.OnAnimationEnd.AddListener(() => OnAttackEnd());
+        fsm.Agent.AnimationManager.ResetEvents();
+    }
+
+    protected override void OnAttackEnd()
+    {
+        base.OnAttackEnd();
+
+        fsm.Agent.AnimationManager.PlayAnimation(AnimationType.idle);
+        fsm.Agent.Rb2d.velocity = Vector2.zero;
     }
 }

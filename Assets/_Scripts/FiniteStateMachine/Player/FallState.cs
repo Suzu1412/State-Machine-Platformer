@@ -20,8 +20,8 @@ public class FallState : MoveState
 
         if (fsm.Agent.MovementData.CanEnterCoyoteTime)
         {
-            fsm.Agent.MovementData.IsInCoyoteTime = true;
-            fsm.Agent.MovementData.CoyoteTimeDuration = fsm.Agent.Data.CoyoteDuration;
+            fsm.Agent.MovementData.SetIsInCoyoteTime(true);
+            fsm.Agent.MovementData.SetCoyoteTimeDuration(fsm.Agent.Data.CoyoteDuration);
         }
 
         fsm.Agent.AnimationManager.OnAnimationAttackPerformed.AddListener(() => PerformAttack());
@@ -40,7 +40,7 @@ public class FallState : MoveState
 
             if (fsm.Agent.MovementData.CoyoteTimeDuration <= 0f)
             {
-                fsm.Agent.MovementData.IsInCoyoteTime = false;
+                fsm.Agent.MovementData.SetIsInCoyoteTime(false);
                 fsm.Agent.MovementData.ConsumeJump();
             }
         }
@@ -49,8 +49,6 @@ public class FallState : MoveState
     internal override void PhysicsUpdate()
     {
         SetPlayerVelocity();
-
-        ClimbLadder();
     }
 
     internal override void ExitState()
@@ -59,19 +57,6 @@ public class FallState : MoveState
 
         OnGrounded?.Invoke();
         fsm.Agent.MovementData.ResetJump(fsm.Agent);
-    }
-
-    protected override void HandleRollPressed()
-    {
-        // We avoid the player being able to roll while in this state
-    }
-
-    protected override void HandleAttackPressed()
-    {
-        //if (fsm.Agent.AgentWeapon.CanIUseWeapon())
-        //{
-        //    fsm.TransitionToState(StateType.AirFallAttack);
-        //}
     }
 
     protected override void OnAttackEnd()

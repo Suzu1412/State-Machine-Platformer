@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 641b6f4dc445c7941824fb9dda5df5d9, type: 3}
+  m_Name: WeaponData_PlantProjectile
+  m_EditorClassIdentifier: 
+  weaponName: 'Plant Projectile '
+  weaponSprite: {fileID: 0}
+  weaponDamage: 1
+  weaponSwingSound: {fileID: 8300000, guid: d2330a81ee5b79045bf412aa41329dca, type: 3}
+  canUseWhileMoving: 0
+  canUseWhileJumping: 0
+  canUseWhileClimbing: 0
+  rangeWeaponPrefab: {fileID: 8066917469035951295, guid: e6d62f808f1033d40bfea43d50b840e9, type: 3}
+  speed: 10
+  attackRange: 30
+  rotationSpeed: 0
+  radius: 0.5

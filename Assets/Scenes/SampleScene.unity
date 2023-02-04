@@ -2642,7 +2642,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.7752275, y: 5, z: -10}
+  m_LocalPosition: {x: 57.43344, y: 5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7682,10 +7682,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: LizardEnemy
       objectReference: {fileID: 0}
-    - target: {fileID: 5650571197571072686, guid: 99804f1090e6cae4b8f999e54f584fea, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 9026475690076893452, guid: 99804f1090e6cae4b8f999e54f584fea, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -8048,7 +8044,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1483503212}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.0865583, y: 1.5076579, z: -10}
+  m_LocalPosition: {x: 57.43344, y: 3.9076576, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8538,6 +8534,14 @@ PrefabInstance:
     - target: {fileID: 7835832677769814086, guid: afeadfe36e5fa0641b625322ffbd06f8, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8192466887521958883, guid: afeadfe36e5fa0641b625322ffbd06f8, type: 3}
+      propertyPath: feedbackTimeFast
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8192466887521958883, guid: afeadfe36e5fa0641b625322ffbd06f8, type: 3}
+      propertyPath: feedbackTimeSlow
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 8192466888692110568, guid: afeadfe36e5fa0641b625322ffbd06f8, type: 3}
       propertyPath: m_Name
@@ -10653,17 +10657,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4743270344403768324, guid: 0c7bf75d4f346834e9a6c0f042ab57d4, type: 3}
-      propertyPath: data
-      value: 
-      objectReference: {fileID: 11400000, guid: 86ea69fe560f0c044ae23d811b2f84c5, type: 2}
+    - target: {fileID: 4332681455759235462, guid: 0c7bf75d4f346834e9a6c0f042ab57d4, type: 3}
+      propertyPath: feedbackTimeFast
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4332681455759235462, guid: 0c7bf75d4f346834e9a6c0f042ab57d4, type: 3}
+      propertyPath: feedbackTimeSlow
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 6153484562219329096, guid: 0c7bf75d4f346834e9a6c0f042ab57d4, type: 3}
       propertyPath: m_Name
       value: PlantEnemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 6153484562219329096, guid: 0c7bf75d4f346834e9a6c0f042ab57d4, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7371045531429279210, guid: 0c7bf75d4f346834e9a6c0f042ab57d4, type: 3}
       propertyPath: m_RootOrder
@@ -10709,10 +10713,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8270838121994969921, guid: 0c7bf75d4f346834e9a6c0f042ab57d4, type: 3}
-      propertyPath: collissionData
-      value: 
-      objectReference: {fileID: 11400000, guid: 0abadeff9ecbd8b49817222edc6eed56, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

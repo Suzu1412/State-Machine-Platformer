@@ -26,28 +26,9 @@ public class HitState : FallState
     {
     }
 
-    protected override void HandleMovement(Vector2 input)
+    internal override void ExitState()
     {
-    }
-
-    protected override void HandleJumpPressed()
-    {
-    }
-
-    protected override void HandleJumpReleased()
-    {
-    }
-
-    protected override void HandleAttackPressed()
-    {
-    }
-
-    protected override void HandleRollPressed()
-    {
-    }
-
-    protected override void HandleRollReleased()
-    {
+        base.ExitState();
     }
 
     protected override void HitKnockback()
@@ -55,6 +36,8 @@ public class HitState : FallState
         if (hitForcesApplied) return;
 
         Vector2 theForce = new Vector2(fsm.Agent.KnockbackSystem.KnockbackDirection * fsm.Agent.Data.KnockbackForce.x, fsm.Agent.Data.KnockbackForce.y);
+
+        Debug.Log(fsm.Agent.KnockbackSystem.KnockbackDirection * fsm.Agent.Data.KnockbackForce.x);
 
         fsm.Agent.Rb2d.AddForce(theForce, ForceMode2D.Impulse);
 
